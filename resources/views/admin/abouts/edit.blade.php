@@ -52,8 +52,11 @@
 
                         <div class="flex flex-col gap-y-5">
                             <x-input-label for="keypoints" :value="__('keypoints')" />
-                            <input type="text" class="py-3 rounded-lg border-slate-300 border" value="asdsadsadsad"
-                                name="keypoints[]">
+                            @forelse ($about->keypoints as $keypoint)
+                                <input type="text" class="py-3 rounded-lg border-slate-300 border"
+                                    value="{{ $keypoint->keypoint }}" name="keypoints[]">
+                            @empty
+                            @endforelse
 
                         </div>
                         <x-input-error :messages="$errors->get('keypoint')" class="mt-2" />

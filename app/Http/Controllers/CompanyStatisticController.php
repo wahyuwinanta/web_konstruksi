@@ -37,7 +37,6 @@ class CompanyStatisticController extends Controller
     {
         DB::transaction(function ()use ($request){
             $validated = $request->validated();
-
             if ($request->hasFile('icon')) {
                 $iconPath = $request->file('icon')->store('icons', 'public');
                 $validated['icon'] = $iconPath;
