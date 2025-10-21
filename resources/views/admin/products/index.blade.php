@@ -6,7 +6,7 @@
             </h2>
             <a href="{{ route('admin.products.create') }} "
                 class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
-                Add New
+                Tambah Baru
             </a>
         </div>
     </x-slot>
@@ -25,7 +25,7 @@
                             </div>
                         </div>
                         <div class="hidden md:flex flex-col">
-                            <p class="text-slate-500 text-sm">Date</p>
+                            <p class="text-slate-500 text-sm">Tanggal</p>
                             <h3 class="text-indigo-950 text-xl font-bold">{{ $product->created_at }}</h3>
                         </div>
                         <div class="hidden md:flex flex-row items-center gap-x-3">
@@ -37,7 +37,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="font-bold py-4 px-6 bg-red-700 text-white rounded-full">
-                                    Delete
+                                    Hapus
                                 </button>
                             </form>
                         </div>
