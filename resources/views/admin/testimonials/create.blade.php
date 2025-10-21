@@ -18,11 +18,11 @@
                 <form method="POST" action="{{ route('admin.testimonials.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="mt-4">
-                        <x-input-label for="project_client" :value="__('project_client')" />
+                        <x-input-label for="project_client" :value="__('Proyek Klien')" />
 
                         <select name="project_client_id" id="project_client_id"
                             class="py-3 rounded-lg pl-3 w-full border border-slate-300">
-                            <option value="">Choose project_client</option>
+                            <option value="">Pilih Proyek Klien</option>
                             @foreach ($clients as $client)
                                 <option value="{{ $client->id }}">{{ $client->name }}</option>
                             @endforeach
@@ -32,13 +32,13 @@
                     </div>
 
                     <div class="mt-4">
-                        <x-input-label for="message" :value="__('message')" />
+                        <x-input-label for="message" :value="__('Pesan')" />
                         <textarea name="message" id="message" cols="30" rows="5" class="border border-slate-300 rounded-xl w-full"></textarea>
                         <x-input-error :messages="$errors->get('message')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
-                        <x-input-label for="thumbnail" :value="__('thumbnail')" />
+                        <x-input-label for="thumbnail" :value="__('Foto')" />
                         <x-text-input id="thumbnail" class="block mt-1 w-full" type="file" name="thumbnail" required
                             autofocus autocomplete="thumbnail" />
                         <x-input-error :messages="$errors->get('thumbnail')" class="mt-2" />
@@ -47,7 +47,7 @@
                     <div class="flex items-center justify-end mt-4">
 
                         <button type="submit" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
-                            Add New Testimonial
+                            Tambah Testimoni Baru
                         </button>
                     </div>
                 </form>

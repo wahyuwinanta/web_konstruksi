@@ -20,28 +20,28 @@
                     @csrf
                     @method('PUT')
                     <div>
-                        <x-input-label for="name" :value="__('Name')" />
+                        <x-input-label for="name" :value="__('Nama')" />
                         <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" required
                             value="{{ $team->name }}" autofocus autocomplete="name" />
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
-                        <x-input-label for="occupation" :value="__('occupation')" />
+                        <x-input-label for="occupation" :value="__('Jabatan')" />
                         <x-text-input id="occupation" class="block mt-1 w-full" type="text" name="occupation"
                             value="{{ $team->occupation }}" required autofocus autocomplete="occupation" />
                         <x-input-error :messages="$errors->get('occupation')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
-                        <x-input-label for="location" :value="__('location')" />
+                        <x-input-label for="location" :value="__('Lokasi')" />
                         <x-text-input id="location" class="block mt-1 w-full" type="text" name="location" required
                             value="{{ $team->location }}" autofocus autocomplete="location" />
                         <x-input-error :messages="$errors->get('location')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
-                        <x-input-label for="avatar" :value="__('avatar')" />
+                        <x-input-label for="avatar" :value="__('Foto')" />
                         <img src="{{ Storage::url($team->avatar) }}" alt=""
                             class="rounded-2xl object-cover w-[90px] h-[90px]">
                         <x-text-input id="avatar" class="block mt-1 w-full" type="file" name="avatar" autofocus
@@ -52,7 +52,7 @@
                     <div class="flex items-center justify-end mt-4">
 
                         <button type="submit" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
-                            Update Team
+                            Perbarui Tim
                         </button>
                     </div>
                 </form>
