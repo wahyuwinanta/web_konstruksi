@@ -23,6 +23,15 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware(['auth', 'role:owner'])->get('/dashboard/owner', function () {
+    return view('dashboard.owner');
+})->name('dashboard.owner');
+
+Route::middleware(['auth', 'role:pekerja'])->get('/dashboard/pekerja', function () {
+    return view('dashboard.pekerja');
+})->name('dashboard.pekerja');
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

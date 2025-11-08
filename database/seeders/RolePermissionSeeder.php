@@ -35,18 +35,6 @@ class RolePermissionSeeder extends Seeder
              );
         }
 
-        $designManagerRole = Role::firstOrCreate([
-                'name' => 'designer_manager'
-        ]);
-
-        $designManagerPermissions = [
-            'manage products',
-            'manage principles',
-            'manage testimonials',
-        ];
-
-        $designManagerRole->syncPermissions($designManagerPermissions);
-
         $superAdminRole = Role::firstOrCreate([
                 'name' => 'super_admin'
         ]);
@@ -58,5 +46,29 @@ class RolePermissionSeeder extends Seeder
             ]);
 
         $user->assignRole($superAdminRole);
+
+        $ownerRole = Role::firstOrCreate([
+            'name' => 'owner'
+        ]);
+
+        $owner = User::firstOrCreate([
+            'name' => 'Owner',
+            'email' => 'owner@gmail.com',
+            'password' => bcrypt('password'),
+        ]);
+
+        $owner->assignRole($ownerRole);
+
+        $pekerjaRole = Role::firstOrCreate([
+            'name' => 'pekerja'
+        ]);
+
+        $pekerja = User::firstOrCreate([
+        'name' => 'Pekerja',
+        'email' => 'pekerja@gmail.com',
+        'password' => bcrypt('password'),
+        ]);
+
+        $pekerja->assignRole($pekerjaRole);
     }
 }
