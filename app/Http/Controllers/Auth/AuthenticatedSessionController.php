@@ -24,11 +24,19 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $request->authenticate(); // validasi email & password
+
+        $user = Auth::user();
+
+        // Cek status aktif
+        if (!$user->is_active) {
+            Auth::logout(); // logout user
+            return back()->withErrors([
+                'email' => 'Akun Anda dinonaktifkan. Hubungi admin untuk mengaktifkan.',
+            ]);
+        }
 
         $request->session()->regenerate();
-        
-        $user = Auth::user();
 
         if ($user->hasRole('super_admin')) {
             return redirect()->route('dashboard'); // admin
@@ -39,11 +47,8 @@ class AuthenticatedSessionController extends Controller
         }
 
         return redirect()->route('dashboard'); // default
-    }   
-
-
-
-
+    }
+    
     /**
      * Destroy an authenticated session.
      */

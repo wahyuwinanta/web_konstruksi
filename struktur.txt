@@ -1,0 +1,146 @@
+Folder PATH listing for volume Local Disk
+Volume serial number is C483-6A64
+C:.
+�   .editorconfig
+�   .env
+�   .env.example
+�   .gitattributes
+�   .gitignore
+�   artisan
+�   composer.json
+�   composer.lock
+�   package-lock.json
+�   package.json
+�   phpunit.xml
+�   postcss.config.js
+�   README.md
+�   struktur.txt
+�   tailwind.config.js
+�   vite.config.js
+�   
++---app
+�   +---Http
+�   �   +---Controllers
+�   �   �   �   AppointmentController.php
+�   �   �   �   CompanyAboutController.php
+�   �   �   �   CompanyKeypointController.php
+�   �   �   �   CompanyStatisticController.php
+�   �   �   �   Controller.php
+�   �   �   �   FrontController.php
+�   �   �   �   HeroSectionController.php
+�   �   �   �   OurPrincipleController.php
+�   �   �   �   OurTeamController.php
+�   �   �   �   ProductController.php
+�   �   �   �   ProfileController.php
+�   �   �   �   ProjectClientController.php
+�   �   �   �   TestimonialController.php
+�   �   �   �   
+�   �   �   +---Auth
+�   �   �           AuthenticatedSessionController.php
+�   �   �           ConfirmablePasswordController.php
+�   �   �           EmailVerificationNotificationController.php
+�   �   �           EmailVerificationPromptController.php
+�   �   �           NewPasswordController.php
+�   �   �           PasswordController.php
+�   �   �           PasswordResetLinkController.php
+�   �   �           RegisteredUserController.php
+�   �   �           VerifyEmailController.php
+�   �   �           
+�   �   +---Requests
+�   �       �   ProfileUpdateRequest.php
+�   �       �   StoreAboutRequest.php
+�   �       �   StoreAppoinmentRequest.php
+�   �       �   StoreClientRequest.php
+�   �       �   StoreHeroSectionRequest.php
+�   �       �   StorePrincipleRequest.php
+�   �       �   StoreProductRequest.php
+�   �       �   StoreStatisticRequest.php
+�   �       �   StoreTeamRequest.php
+�   �       �   StoreTestimonialRequest.php
+�   �       �   UpdateAboutRequest.php
+�   �       �   UpdateClientRequest.php
+�   �       �   UpdateHeroSectionRequest.php
+�   �       �   UpdatePrincipleRequest.php
+�   �       �   UpdateProductRequest.php
+�   �       �   UpdateStatisticRequest.php
+�   �       �   UpdateTeamRequest.php
+�   �       �   UpdateTestimonialRequest.php
+�   �       �   
+�   �       +---Auth
+�   �               LoginRequest.php
+�   �               
+�   +---Models
+�   �       Appointment.php
+�   �       CompanyAbout.php
+�   �       CompanyKeypoint.php
+�   �       CompanyStatistic.php
+�   �       HeroSection.php
+�   �       OurPrinciple.php
+�   �       OurTeam.php
+�   �       Product.php
+�   �       ProjectClient.php
+�   �       Testimonial.php
+�   �       User.php
+�   �       
+�   +---Providers
+�   �       AppServiceProvider.php
+�   �       
+�   +---View
+�       +---Components
+�               AppLayout.php
+�               GuestLayout.php
+�               
++---bootstrap
+�   �   app.php
+�   �   providers.php
+�   �   
+�   +---cache
+�           .gitignore
+�           packages.php
+�           services.php
+�           
++---config
+�       app.php
+�       auth.php
+�       cache.php
+�       database.php
+�       filesystems.php
+�       logging.php
+�       mail.php
+�       permission.php
+�       queue.php
+�       services.php
+�       session.php
+�       
++---database
+�   �   .gitignore
+�   �   database.sqlite
+�   �   
+�   +---factories
+�   �       UserFactory.php
+�   �       
+�   +---migrations
+�   �       0001_01_01_000000_create_users_table.php
+�   �       0001_01_01_000001_create_cache_table.php
+�   �       0001_01_01_000002_create_jobs_table.php
+�   �       2025_10_12_132030_create_permission_tables.php
+�   �       2025_10_12_134413_create_company_statistics_table.php
+�   �       2025_10_12_134812_create_project_clients_table.php
+�   �       2025_10_12_134829_create_testimonials_table.php
+�   �       2025_10_12_134844_create_products_table.php
+�   �       2025_10_12_134902_create_appointments_table.php
+�   �       2025_10_12_134924_create_our_principles_table.php
+�   �       2025_10_12_134944_create_hero_sections_table.php
+�   �       2025_10_12_135000_create_our_teams_table.php
+�   �       2025_10_12_135014_create_company_abouts_table.php
+�   �       2025_10_12_135041_create_company_keypoints_table.php
+�   �       2025_11_08_135252_create_projects_table.php
+�   �       2025_11_08_135255_create_tasks_table.php
+�   �       2025_11_08_135256_create_documents_table.php
+�   �       2025_11_08_135256_create_task_reports_table.php
+�   �       2025_11_08_135257_create_activities_table.php
+�   �       
+�   +---seeders
+�           DatabaseSeeder.php
+�           RolePermissionSeeder.php
+�           
