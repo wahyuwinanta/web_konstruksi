@@ -1,15 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-2xl text-indigo-800 leading-tight tracking-wide">
-            {{ __('Manage Teams') }}
+            {{ __('Manage Users') }}
         </h2>
     </x-slot>
 
-    {{-- Tombol Add New di bawah header --}}
+    {{-- Tombol Add New User --}}
     <div class="max-w-7xl mx-auto mt-6 sm:px-6 lg:px-8 flex justify-end">
-        <a href="{{ route('admin.teams.create') }}"
+        <a href="{{ route('admin.users.create') }}"
             class="inline-flex items-center px-6 py-3 bg-indigo-700 hover:bg-indigo-800 text-white text-sm font-semibold rounded-full shadow-md transition duration-200 ease-in-out">
-            Add New
+            Add New User
         </a>
     </div>
 
@@ -18,56 +18,69 @@
             <div
                 class="bg-white shadow-md sm:rounded-2xl p-10 border border-gray-100 space-y-6 transition-all duration-300 ease-in-out">
 
-                {{-- Loop Data Teams --}}
-                @forelse ($teams as $team)
+                {{-- Loop Data Users --}}
+                @forelse ($users as $user)
                     <div
                         class="item-card flex flex-col md:flex-row justify-between items-start md:items-center bg-gray-50 hover:bg-gray-100 transition rounded-xl p-5 border border-gray-200 shadow-sm hover:-translate-y-1 hover:shadow-lg duration-300 ease-in-out">
 
-                        {{-- Avatar dan Informasi Tim --}}
+                        {{-- Info User --}}
                         <div class="flex flex-row items-center gap-x-5">
-                            <img src="{{ Storage::url($team->avatar) }}" alt="{{ $team->name }}"
-                                class="rounded-xl object-cover w-[90px] h-[90px] shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105">
+                            <div
+                                class="w-[90px] h-[90px] bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-700 font-bold text-xl">
+                                {{ strtoupper(substr($user->name, 0, 1)) }}
+                            </div>
                             <div>
                                 <h3 class="text-indigo-950 text-xl font-bold leading-tight">
-                                    {{ $team->name }}
+                                    {{ $user->name }}
                                 </h3>
-                                @if ($team->description)
-                                    <p class="text-slate-500 text-sm mt-1">
-                                        {{ Str::limit($team->description, 60) }}
-                                    </p>
-                                @endif
+                                <p class="text-slate-500 text-sm mt-1">
+                                    {{ $user->email }}
+                                </p>
+                                <p class="text-sm mt-1">
+                                    Role: <span
+                                        class="font-medium text-indigo-700">{{ ucfirst($user->getRoleNames()->first() ?? '-') }}</span>
+                                </p>
                             </div>
                         </div>
 
-                        {{-- Lokasi --}}
+                        {{-- Tanggal Pembuatan --}}
                         <div class="mt-4 md:mt-0 text-sm text-slate-500 flex flex-col items-start md:items-end">
-                            <p class="font-medium text-slate-400">Location</p>
+                            <p class="font-medium text-slate-400">Created at</p>
                             <h3 class="text-indigo-950 font-semibold">
-                                {{ $team->location }}
+                                {{ $user->created_at->format('d M Y') }}
                             </h3>
                         </div>
 
                         {{-- Tombol Aksi --}}
                         <div class="mt-5 md:mt-0 flex flex-row gap-x-3">
-                            <a href="{{ route('admin.teams.edit', $team) }}"
+                            <a href="{{ route('admin.users.edit', $user) }}"
                                 class="inline-flex items-center px-5 py-2.5 bg-indigo-700 hover:bg-indigo-800 text-white text-sm font-semibold rounded-full shadow-sm transition duration-200 ease-in-out">
                                 Edit
                             </a>
-                            <form action="{{ route('admin.teams.destroy', $team) }}" method="POST"
-                                onsubmit="return confirm('Are you sure you want to delete this team?');">
+                            <form action="{{ route('admin.users.toggle', $user) }}" method="POST"
+                                onsubmit="return confirm('Are you sure you want to change this user status?');">
                                 @csrf
-                                @method('DELETE')
+                                @method('PATCH')
                                 <button type="submit"
-                                    class="inline-flex items-center px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-full shadow-sm transition duration-200 ease-in-out">
-                                    Delete
+                                    class="inline-flex items-center px-5 py-2.5 
+                                    {{ $user->is_active ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700' }} 
+                                    text-white text-sm font-semibold rounded-full shadow-sm transition duration-200 ease-in-out">
+                                    {{ $user->is_active ? 'Activate' : 'Deactivate' }}
                                 </button>
                             </form>
+
+
                         </div>
                     </div>
                 @empty
-                    <p class="text-center text-slate-500 italic py-10">Belum ada data terbaru</p>
+                    <p class="text-center text-slate-500 italic py-10">Belum ada data user</p>
                 @endforelse
 
+            </div>
+
+            {{-- Pagination --}}
+            <div class="mt-6">
+                {{ $users->links() }}
             </div>
         </div>
     </div>

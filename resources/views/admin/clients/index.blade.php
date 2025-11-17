@@ -1,49 +1,65 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-row justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Manage Clients') }}
-            </h2>
-            <a href="{{ route('admin.clients.create') }}"
-                class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
-                Add New
-            </a>
-        </div>
+        <h2 class="font-semibold text-2xl text-indigo-800 leading-tight tracking-wide">
+            {{ __('Manage Clients') }}
+        </h2>
     </x-slot>
 
-    <div class="py-12">
+    {{-- Tombol Add New di bawah header --}}
+    <div class="max-w-7xl mx-auto mt-6 sm:px-6 lg:px-8 flex justify-end">
+        <a href="{{ route('admin.clients.create') }}"
+            class="inline-flex items-center px-6 py-3 bg-indigo-700 hover:bg-indigo-800 text-white text-sm font-semibold rounded-full shadow-md transition duration-200 ease-in-out">
+            Add New
+        </a>
+    </div>
+
+    <div class="py-10 bg-gray-50 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-10 flex flex-col gap-y-5">
+            <div
+                class="bg-white shadow-md sm:rounded-2xl p-10 border border-gray-100 space-y-6 transition-all duration-300 ease-in-out">
+
+                {{-- Loop Data Clients --}}
                 @forelse ($clients as $client)
-                    <div class="item-card flex flex-row justify-between items-center">
-                        <div class="flex flex-row items-center gap-x-3">
-                            <img src="{{ Storage::url($client->avatar) }}" alt=""
-                                class="rounded-2xl object-cover w-[90px] h-[90px]">
-                            <div class="flex flex-col">
-                                <h3 class="text-indigo-950 text-xl font-bold">{{ $client->name }}</h3>
+                    <div
+                        class="item-card flex flex-col md:flex-row justify-between items-start md:items-center bg-gray-50 hover:bg-gray-100 transition rounded-xl p-5 border border-gray-200 shadow-sm hover:-translate-y-1 hover:shadow-lg duration-300 ease-in-out">
+
+                        {{-- Profil Klien --}}
+                        <div class="flex flex-row items-center gap-x-5">
+                            <img src="{{ Storage::url($client->avatar) }}" alt="{{ $client->name }}"
+                                class="rounded-xl object-cover w-[90px] h-[90px] shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105">
+                            <div>
+                                <h3 class="text-indigo-950 text-xl font-bold leading-tight">
+                                    {{ $client->name }}
+                                </h3>
+                                @if ($client->occupation)
+                                    <p class="text-slate-500 text-sm mt-1">
+                                        {{ $client->occupation }}
+                                    </p>
+                                @endif
                             </div>
                         </div>
-                        <div class="hidden md:flex flex-col">
-                            <p class="text-slate-500 text-sm">Occupation</p>
-                            <h3 class="text-indigo-950 text-xl font-bold">{{ $client->occupation }}</h3>
-                        </div>
-                        <div class="hidden md:flex flex-row items-center gap-x-3">
+
+                        {{-- Tombol Aksi --}}
+                        <div class="mt-5 md:mt-0 flex flex-row gap-x-3">
                             <a href="{{ route('admin.clients.edit', $client) }}"
-                                class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
+                                class="inline-flex items-center px-5 py-2.5 bg-indigo-700 hover:bg-indigo-800 text-white text-sm font-semibold rounded-full shadow-sm transition duration-200 ease-in-out">
                                 Edit
                             </a>
-                            <form action="{{ route('admin.clients.destroy', $client) }}" method="POST">
+                            <form action="{{ route('admin.clients.destroy', $client) }}" method="POST"
+                                onsubmit="return confirm('Are you sure you want to delete this client?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="font-bold py-4 px-6 bg-red-700 text-white rounded-full">
+                                <button type="submit"
+                                    class="inline-flex items-center px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-full shadow-sm transition duration-200 ease-in-out">
                                     Delete
                                 </button>
                             </form>
                         </div>
                     </div>
                 @empty
-                    <p>Belum ada data terbaru</p>
+                    <p class="text-center text-slate-500 italic py-10">Belum ada data terbaru</p>
                 @endforelse
+
             </div>
         </div>
     </div>
