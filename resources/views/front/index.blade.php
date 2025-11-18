@@ -68,7 +68,7 @@
                 <p
                     class="badge w-fit bg-cp-pale-blue text-cp-light-blue p-[8px_16px] rounded-full uppercase font-bold text-sm">
                     Prinsip Kerja yang Kami Pegang Teguh</p>
-                <h2 class="font-bold text-4xl leading-[45px]">We Might Best Choice <br> For Your Company</h2>
+                <h2 class="font-bold text-4xl leading-[45px]">Kami Mungkin Pilihan Terbaik<br> Untuk Perusahaan Anda</h2>
             </div>
             <a href="" class="bg-cp-black p-[14px_20px] w-fit rounded-xl font-bold text-white">Explore More</a>
         </div>

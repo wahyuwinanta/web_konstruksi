@@ -12,15 +12,20 @@
     <link rel="stylesheet" href="https://unpkg.com/flickity-fade@2/flickity-fade.css">
 
     <!-- CSS for modal/flowbite -->
+    <script src="//unpkg.com/alpinejs" defer></script>
+
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" /> -->
 </head>
 
 <body class="font-poppins text-cp-black">
 
+    {{-- HALAMAN --}}
     @yield('content')
 
+    <x-whatsapp-bubble number="6289636495853"
+        message="Halo kak, saya ingin bertanya tentang layanan CV. Mulia Mandiri Konstruksi." />
+
     @stack('before-scripts')
-    {{-- file js di sini --}}
     @stack('after-scripts')
 </body>
 
