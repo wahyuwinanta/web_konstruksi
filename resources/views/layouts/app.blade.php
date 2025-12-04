@@ -75,6 +75,11 @@
                     @if (request()->routeIs('admin.users.*'))
                         this.openMenus.project = true;
                     @endif
+
+                    @if (request()->routeIs('admin.projects.*') || request()->routeIs('admin.schedules.*'))
+                        this.openMenus.project = true;
+                    @endif
+
                 }
             };
         }
@@ -95,7 +100,7 @@
             <div class="p-6 flex justify-between items-center border-b">
                 <a href="{{ route('front.index') }}" class="flex items-center gap-2">
                     <x-application-logo class="block h-8 w-auto text-indigo-600" />
-                    <span class="font-bold text-indigo-800 text-lg">CV. MMK</span>
+                    <span class="font-bold text-indigo-500 text-sm">Mulia Mandiri </b> Konstruksi</span>
                 </a>
                 <button @click="open = false" class="sm:hidden text-gray-600 focus:outline-none">✕</button>
             </div>
@@ -143,7 +148,7 @@
                         x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                         class="absolute right-0 mt-2 w-48 bg-white border border-gray-100 rounded-xl shadow-lg overflow-hidden z-50"
                         x-cloak>
-                        <a href="{{ route('profile.edit') }}"
+                        <a href="{{ route('profile.editAdmin') }}"
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Profile</a>
 
                         <form method="POST" action="{{ route('logout') }}">

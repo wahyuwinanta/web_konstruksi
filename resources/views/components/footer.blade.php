@@ -42,15 +42,13 @@
         </div>
         <div class="flex flex-wrap gap-[30px]">
             <div class="flex flex-col w-[150px] gap-3">
-                <p class="font-bold text-lg text-white">Products</p>
-                <a href="" class="text-cp-light-grey hover:text-white transition-all duration-300">General
-                    Contract</a>
-                <a href="" class="text-cp-light-grey hover:text-white transition-all duration-300">Building
-                    Assessment</a>
-                <a href="" class="text-cp-light-grey hover:text-white transition-all duration-300">3D Paper
-                    Builder</a>
-                <a href="" class="text-cp-light-grey hover:text-white transition-all duration-300">Legal
-                    Constructions</a>
+                <p class="font-bold text-lg text-white">Quick Links</p>
+                <a href="" class="text-cp-light-grey hover:text-white transition-all duration-300">Produk
+                    Kami</a>
+                <a href="" class="text-cp-light-grey hover:text-white transition-all duration-300">Tim Kami</a>
+                <a href="" class="text-cp-light-grey hover:text-white transition-all duration-300">Tentang
+                    Kami</a>
+                <a href="" class="text-cp-light-grey hover:text-white transition-all duration-300">Testimoni</a>
             </div>
         </div>
         <div class="flex flex-wrap gap-[30px]">

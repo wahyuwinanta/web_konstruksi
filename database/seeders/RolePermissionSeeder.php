@@ -15,6 +15,7 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
+        // Daftar permissions
         $permissions = [
             'manage statistics',
             'manage products',
@@ -25,50 +26,59 @@ class RolePermissionSeeder extends Seeder
             'manage about',
             'manage appointments',
             'manage hero sections',
+            'manage projects',
+
         ];
 
+        // Buat permissions jika belum ada
         foreach ($permissions as $permission) {
-            Permission::firstOrCreate(
-                [
-                    'name' => $permission
-                ]
-             );
+            Permission::firstOrCreate([
+                'name' => $permission
+            ]);
         }
 
-        $superAdminRole = Role::firstOrCreate([
-                'name' => 'super_admin'
-        ]);
-        
-        $user = User::create([
+        // Buat roles
+        $superAdminRole = Role::firstOrCreate(['name' => 'super_admin']);
+        $ownerRole = Role::firstOrCreate(['name' => 'owner']);
+        $pekerjaRole = Role::firstOrCreate(['name' => 'pekerja']);
+
+        // Berikan semua permission ke super_admin
+        $superAdminRole->syncPermissions($permissions);
+
+        // // Misal owner hanya dapat manage products & clients
+        // $ownerRole->syncPermissions(['manage products', 'manage clients']);
+
+        // // Pekerja bisa diberi permission lebih terbatas, misal manage appointments
+        // $pekerjaRole->syncPermissions(['manage appointments']);
+
+        // Buat user super admin
+        $superAdminUser = User::firstOrCreate(
+            ['email' => 'wahyu@gmail.com'],
+            [
                 'name' => 'Wahyu',
-                'email' => 'wahyu@gmail.com',
-                'password' => bcrypt('password')
-            ]);
+                'password' => bcrypt('password'),
+            ]
+        );
+        $superAdminUser->assignRole($superAdminRole);
 
-        $user->assignRole($superAdminRole);
+        // // Contoh buat user owner
+        // $ownerUser = User::firstOrCreate(
+        //     ['email' => 'owner@gmail.com'],
+        //     [
+        //         'name' => 'Owner Example',
+        //         'password' => bcrypt('password'),
+        //     ]
+        // );
+        // $ownerUser->assignRole($ownerRole);
 
-        $ownerRole = Role::firstOrCreate([
-            'name' => 'owner'
-        ]);
-
-        $owner = User::firstOrCreate([
-            'name' => 'Owner',
-            'email' => 'owner@gmail.com',
-            'password' => bcrypt('password'),
-        ]);
-
-        $owner->assignRole($ownerRole);
-
-        $pekerjaRole = Role::firstOrCreate([
-            'name' => 'pekerja'
-        ]);
-
-        $pekerja = User::firstOrCreate([
-        'name' => 'Pekerja',
-        'email' => 'pekerja@gmail.com',
-        'password' => bcrypt('password'),
-        ]);
-
-        $pekerja->assignRole($pekerjaRole);
+        // // Contoh buat user pekerja
+        // $pekerjaUser = User::firstOrCreate(
+        //     ['email' => 'pekerja@gmail.com'],
+        //     [
+        //         'name' => 'Pekerja Example',
+        //         'password' => bcrypt('password'),
+        //     ]
+        // );
+        // $pekerjaUser->assignRole($pekerjaRole);
     }
 }

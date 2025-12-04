@@ -88,7 +88,10 @@
         </button>
 
         <ul x-show="openMenus.project" x-collapse class="ml-4 mt-2 space-y-1 text-sm">
+            <li><x-nav-link :href="route('admin.projects.index')" :active="request()->routeIs('admin.projects.*')">Projects</x-nav-link></li>
+            {{-- <li><x-nav-link :href="route('admin.schedules.index')" :active="request()->routeIs('admin.schedules.*')">Schedules</x-nav-link></li> --}}
             <li><x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">Manage Users</x-nav-link></li>
         </ul>
+
     </li>
 </ul>

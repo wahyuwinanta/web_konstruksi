@@ -68,12 +68,12 @@
                 <p
                     class="badge w-fit bg-cp-pale-blue text-cp-light-blue p-[8px_16px] rounded-full uppercase font-bold text-sm">
                     Prinsip Kerja yang Kami Pegang Teguh</p>
-                <h2 class="font-bold text-4xl leading-[45px]">Kami Mungkin Pilihan Terbaik<br> Untuk Perusahaan Anda</h2>
+                <h2 class="font-bold text-4xl leading-[45px]">Kami Adalah Pilihan Terbaik<br> Untuk Perusahaan Anda</h2>
             </div>
             <a href="" class="bg-cp-black p-[14px_20px] w-fit rounded-xl font-bold text-white">Explore More</a>
         </div>
         <div class="flex flex-wrap items-center gap-[30px] justify-center">
-            @forelse ($principles as $principle)
+            @forelse ($principles as $principle)    
                 <div
                     class="card w-[356.67px] flex flex-col bg-white border border-[#E8EAF2] rounded-[20px] gap-[30px] overflow-hidden hover:border-cp-dark-blue transition-all duration-300">
                     <div class="thumbnail h-[200px] flex shrink-0 overflow-hidden">

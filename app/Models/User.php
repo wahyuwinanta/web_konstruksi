@@ -48,4 +48,21 @@ class User extends Authenticatable
             'is_active' => 'boolean',
         ];
     }
+
+    public function notifications()
+    {
+        return $this->belongsToMany(Notification::class, 'notification_user')
+                    ->withPivot('is_read')
+                    ->withTimestamps();
+    }
+
+    public function projects()
+    {
+        return $this->belongsToMany(
+            \App\Models\Project::class,
+            'project_assignments',
+            'user_id',
+            'project_id'
+        );
+    }
 }
