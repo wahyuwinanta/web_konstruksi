@@ -14,12 +14,34 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    // public function edit(Request $request): View
+    // {
+    //     return view('profile.edit', [
+    //         'user' => $request->user(),
+    //     ]);
+    // }
+
+    public function editAdmin(Request $request): View
     {
-        return view('profile.edit', [
+        return view('profile.editAdmin', [
             'user' => $request->user(),
         ]);
     }
+
+    public function editPekerja(Request $request): View
+    {
+        return view('profile.editPekerja', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    public function editOwner(Request $request): View
+    {
+        return view('profile.editOwner', [
+            'user' => $request->user(),
+        ]);
+    }
+    
 
     /**
      * Update the user's profile information.
@@ -34,8 +56,29 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        // redirect super admin
+        if ($request->user()->hasRole('super_admin')) {
+            return Redirect::route('profile.editAdmin')
+                ->with('status', 'profile-updated');
+        }
+
+        // redirect owner
+        if ($request->user()->hasRole('owner')) {
+            return Redirect::route('profile.editOwner')
+                ->with('status', 'profile-updated');
+        }
+
+        // redirect pekerja
+        if ($request->user()->hasRole('pekerja')) {
+            return Redirect::route('profile.editPekerja')
+                ->with('status', 'profile-updated');
+        }
+
+        return Redirect::route('dashboard')
+            ->with('status', 'profile-updated');
     }
+
+
 
     /**
      * Delete the user's account.

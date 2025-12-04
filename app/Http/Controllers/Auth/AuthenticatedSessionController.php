@@ -22,7 +22,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request)
     {
         $request->authenticate(); // validasi email & password
 
@@ -41,12 +41,10 @@ class AuthenticatedSessionController extends Controller
         if ($user->hasRole('super_admin')) {
             return redirect()->route('dashboard'); // admin
         } elseif ($user->hasRole('owner')) {
-            return redirect()->route('dashboard.owner');
+            return redirect()->route('owner.dashboard');
         } elseif ($user->hasRole('pekerja')) {
-            return redirect()->route('dashboard.pekerja');
+            return redirect()->route('pekerja.dashboard');
         }
-
-        return redirect()->route('dashboard'); // default
     }
     
     /**
