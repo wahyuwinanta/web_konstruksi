@@ -1,53 +1,113 @@
+<!-- resources/views/errors/layout.blade.php -->
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="id">
 
-        <title>@yield('title')</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@yield('title', 'Terjadi Kesalahan')</title>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <style>
+        :root {
+            --bg: #f2f5fb;
+            --surface: #ffffff;
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --text: #1e293b;
+            --muted: #64748b;
+            --radius: 18px;
+            --shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg);
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 48px 38px;
+            width: 92%;
+            max-width: 560px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+            animation: slideUp 0.4s ease;
+        }
+
+        .code {
+            font-size: 72px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .message {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .desc {
+            font-size: 16px;
+            color: var(--muted);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 22px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            background: var(--primary);
+            color: #fff;
+            transition: 0.2s ease;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
 
-            .full-height {
-                height: 100vh;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
+        }
+    </style>
+</head>
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+<body>
 
-            .position-ref {
-                position: relative;
-            }
+    <div class="card">
+        <div class="code">@yield('code', 'Error')</div>
+        <div class="message">@yield('message')</div>
+        <div class="desc">@yield('description', 'Terjadi kesalahan pada sistem. Silakan coba lagi nanti.')</div>
+        <a class="btn" href="{{ url('/') }}">Kembali ke Beranda</a>
+    </div>
 
-            .content {
-                text-align: center;
-            }
+</body>
 
-            .title {
-                font-size: 36px;
-                padding: 20px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            <div class="content">
-                <div class="title">
-                    @yield('message')
-                </div>
-            </div>
-        </div>
-    </body>
 </html>

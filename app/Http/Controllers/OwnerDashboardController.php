@@ -36,13 +36,17 @@ class OwnerDashboardController extends Controller
     public function myProjects(Request $request)
     {
         $allProjects = Project::all();
-
         $query = Project::query();
+        $user = auth()->user();
+        $search = request('search');
 
         if ($request->status) {
             $query->where('status', $request->status);
         }
 
+        if ($search) {
+        $query->where('project_name', 'LIKE', "%{$search}%");
+        }
         $projects = $query->orderByDesc('id')->paginate(10);
 
         return view('owner.projects.index', compact('projects', 'allProjects'));
@@ -62,7 +66,10 @@ class OwnerDashboardController extends Controller
             }
         }
 
-        return view('owner.projects.show', compact('project'));
+        // Load progress beserta images
+        $progress = $project->progress()->with('images')->orderBy('created_at', 'desc')->get();
+
+        return view('owner.projects.show', compact('project', 'progress'));
     }
 
 

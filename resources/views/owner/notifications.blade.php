@@ -10,6 +10,16 @@
             <p class="text-sm text-gray-500 mt-1">Kelola dan lihat semua notifikasi Anda</p>
         </div>
 
+        <div class="mb-4 flex justify-end">
+            <form action="{{ route('notifications.readAll') }}" method="POST">
+                @csrf
+                <button
+                    class="px-4 py-2 text-sm font-medium bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+                    Tandai Semua Dibaca
+                </button>
+            </form>
+        </div>
+
         @if (session('error'))
             <div class="bg-red-100 border border-red-300 text-red-800 px-4 py-2 rounded mb-3">
                 {{ session('error') }}

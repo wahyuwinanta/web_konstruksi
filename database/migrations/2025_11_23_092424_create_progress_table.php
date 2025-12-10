@@ -6,30 +6,38 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up()
+    public function up(): void
     {
+        // Tabel progress proyek
         Schema::create('project_progress', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('project_id');
-            $table->unsignedBigInteger('user_id'); // pegawai
+            $table->unsignedBigInteger('user_id');
             $table->text('progress_description');
-            $table->integer('progress_percentage')->default(0); // 0 - 100
+            $table->integer('progress_percentage')->default(0);
             $table->timestamps();
 
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
+
+        // Tabel gambar progress (masih dalam migration yang sama)
+        Schema::create('project_progress_images', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('progress_id');
+            $table->string('image_path');
+            $table->timestamps();
+
+            $table->foreign('progress_id')
+                  ->references('id')
+                  ->on('project_progress')
+                  ->onDelete('cascade');
+        });
     }
 
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('progress');
+        Schema::dropIfExists('project_progress_images');
+        Schema::dropIfExists('project_progress');
     }
 };
