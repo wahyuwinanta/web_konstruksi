@@ -10,21 +10,27 @@ class Project extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+
     protected $fillable = [
         'project_name',
         'description',
+        'location',
+        'project_type',
         'start_date',
         'end_date',
+        'estimated_cost',
+        'rab_file',
+        'design_file',
         'status',
         'created_by',
         'approved_by',
     ];
 
     protected $casts = [
-    'start_date' => 'date',
-    'end_date' => 'date',
+        'start_date' => 'date',
+        'end_date' => 'date',
+        'estimated_cost' => 'decimal:2'
     ];
-
 
     public function assignments()
     {
@@ -35,8 +41,10 @@ class Project extends Model
     {
         return $this->hasMany(ProjectProgress::class);
     }
-    
+
+    // relasi pekerja (optional)
+    public function workers()
+    {
+        return $this->belongsToMany(User::class, 'project_workers');
+    }
 }
-
-
-

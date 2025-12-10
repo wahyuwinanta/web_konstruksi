@@ -12,17 +12,16 @@ use Illuminate\Support\Facades\DB;
 
 class NotificationController extends Controller
 {
-    
     // GET /notifications?order=fifo|lifo
     public function index(Request $request)
     {
         $order = $request->order === 'fifo' ? 'asc' : 'desc';
-        $id = auth()->id();
-        $notifications = Notification::where('user_id', $id)
-            ->orderBy('created_at', 'desc')
+
+        $notifications = Notification::where('user_id', auth()->id())
+            ->orderBy('created_at', $order)
             ->paginate(10);
 
-        $view = auth()->user()->hasRole('owner') 
+        $view = auth()->user()->hasRole('owner')
             ? 'owner.notifications'
             : 'pekerja.notifications';
 
@@ -30,7 +29,6 @@ class NotificationController extends Controller
     }
 
 
-    // OTOMATIS dari admin create project
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -57,7 +55,7 @@ class NotificationController extends Controller
                 'approved_by'  => $validated['approved_by'] ?? null,
             ]);
 
-            // ASSIGN PEKERJA
+            // ASSIGN WORKERS
             $assignedEmployees = [];
             if (!empty($validated['employees'])) {
                 foreach ($validated['employees'] as $user_id) {
@@ -70,19 +68,19 @@ class NotificationController extends Controller
                 }
             }
 
-            // NOTIFIKASI: owner menerima semua
+            // ALL OWNERS MUST RECEIVE NOTIF
             $ownerIds = User::role('owner')->pluck('id')->toArray();
 
-            // pekerja yg ditugaskan
+            // Unique users only
             $targetUsers = array_unique(array_merge($ownerIds, $assignedEmployees));
 
             foreach ($targetUsers as $uid) {
                 Notification::create([
-                    'user_id' => $uid,
-                    'title'   => 'Proyek Baru Ditambahkan',
-                    'message' => "Proyek '{$project->project_name}' baru saja dibuat.",
+                    'user_id'    => $uid,
+                    'title'      => 'Proyek Baru Ditambahkan',
+                    'message'    => "Proyek '{$project->project_name}' baru saja dibuat.",
                     'project_id' => $project->id,
-                    'is_read' => false,
+                    'is_read'    => false,
                 ]);
             }
         });
@@ -91,20 +89,24 @@ class NotificationController extends Controller
             ->with('success', 'Project created successfully and notifications sent.');
     }
 
+
     public function markAsRead($id)
     {
-        $notif = Notification::where('user_id', auth()->id())
-            ->where('id', $id)
+        $notif = Notification::where('id', $id)
+            ->where('user_id', auth()->id())
             ->firstOrFail();
 
         $notif->update(['is_read' => true]);
 
-        return redirect()->back()->with('success', 'Notifikasi ditandai sebagai dibaca');
+        return back()->with('success', 'Notifikasi ditandai sebagai dibaca');
     }
+
 
     public function open($id)
     {
-        $notif = Notification::findOrFail($id);
+        $notif = Notification::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
 
         if (!$notif->is_read) {
             $notif->update(['is_read' => true]);
@@ -113,14 +115,13 @@ class NotificationController extends Controller
         $user = auth()->user();
         $isOwner = $user->hasRole('owner');
 
-        // Jika notifikasi berhubungan dengan proyek
+        // Notification related to project
         if ($notif->project_id) {
             $project = Project::find($notif->project_id);
 
             if ($project) {
-                // Gunakan route sesuai role
-                $routeName = $isOwner 
-                    ? 'owner.projects.show' 
+                $routeName = $isOwner
+                    ? 'owner.projects.show'
                     : 'pekerja.projects.show';
 
                 return redirect()->route($routeName, $project->id);
@@ -132,18 +133,23 @@ class NotificationController extends Controller
                 ->with('error', 'Proyek yang dimaksud sudah dihapus.');
         }
 
-        // Jika ada link manual
+        // Manual link
         if (!empty($notif->link)) {
-            return redirect($notif->link);
+            return redirect()->to($notif->link);
         }
 
-        // Fallback sesuai role
+        // Default fallback
         $fallback = $isOwner ? 'owner.notifications' : 'pekerja.notifications';
         return redirect()->route($fallback);
     }
 
+    public function markAllRead()
+    {
+        Notification::where('user_id', auth()->id())
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
 
-    
-
+        return redirect()->back()->with('success', 'Semua notifikasi telah ditandai sebagai dibaca.');
+    }
 
 }

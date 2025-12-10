@@ -59,7 +59,7 @@ class User extends Authenticatable
     public function projects()
     {
         return $this->belongsToMany(
-            \App\Models\Project::class,
+            Project::class,
             'project_assignments',
             'user_id',
             'project_id'

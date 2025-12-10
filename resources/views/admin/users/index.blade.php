@@ -17,7 +17,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div
                 class="bg-white shadow-md sm:rounded-2xl p-10 border border-gray-100 space-y-6 transition-all duration-300 ease-in-out">
-
+                <x-search-bar action="{{ route('admin.users.index') }}" />
                 {{-- Loop Data Users --}}
                 @forelse ($users as $user)
                     <div

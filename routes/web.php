@@ -158,6 +158,8 @@ Route::middleware(['auth', 'role:pekerja'])
     ->name('pekerja.')
     ->group(function () {
  
+        Route::resource('projects', ProjectController::class);
+
         // Notifications
         Route::get('/notifications', [NotificationController::class, 'index'])
             ->name('notifications');
@@ -205,6 +207,11 @@ Route::middleware(['auth'])->group(function () {
         ->name('profile.destroy');
 
 });
+
+Route::post('/notifications/mark-all-read', 
+    [NotificationController::class, 'markAllRead']
+)->name('notifications.readAll');
+
 
 /*
 |--------------------------------------------------------------------------

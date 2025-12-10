@@ -21,7 +21,7 @@
                 @endif
 
                 {{-- Form --}}
-                <form method="POST" action="{{ route('admin.projects.store') }}" class="space-y-6">
+                <form method="POST" action="{{ route('admin.projects.store') }}" class="space-y-6" enctype="multipart/form-data">
                     @csrf
 
                     {{-- Project Name --}}
@@ -39,6 +39,33 @@
                         <textarea id="description" name="description" rows="4"
                             class="block mt-2 w-full border-gray-300 rounded-xl p-3 focus:ring-indigo-500 focus:border-indigo-500">{{ old('description') }}</textarea>
                         <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                    </div>
+
+                    {{-- Location --}}
+                    <div>
+                        <x-input-label for="location" :value="__('Project Location')" />
+                        <x-text-input id="location"
+                            class="block mt-2 w-full border-gray-300 rounded-xl"
+                            type="text" name="location" :value="old('location')" />
+                        <x-input-error :messages="$errors->get('location')" class="mt-2" />
+                    </div>
+
+                    {{-- Project Type --}}
+                    <div>
+                        <x-input-label for="project_type" :value="__('Project Type')" />
+                        <x-text-input id="project_type"
+                            class="block mt-2 w-full border-gray-300 rounded-xl"
+                            type="text" name="project_type" :value="old('project_type')" />
+                        <x-input-error :messages="$errors->get('project_type')" class="mt-2" />
+                    </div>
+
+                    {{-- Estimated Cost --}}
+                    <div>
+                        <x-input-label for="estimated_cost" :value="__('Estimated Cost (Rp)')" />
+                        <x-text-input id="estimated_cost"
+                            class="block mt-2 w-full border-gray-300 rounded-xl"
+                            type="number" name="estimated_cost" :value="old('estimated_cost')" min="0" step="0.01" />
+                        <x-input-error :messages="$errors->get('estimated_cost')" class="mt-2" />
                     </div>
 
                     {{-- Start & End Date --}}
@@ -88,6 +115,22 @@
                             Tekan Ctrl/Cmd untuk memilih beberapa pegawai.
                         </p>
                         <x-input-error :messages="$errors->get('employees')" class="mt-2" />
+                    </div>
+
+                    {{-- RAB File --}}
+                    <div>
+                        <x-input-label for="rab_file" :value="__('Upload RAB Document (PDF/DOC)')" />
+                        <input type="file" name="rab_file" id="rab_file"
+                            class="block mt-2 w-full border-gray-300 rounded-xl p-3 focus:ring-indigo-500 focus:border-indigo-500" />
+                        <x-input-error :messages="$errors->get('rab_file')" class="mt-2" />
+                    </div>
+
+                    {{-- Design File --}}
+                    <div>
+                        <x-input-label for="design_file" :value="__('Upload Design File (PDF/JPG/PNG)')" />
+                        <input type="file" name="design_file" id="design_file"
+                            class="block mt-2 w-full border-gray-300 rounded-xl p-3 focus:ring-indigo-500 focus:border-indigo-500" />
+                        <x-input-error :messages="$errors->get('design_file')" class="mt-2" />
                     </div>
 
                     {{-- Buttons --}}

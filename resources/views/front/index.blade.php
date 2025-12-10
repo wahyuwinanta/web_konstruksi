@@ -20,15 +20,15 @@
                     </div>
                     <div class="flex items-center gap-4">
                         <a href=""
-                            class="bg-cp-dark-blue p-5 w-fit rounded-xl hover:shadow-[0_12px_30px_0_#312ECB66] transition-all duration-300 font-bold text-white">Explore
-                            Now</a>
+                            class="bg-cp-dark-blue p-5 w-fit rounded-xl hover:shadow-[0_12px_30px_0_#312ECB66] transition-all duration-300 font-bold text-white">Jelajahi
+                            Sekarang</a>
                         <button class="bg-cp-black p-5 w-fit rounded-xl font-bold text-white flex items-center gap-[10px]"
                             onclick="{modal.show()}">
                             <div class="w-6 h-6 flex shrink-0 overflow-hidden">
                                 <img src="{{ asset('assets/icons/play-circle.svg') }}" class="w-full h-full object-contain"
                                     alt="icon">
                             </div>
-                            <span>Watch Video</span>
+                            <span>Tonton Video</span>
                         </button>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
     </div>
 
     <div id="Clients" class="container max-w-[1130px] mx-auto flex flex-col justify-center text-center gap-5 mt-20">
-        <h2 class="font-bold text-lg">Klien yang Telah Mempercayakan Proyeknya Kepada Kami </h2>
+        <h2 class="font-bold text-lg">Klien yang Telah Mempercayakan Proyeknya Kepada Kami</h2>
         <div class="logo-container flex flex-wrap gap-5 justify-center">
             @forelse ($clients as $client)
                 <div
@@ -58,7 +58,6 @@
                     Belum ada data terbaru
                 </p>
             @endforelse
-
         </div>
     </div>
 
@@ -70,10 +69,11 @@
                     Prinsip Kerja yang Kami Pegang Teguh</p>
                 <h2 class="font-bold text-4xl leading-[45px]">Kami Adalah Pilihan Terbaik<br> Untuk Perusahaan Anda</h2>
             </div>
-            <a href="" class="bg-cp-black p-[14px_20px] w-fit rounded-xl font-bold text-white">Explore More</a>
+            <a href="" class="bg-cp-black p-[14px_20px] w-fit rounded-xl font-bold text-white">Jelajahi Lebih
+                Lanjut</a>
         </div>
         <div class="flex flex-wrap items-center gap-[30px] justify-center">
-            @forelse ($principles as $principle)    
+            @forelse ($principles as $principle)
                 <div
                     class="card w-[356.67px] flex flex-col bg-white border border-[#E8EAF2] rounded-[20px] gap-[30px] overflow-hidden hover:border-cp-dark-blue transition-all duration-300">
                     <div class="thumbnail h-[200px] flex shrink-0 overflow-hidden">
@@ -89,7 +89,7 @@
                             <p class="title font-bold text-xl leading-[30px]">{{ $principle->name }}</p>
                             <p class="leading-[30px] text-cp-light-grey">{{ $principle->subtittle }}</p>
                         </div>
-                        <a href="" class="font-semibold text-cp-dark-blue">Learn More</a>
+                        <a href="" class="font-semibold text-cp-dark-blue">Pelajari Lebih Lanjut</a>
                     </div>
                 </div>
             @empty
@@ -136,8 +136,8 @@
                         <p class="leading-[30px] text-cp-light-grey">{{ $product->about }}</p>
                     </div>
                     <a href="{{ route('front.appointment') }}"
-                        class="bg-cp-dark-blue p-[14px_20px] w-fit rounded-xl hover:shadow-[0_12px_30px_0_#312ECB66] transition-all duration-300 font-bold text-white">Book
-                        Appointment</a>
+                        class="bg-cp-dark-blue p-[14px_20px] w-fit rounded-xl hover:shadow-[0_12px_30px_0_#312ECB66] transition-all duration-300 font-bold text-white">Buat
+                        Janji</a>
                 </div>
             </div>
         @empty
@@ -152,7 +152,7 @@
             <div class="flex flex-col gap-[14px] items-center">
                 <p class="badge w-fit bg-cp-light-blue text-white p-[8px_16px] rounded-full uppercase font-bold text-sm">
                     Tim Profesional di Balik Konstruksi Kokoh</p>
-                <h2 class="font-bold text-4xl leading-[45px] text-center">We Share Same Dreams <br> Change The World
+                <h2 class="font-bold text-4xl leading-[45px] text-center">Kami Memiliki Impian yang Sama <br> Mengubah Dunia
                 </h2>
             </div>
             <div
@@ -190,8 +190,8 @@
                             <img src="{{ asset('assets/icons/profile-2user.svg') }}" alt="icon">
                         </div>
                         <div class="flex flex-col gap-1 text-center">
-                            <p class="font-bold text-xl leading-[30px]">View All</p>
-                            <p class="text-cp-light-grey">Our Great People</p>
+                            <p class="font-bold text-xl leading-[30px]">Lihat Semua</p>
+                            <p class="text-cp-light-grey">Orang Hebat Kami</p>
                         </div>
                     </div>
                 </a>
@@ -204,7 +204,7 @@
             <p
                 class="badge w-fit bg-cp-pale-blue text-cp-light-blue p-[8px_16px] rounded-full uppercase font-bold text-sm">
                 Apa Kata Klien Kami</p>
-            <h2 class="font-bold text-4xl leading-[45px] text-center">Our Satisfied Clients<br>From Worldwide Company
+            <h2 class="font-bold text-4xl leading-[45px] text-center">Klien Kami yang Puas<br>Dari Berbagai Perusahaan
             </h2>
         </div>
         <div class="main-carousel w-full">
@@ -276,9 +276,10 @@
                 <p
                     class="badge w-fit bg-cp-pale-blue text-cp-light-blue p-[8px_16px] rounded-full uppercase font-bold text-sm">
                     Sertifikasi Kami</p>
-                <h2 class="font-bold text-4xl leading-[45px]">We’ve Dedicated Our<br>Best Team Efforts</h2>
+                <h2 class="font-bold text-4xl leading-[45px]">Kami Mendedikasikan Upaya Terbaik<br>Dari Tim Kami</h2>
             </div>
-            <a href="" class="bg-cp-black p-[14px_20px] w-fit rounded-xl font-bold text-white">Explore More</a>
+            <a href="" class="bg-cp-black p-[14px_20px] w-fit rounded-xl font-bold text-white">Jelajahi Lebih
+                Lanjut</a>
         </div>
         <div
             class="awards-card-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[30px] justify-center">
@@ -300,27 +301,89 @@
             <div class="flex flex-col lg:flex-row gap-[50px] sm:gap-[70px] items-center">
                 <div class="flex flex-col gap-[30px]">
                     <div class="flex flex-col gap-[10px]">
-                        <h2 class="font-bold text-4xl leading-[45px]">Frequently Asked Questions</h2>
+                        <h2 class="font-bold text-4xl leading-[45px]">Pertanyaan yang Sering Ditanyakan</h2>
                     </div>
                     <a href="{{ route('front.appointment') }}"
-                        class="p-5 bg-cp-black rounded-xl text-white w-fit font-bold">Contact
-                        Us</a>
+                        class="p-5 bg-cp-black rounded-xl text-white w-fit font-bold">Hubungi Kami</a>
                 </div>
                 <div class="flex flex-col gap-[30px] sm:w-[603px] shrink-0">
+                    <!-- FAQ 2 -->
                     <div class="flex flex-col p-5 rounded-2xl bg-white w-full">
                         <button class="accordion-button flex justify-between gap-1 items-center"
-                            data-accordion="accordion-faq-1">
-                            <span class="font-bold text-lg leading-[27px] text-left">Can installments be beneficial for
-                                both?</span>
+                            data-accordion="accordion-faq-2">
+                            <span class="font-bold text-lg leading-[27px] text-left">
+                                Apakah perusahaan menerima proyek custom sesuai kebutuhan klien?
+                            </span>
                             <div class="arrow w-9 h-9 flex shrink-0">
                                 <img src="{{ asset('assets/icons/arrow-circle-down.svg') }}"
                                     class="transition-all duration-300" alt="icon">
                             </div>
                         </button>
-                        <div id="accordion-faq-1" class="accordion-content hide">
-                            <p class="leading-[30px] text-cp-light-grey pt-[14px]">We want to protect our and clients
-                                assets to the max level so that we chose the best one from Jakarta, Indonesia will also
-                                protect post building finished completed ahead one.</p>
+                        <div id="accordion-faq-2" class="accordion-content hide">
+                            <p class="leading-[30px] text-cp-light-grey pt-[14px]">
+                                Ya, kami melayani proyek custom mulai dari desain, perhitungan struktur, hingga fabrikasi
+                                sesuai spesifikasi teknis dan kebutuhan klien.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="flex flex-col p-5 rounded-2xl bg-white w-full">
+                        <button class="accordion-button flex justify-between gap-1 items-center"
+                            data-accordion="accordion-faq-3">
+                            <span class="font-bold text-lg leading-[27px] text-left">
+                                Berapa lama waktu pengerjaan proyek konstruksi baja?
+                            </span>
+                            <div class="arrow w-9 h-9 flex shrink-0">
+                                <img src="{{ asset('assets/icons/arrow-circle-down.svg') }}"
+                                    class="transition-all duration-300" alt="icon">
+                            </div>
+                        </button>
+                        <div id="accordion-faq-3" class="accordion-content hide">
+                            <p class="leading-[30px] text-cp-light-grey pt-[14px]">
+                                Durasi tergantung skala dan kompleksitas proyek, namun umumnya 30–120 hari dengan target
+                                penyelesaian tepat waktu.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="flex flex-col p-5 rounded-2xl bg-white w-full">
+                        <button class="accordion-button flex justify-between gap-1 items-center"
+                            data-accordion="accordion-faq-4">
+                            <span class="font-bold text-lg leading-[27px] text-left">
+                                Apakah material baja yang digunakan sudah sesuai standar?
+                            </span>
+                            <div class="arrow w-9 h-9 flex shrink-0">
+                                <img src="{{ asset('assets/icons/arrow-circle-down.svg') }}"
+                                    class="transition-all duration-300" alt="icon">
+                            </div>
+                        </button>
+                        <div id="accordion-faq-4" class="accordion-content hide">
+                            <p class="leading-[30px] text-cp-light-grey pt-[14px]">
+                                Semua material telah memenuhi standar SNI dan spesifikasi teknis untuk memastikan kekuatan
+                                dan ketahanan jangka panjang.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 5 -->
+                    <div class="flex flex-col p-5 rounded-2xl bg-white w-full">
+                        <button class="accordion-button flex justify-between gap-1 items-center"
+                            data-accordion="accordion-faq-5">
+                            <span class="font-bold text-lg leading-[27px] text-left">
+                                Bagaimana cara memulai konsultasi atau pemesanan proyek?
+                            </span>
+                            <div class="arrow w-9 h-9 flex shrink-0">
+                                <img src="{{ asset('assets/icons/arrow-circle-down.svg') }}"
+                                    class="transition-all duration-300" alt="icon">
+                            </div>
+                        </button>
+                        <div id="accordion-faq-5" class="accordion-content hide">
+                            <p class="leading-[30px] text-cp-light-grey pt-[14px]">
+                                Anda dapat menghubungi kami melalui WhatsApp, email, atau formulir kontak. Tim kami akan
+                                melakukan konsultasi awal dan memberikan penawaran resmi.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -329,15 +392,14 @@
     </div>
 
     <x-footer />
+
     <div id="video-modal" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative p-4 w-full lg:w-1/2 max-h-full">
-            <!-- Modal content -->
             <div class="relative bg-white rounded-[20px] overflow-hidden shadow">
-                <!-- Modal header -->
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                     <h3 class="text-xl font-semibold text-cp-black">
-                        Company Profile Video
+                        Video Profil Perusahaan
                     </h3>
                     <button type="button"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
@@ -347,12 +409,10 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                         </svg>
-                        <span class="sr-only">Close modal</span>
+                        <span class="sr-only">Tutup modal</span>
                     </button>
                 </div>
-                <!-- Modal body -->
-                <div class="">
-                    <!-- video src added from the js script (modal-video.js) to prevent video running in the backgroud -->
+                <div>
                     <iframe id="videoFrame" class="aspect-[16/9]" width="100%" src=""
                         title="Demo Project Laravel Portfolio" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -367,7 +427,6 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-    <!-- JavaScript -->
     <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
     <script src="https://unpkg.com/flickity-fade@1/flickity-fade.js"></script>
     <script src="{{ asset('js/carousel.js') }}"></script>

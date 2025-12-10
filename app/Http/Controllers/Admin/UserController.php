@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Request;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -15,15 +16,28 @@ class UserController extends Controller
     /**
      * Display a listing of the users (owner & pekerja).
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::whereHas('roles', function($q) {
-            $q->whereIn('name', ['owner', 'pekerja']);
-        })->orderByDesc('id')->paginate(10);
+        $search = request('search');
+
+        $users = User::query()
+            ->whereHas('roles', function ($q) {
+                $q->whereIn('name', ['owner', 'pekerja']);
+            })
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhereHas('roles', function ($roleQuery) use ($search) {
+                            $roleQuery->where('name', 'like', "%{$search}%");
+                    });
+                });
+            })
+            ->orderByDesc('id')
+            ->paginate(10);
 
         return view('admin.users.index', compact('users'));
     }
-
     /**
      * Show the form for creating a new user.
      */
