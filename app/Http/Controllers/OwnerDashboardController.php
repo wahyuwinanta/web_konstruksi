@@ -72,5 +72,23 @@ class OwnerDashboardController extends Controller
         return view('owner.projects.show', compact('project', 'progress'));
     }
 
+    public function changeStatus(Request $request, Project $project)
+    {
+        // Hanya owner proyek atau user role owner
+        if (Auth::id() !== $project->created_by && !Auth::user()->hasRole('owner')) {
+            abort(403, 'Unauthorized');
+        }
+
+        $validated = $request->validate([
+            'status' => ['required', 'in:pending,on_progress,completed'],
+        ]);
+
+        $project->update([
+            'status' => $validated['status']
+        ]);
+
+        return back()->with('success', 'Status proyek berhasil diubah.');
+    }
+
 
 }

@@ -54,8 +54,27 @@
                             {{ $status['label'] }}
                         </span>
 
+                        <form action="{{ route('owner.projects.changeStatus', $project->id) }}" method="POST"
+                            class="flex items-center gap-2 mt-2">
+                            @csrf
+                            @method('PATCH')
+
+                            <select name="status"
+                                class="px-3 py-2 rounded-lg bg-white text-gray-800 border border-white/30 shadow-sm focus:ring-2 focus:ring-indigo-400">
+                                <option value="pending">Menunggu</option>
+                                <option value="on_progress">Sedang Berjalan</option>
+                                <option value="completed">Selesai</option>
+                            </select>
+
+                            <button
+                                class="px-4 py-2 rounded-lg bg-indigo-500 text-white font-semibold hover:bg-indigo-600 shadow-md transition">
+                                Update
+                            </button>
+                        </form>
+
+
                         <h1 class="text-2xl sm:text-3xl font-bold mb-2 leading-tight">
-                            {{ $project->project_name }}
+                            <br> {{ $project->project_name }}
                         </h1>
                         <p class="text-indigo-100 text-sm">ID Proyek: #{{ $project->id }}</p>
                     </div>
