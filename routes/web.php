@@ -107,6 +107,10 @@ Route::middleware(['auth', 'role:owner'])
         // Projects (navbar expects route('pekerja.projects'))
         Route::get('/projects', [OwnerDashboardController::class, 'myProjects'])
             ->name('projects');
+        
+        Route::patch('/projects/{project}/change-status', 
+            [OwnerDashboardController::class, 'changeStatus'])
+            ->name('projects.changeStatus');
 
         Route::get('/projects/{project}', [OwnerDashboardController::class, 'myProjectShow'])
             ->name('projects.show');
