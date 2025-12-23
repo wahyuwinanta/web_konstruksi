@@ -47,4 +47,10 @@ class Project extends Model
     {
         return $this->belongsToMany(User::class, 'project_workers');
     }
+
+    public function notes()
+    {
+        return $this->hasMany(ProjectNote::class);
+    }
+
 }

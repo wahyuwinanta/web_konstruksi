@@ -65,7 +65,7 @@
             </div>
         </div>
     </div>
-    <div id="Awards" class="container max-w-[1130px] mx-auto flex flex-col gap-[30px] mt-20">
+    {{-- <div id="Awards" class="container max-w-[1130px] mx-auto flex flex-col gap-[30px] mt-20">
         <div class="flex items-center justify-between">
             <div class="flex flex-col gap-[14px]">
                 <p
@@ -89,6 +89,6 @@
                 <p class="text-cp-light-grey">Bali, 2020</p>
             </div>
         </div>
-    </div>
+    </div> --}}
     <x-footer />
 @endsection

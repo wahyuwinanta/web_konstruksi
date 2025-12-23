@@ -14,16 +14,16 @@
             class="{{ request()->routeIs('front.index') ? 'text-cp-dark-blue' : '' }} font-semibold hover:text-cp-dark-blue transition-all duration-300">
             <a href="{{ route('front.index') }}">Beranda</a>
         </li>
-        <li class="font-semibold hover:text-cp-dark-blue transition-all duration-300">
+        {{-- <li class="font-semibold hover:text-cp-dark-blue transition-all duration-300">
             <a href="">Produk</a>
-        </li>
+        </li> --}}
         <li
             class="{{ request()->routeIs('front.team') ? 'text-cp-dark-blue' : '' }} font-semibold hover:text-cp-dark-blue transition-all duration-300">
             <a href="{{ route('front.team') }}">Tim</a>
         </li>
-        <li class="font-semibold hover:text-cp-dark-blue transition-all duration-300">
+        {{-- <li class="font-semibold hover:text-cp-dark-blue transition-all duration-300">
             <a href="">Testimoni</a>
-        </li>
+        </li> --}}
         <li
             class="{{ request()->routeIs('front.about') ? 'text-cp-dark-blue' : '' }} font-semibold hover:text-cp-dark-blue transition-all duration-300">
             <a href="{{ route('front.about') }}">Tentang Kami</a>

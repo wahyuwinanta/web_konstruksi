@@ -43,9 +43,18 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $employees = User::role('pekerja')->where('is_active', 1)->get();
+        $employees = User::role('pekerja')
+            ->where('is_active', 1)
+            ->withCount([
+                'projects as active_projects_count' => function ($q) {
+                    $q->where('status', 'on_progress');
+                }
+            ])
+            ->get();
+
         return view('admin.projects.create', compact('employees'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -65,15 +74,19 @@ class ProjectController extends Controller
             'design_file'    => 'nullable|file|mimes:pdf,jpg,jpeg,png',
             'employees'      => 'nullable|array',
             'employees.*'    => 'exists:users,id',
+            'notes'          => 'nullable|string',
         ]);
 
         DB::transaction(function () use ($validated, $request) {
-            // Upload files jika ada
+
             if ($request->hasFile('rab_file')) {
-                $validated['rab_file'] = $request->file('rab_file')->store('projects/rab', 'public');
+                $validated['rab_file'] =
+                    $request->file('rab_file')->store('projects/rab', 'public');
             }
+
             if ($request->hasFile('design_file')) {
-                $validated['design_file'] = $request->file('design_file')->store('projects/designs', 'public');
+                $validated['design_file'] =
+                    $request->file('design_file')->store('projects/designs', 'public');
             }
 
             $project = Project::create([
@@ -88,17 +101,21 @@ class ProjectController extends Controller
                 'rab_file'       => $validated['rab_file'] ?? null,
                 'design_file'    => $validated['design_file'] ?? null,
                 'created_by'     => Auth::id(),
-                'approved_by'    => $validated['approved_by'] ?? null,
             ]);
 
-            // Assign pegawai jika ada
+            if ($request->filled('notes')) {
+                $project->notes()->create([
+                    'user_id' => auth()->id(),
+                    'note'    => $request->notes,
+                ]);
+            }
+
             if (!empty($validated['employees'])) {
                 foreach ($validated['employees'] as $user_id) {
                     ProjectAssignment::create([
-                        'project_id'       => $project->id,
-                        'user_id'          => $user_id,
-                        'assigned_date'    => now(),
-                        'task_description' => null,
+                        'project_id'    => $project->id,
+                        'user_id'       => $user_id,
+                        'assigned_date' => now(),
                     ]);
                 }
             }
@@ -119,19 +136,34 @@ class ProjectController extends Controller
             }
         });
 
-        return redirect()->route('admin.projects.index')->with('success', 'Project created successfully.');
+        return redirect()->route('admin.projects.index')
+            ->with('success', 'Project created successfully');
     }
+
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Project $project)
     {
-        $employees = User::role('pekerja')->where('is_active', 1)->get();
+        $employees = User::role('pekerja')
+            ->where('is_active', 1)
+            ->withCount([
+                'projects as active_projects_count' => function ($q) {
+                    $q->where('status', 'on_progress');
+                }
+            ])
+            ->get();
+
         $assignedEmployees = $project->assignments()->pluck('user_id')->toArray();
 
-        return view('admin.projects.edit', compact('project', 'employees', 'assignedEmployees'));
+        return view('admin.projects.edit', compact(
+            'project',
+            'employees',
+            'assignedEmployees'
+        ));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -150,25 +182,40 @@ class ProjectController extends Controller
             'rab_file'       => 'nullable|file|mimes:pdf,doc,docx',
             'design_file'    => 'nullable|file|mimes:pdf,jpg,jpeg,png',
             'employees'      => 'nullable|array',
-            'employees.*'    => 'integer|exists:users,id',
+            'employees.*'    => 'exists:users,id',
+            'notes'          => 'nullable|string',
         ]);
 
-        DB::transaction(function () use ($validated, $project, $request) {
-            // Upload file baru jika ada
+        DB::transaction(function () use ($validated, $request, $project) {
+
             if ($request->hasFile('rab_file')) {
-                if ($project->rab_file) Storage::disk('public')->delete($project->rab_file);
-                $validated['rab_file'] = $request->file('rab_file')->store('projects/rab', 'public');
+                Storage::disk('public')->delete($project->rab_file);
+                $validated['rab_file'] =
+                    $request->file('rab_file')->store('projects/rab', 'public');
             }
+
             if ($request->hasFile('design_file')) {
-                if ($project->design_file) Storage::disk('public')->delete($project->design_file);
-                $validated['design_file'] = $request->file('design_file')->store('projects/designs', 'public');
+                Storage::disk('public')->delete($project->design_file);
+                $validated['design_file'] =
+                    $request->file('design_file')->store('projects/designs', 'public');
             }
             $oldEmployees = $project->assignments()->pluck('user_id')->toArray();
             $newEmployees = $validated['employees'] ?? [];
             $addedEmployees = array_diff($newEmployees, $oldEmployees);
-            $project->update($validated);
+            
+            $project->update(
+                collect($validated)->except(['employees', 'notes'])->toArray()
+            );
 
-            // Update assignments
+            // NOTE BARU (HISTORI)
+            if ($request->filled('notes')) {
+                $project->notes()->create([
+                    'user_id' => auth()->id(),
+                    'note'    => $request->notes,
+                ]);
+            }
+
+            // UPDATE ASSIGNMENT
             if (isset($validated['employees'])) {
                 $project->assignments()->delete();
                 foreach ($validated['employees'] as $user_id) {
@@ -190,8 +237,10 @@ class ProjectController extends Controller
             }
         });
 
-        return redirect()->route('admin.projects.index')->with('success', 'Project updated successfully.');
+        return redirect()->route('admin.projects.index')
+            ->with('success', 'Project updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -227,7 +276,8 @@ class ProjectController extends Controller
 
         // Load progress beserta images
         $progress = $project->progress()->with('images')->orderBy('created_at', 'desc')->get();
-
+        $project->load('notes.user');
+        
         return view('pekerja.projects.show', compact('project', 'progress'));
     }
 
@@ -246,5 +296,19 @@ class ProjectController extends Controller
             'recentProjects'    => $projects->sortByDesc('id')->take(4),
             'unreadCount'       => $unreadCount,
         ]);
+    }
+
+    public function addNote(Request $request, Project $project)
+    {
+        $request->validate([
+            'note' => 'required|string',
+        ]);
+
+        $project->notes()->create([
+            'user_id' => auth()->id(),
+            'note'    => $request->note,
+        ]);
+
+        return back()->with('success', 'Catatan berhasil ditambahkan');
     }
 }

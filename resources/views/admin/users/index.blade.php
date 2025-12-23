@@ -17,7 +17,43 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div
                 class="bg-white shadow-md sm:rounded-2xl p-10 border border-gray-100 space-y-6 transition-all duration-300 ease-in-out">
-                <x-search-bar action="{{ route('admin.users.index') }}" />
+                <div
+                    class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6
+           bg-gray-50 border border-gray-200 rounded-2xl p-4 shadow-sm">
+
+                    {{-- Search --}}
+                    <div class="flex-1">
+                        <x-search-bar action="{{ route('admin.users.index') }}" />
+                    </div>
+
+                    {{-- Sort --}}
+                    <form method="GET" action="{{ route('admin.users.index') }}"
+                        class="flex items-center gap-2 bg-white border border-gray-300 rounded-xl px-3 py-2 shadow-sm">
+
+                        @if (request('search'))
+                            <input type="hidden" name="search" value="{{ request('search') }}">
+                        @endif
+
+                        <span class="text-xs text-gray-500 font-medium whitespace-nowrap">
+                            Sort by
+                        </span>
+
+                        <select name="sort" onchange="this.form.submit()"
+                            class="border-none focus:ring-0 text-sm font-semibold text-indigo-700 bg-transparent pr-6">
+                            <option value="">Default</option>
+                            <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Name (A–Z)
+                            </option>
+                            <option value="name_desc" {{ request('sort') == 'name_desc' ? 'selected' : '' }}>Name (Z–A)
+                            </option>
+                            <option value="date_desc" {{ request('sort') == 'date_desc' ? 'selected' : '' }}>Newest
+                            </option>
+                            <option value="date_asc" {{ request('sort') == 'date_asc' ? 'selected' : '' }}>Oldest
+                            </option>
+                        </select>
+                    </form>
+                </div>
+
+
                 {{-- Loop Data Users --}}
                 @forelse ($users as $user)
                     <div

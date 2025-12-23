@@ -131,6 +131,10 @@ Route::middleware(['auth', 'role:owner'])
         // Profile
         Route::get('/profile', [ProfileController::class, 'editOwner'])
             ->name('profile');
+
+        Route::post('/projects/{project}/notes', [ProjectController::class, 'addNote'])
+            ->name('projects.notes.store');
+
     });
 
 Route::middleware(['auth', 'role:owner'])
@@ -187,6 +191,10 @@ Route::middleware(['auth', 'role:pekerja'])
         // Profile (navbar expects route('pekerja.profile'))
         Route::get('/profile', [ProfileController::class, 'editPekerja'])
             ->name('profile');
+
+        Route::post('/pekerja/projects/{project}/notes',[ProjectController::class, 'addNote'])
+            ->name('pekerja.projects.add-note');
+
     });
 
 // Profile Routes

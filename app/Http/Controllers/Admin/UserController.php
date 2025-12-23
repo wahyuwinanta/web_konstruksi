@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -18,7 +19,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $search = request('search');
+        $search = $request->input('search');
+        $sort = $request->input('sort');
 
         $users = User::query()
             ->whereHas('roles', function ($q) {
@@ -29,15 +31,27 @@ class UserController extends Controller
                     $q->where('name', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%")
                     ->orWhereHas('roles', function ($roleQuery) use ($search) {
-                            $roleQuery->where('name', 'like', "%{$search}%");
+                        $roleQuery->where('name', 'like', "%{$search}%");
                     });
                 });
             })
-            ->orderByDesc('id')
-            ->paginate(10);
+            ->when($sort, function ($query) use ($sort) {
+                match ($sort) {
+                    'name_asc'  => $query->orderBy('name', 'asc'),
+                    'name_desc' => $query->orderBy('name', 'desc'),
+                    'date_asc'  => $query->orderBy('created_at', 'asc'),
+                    'date_desc' => $query->orderBy('created_at', 'desc'),
+                    default     => $query->orderByDesc('id'),
+                };
+            }, function ($query) {
+                $query->orderByDesc('id'); // default
+            })
+            ->paginate(10)
+            ->withQueryString();
 
         return view('admin.users.index', compact('users'));
     }
+
     /**
      * Show the form for creating a new user.
      */
@@ -108,6 +122,4 @@ class UserController extends Controller
         $status = $user->is_active ? 'activated' : 'deactivated';
         return redirect()->route('admin.users.index')->with('success', "User $status successfully.");
     }
-
-
 }
