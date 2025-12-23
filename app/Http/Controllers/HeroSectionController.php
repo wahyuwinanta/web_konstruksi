@@ -36,7 +36,7 @@ class HeroSectionController extends Controller
             $validated = $request->validated();
 
             if ($request->hasFile('banner')) {
-                $bannerPath = $request->file('banner')->store('banners', 'public');
+                $bannerPath = $request->file('banner')->store('banners', config('filesystems.default_public_disk'));
                 $validated['banner'] = $bannerPath;
             }
             $newHeroSection = HeroSection::create($validated);
@@ -70,7 +70,7 @@ class HeroSectionController extends Controller
             $validated = $request->validated();
 
             if ($request->hasFile('banner')) {
-                $bannerPath = $request->file('banner')->store('banners', 'public');
+                $bannerPath = $request->file('banner')->store('banners', config('filesystems.default_public_disk'));
                 $validated['banner'] = $bannerPath;
             }
             $heroSection->update($validated);
