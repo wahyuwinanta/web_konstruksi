@@ -22,10 +22,11 @@
                 @forelse ($hero_sections as $hero_section)
                     <div
                         class="item-card flex flex-col md:flex-row justify-between items-start md:items-center bg-gray-50 hover:bg-gray-100 transition rounded-xl p-5 border border-gray-200 shadow-sm hover:-translate-y-1 hover:shadow-lg duration-300 ease-in-out">
-                        
+
                         {{-- Banner & Heading --}}
                         <div class="flex flex-row items-center gap-x-5">
-                            <img src="{{ Storage::url($hero_section->banner) }}" alt="{{ $hero_section->heading }}"
+                            <img src="{{ Storage::url('storage/' . $hero_section->banner) }}"
+                                alt="{{ $hero_section->heading }}"
                                 class="rounded-xl object-cover w-[90px] h-[90px] shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105">
                             <div>
                                 <h3 class="text-indigo-950 text-xl font-bold leading-tight">
