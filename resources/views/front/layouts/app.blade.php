@@ -22,7 +22,7 @@
     {{-- HALAMAN --}}
     @yield('content')
 
-    <x-whatsapp-bubble number="6289636495853"
+    <x-whatsapp-bubble number="6281320534811"
         message="Halo kak, saya ingin bertanya tentang layanan CV. Mulia Mandiri Konstruksi." />
 
     @stack('before-scripts')

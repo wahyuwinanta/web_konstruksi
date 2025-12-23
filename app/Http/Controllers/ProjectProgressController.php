@@ -14,34 +14,46 @@ class ProjectProgressController extends Controller
 {
     public function store(Request $request, Project $project)
     {
-        // Logging payload untuk debugging
         Log::info('FINAL DATA SIAP INSERT', [
             'project_id' => $project->id ?? null,
             'payload' => $request->all()
         ]);
 
-        // Validasi request
+        // 1. Validasi dasar
         $validated = $request->validate([
             'description' => 'required|string',
             'percentage' => 'nullable|integer|min:0|max:100',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
-        // Siapkan data progress
-        $progressData = [
+        // 2. Ambil progress terakhir (state sebelumnya)
+        $lastPercentage = ProjectProgress::where('project_id', $project->id)
+            ->orderBy('created_at', 'desc')
+            ->value('progress_percentage') ?? 0;
+
+        // 3. Tentukan progress baru
+        $newPercentage = $validated['percentage'] ?? $lastPercentage;
+
+        // 4. Cegah progress mundur
+        if ($newPercentage < $lastPercentage) {
+            return back()
+                ->withErrors([
+                    'percentage' => "Progress tidak boleh lebih kecil dari progress sebelumnya ({$lastPercentage}%)"
+                ])
+                ->withInput();
+        }
+
+        // 5. Simpan progress
+        $progress = ProjectProgress::create([
             'project_id' => $project->id,
             'user_id' => Auth::id(),
             'progress_description' => $validated['description'],
-            'progress_percentage' => $validated['percentage'] ?? null,
-        ];
+            'progress_percentage' => $newPercentage,
+        ]);
 
-        // Simpan progress
-        $progress = ProjectProgress::create($progressData);
-
-        // Jika ada file image, simpan
+        // 6. Simpan gambar jika ada
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = $file->store('progress_images', 'public');
+            $path = $request->file('image')->store('progress_images', 'public');
 
             ProjectProgressImage::create([
                 'progress_id' => $progress->id,
@@ -49,7 +61,7 @@ class ProjectProgressController extends Controller
             ]);
         }
 
-        // Kirim notifikasi ke owner proyek
+        // 7. Notifikasi owner proyek
         Notification::create([
             'user_id' => $project->created_by,
             'title' => 'Progress Baru Ditambahkan',
@@ -58,10 +70,11 @@ class ProjectProgressController extends Controller
             'is_read' => false,
         ]);
 
-        return redirect()->route('pekerja.projects.show', $project->id)
+        return redirect()
+            ->route('pekerja.projects.show', $project->id)
             ->with('success', 'Progress berhasil ditambahkan');
-
     }
+
 
     public function show(Project $project)
     {

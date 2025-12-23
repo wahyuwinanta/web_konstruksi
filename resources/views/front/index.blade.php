@@ -69,8 +69,6 @@
                     Prinsip Kerja yang Kami Pegang Teguh</p>
                 <h2 class="font-bold text-4xl leading-[45px]">Kami Adalah Pilihan Terbaik<br> Untuk Perusahaan Anda</h2>
             </div>
-            <a href="" class="bg-cp-black p-[14px_20px] w-fit rounded-xl font-bold text-white">Jelajahi Lebih
-                Lanjut</a>
         </div>
         <div class="flex flex-wrap items-center gap-[30px] justify-center">
             @forelse ($principles as $principle)
@@ -213,10 +211,10 @@
                     class="carousel-card container max-w-[1130px] w-full flex flex-wrap justify-between items-center lg:mx-[calc((100vw-1130px)/2)]">
                     <div class="testimonial-container flex flex-col gap-[112px] w-[565px]">
                         <div class="flex flex-col gap-[30px]">
-                            <div class="h-9 overflow-hidden">
+                            {{-- <div class="h-9 overflow-hidden">
                                 <img src="{{ Storage::url($testimonial->client->logo) }}" class="object-contain"
                                     alt="icon">
-                            </div>
+                            </div> --}}
                             <div class="relative pt-[27px] pl-[30px]">
                                 <div class="absolute top-0 left-0">
                                     <img src="{{ asset('assets/icons/quote.svg') }}" alt="icon">
@@ -270,7 +268,7 @@
         </div>
     </div>
 
-    <div id="Awards" class="container max-w-[1130px] mx-auto flex flex-col gap-[30px] mt-20">
+    {{-- <div id="Awards" class="container max-w-[1130px] mx-auto flex flex-col gap-[30px] mt-20">
         <div class="flex items-center justify-between">
             <div class="flex flex-col gap-[14px]">
                 <p
@@ -278,8 +276,6 @@
                     Sertifikasi Kami</p>
                 <h2 class="font-bold text-4xl leading-[45px]">Kami Mendedikasikan Upaya Terbaik<br>Dari Tim Kami</h2>
             </div>
-            <a href="" class="bg-cp-black p-[14px_20px] w-fit rounded-xl font-bold text-white">Jelajahi Lebih
-                Lanjut</a>
         </div>
         <div
             class="awards-card-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[30px] justify-center">
@@ -294,7 +290,7 @@
                 <p class="text-cp-light-grey">Bali, 2020</p>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <div id="FAQ" class="bg-[#F6F7FA] w-full py-20 px-[10px] mt-20 -mb-20">
         <div class="container max-w-[1000px] mx-auto">

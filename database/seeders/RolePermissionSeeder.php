@@ -45,12 +45,6 @@ class RolePermissionSeeder extends Seeder
         // Berikan semua permission ke super_admin
         $superAdminRole->syncPermissions($permissions);
 
-        // // Misal owner hanya dapat manage products & clients
-        // $ownerRole->syncPermissions(['manage products', 'manage clients']);
-
-        // // Pekerja bisa diberi permission lebih terbatas, misal manage appointments
-        // $pekerjaRole->syncPermissions(['manage appointments']);
-
         // Buat user super admin
         $superAdminUser = User::firstOrCreate(
             ['email' => 'wahyu@gmail.com'],
@@ -60,25 +54,5 @@ class RolePermissionSeeder extends Seeder
             ]
         );
         $superAdminUser->assignRole($superAdminRole);
-
-        // // Contoh buat user owner
-        // $ownerUser = User::firstOrCreate(
-        //     ['email' => 'owner@gmail.com'],
-        //     [
-        //         'name' => 'Owner Example',
-        //         'password' => bcrypt('password'),
-        //     ]
-        // );
-        // $ownerUser->assignRole($ownerRole);
-
-        // // Contoh buat user pekerja
-        // $pekerjaUser = User::firstOrCreate(
-        //     ['email' => 'pekerja@gmail.com'],
-        //     [
-        //         'name' => 'Pekerja Example',
-        //         'password' => bcrypt('password'),
-        //     ]
-        // );
-        // $pekerjaUser->assignRole($pekerjaRole);
     }
 }

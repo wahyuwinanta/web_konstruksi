@@ -13,27 +13,27 @@
                 <span class="text-cp-light-grey">/</span>
                 <p class="text-cp-light-grey last-of-type:text-cp-black last-of-type:font-semibold">Product</p>
                 <span class="text-cp-light-grey">/</span>
-                <p class="text-cp-light-grey last-of-type:text-cp-black last-of-type:font-semibold">Appointment</p>
+                <p class="text-cp-light-grey last-of-type:text-cp-black last-of-type:font-semibold">Pesan</p>
             </div>
-            <h1 class="font-extrabold text-4xl leading-[45px]">We Help You to Build Awesome Project</h1>
+            <h1 class="font-extrabold text-4xl leading-[45px]">Kami Membantu Anda Membangun Proyek yang Luar Biasa</h1>
             <div class="flex flex-col gap-5">
                 <div class="flex items-center gap-[10px]">
                     <div class="w-6 h-6 flex shrink-0">
                         <img src="assets/icons/global.svg" alt="icon">
                     </div>
-                    <p class="text-cp-dark-blue font-semibold">No 96, Anggapati Jakarta</p>
+                    <p class="text-cp-dark-blue font-semibold">Jl. Kadurama, Kec. Ciawigebang, Kuningan</p>
                 </div>
                 <div class="flex items-center gap-[10px]">
                     <div class="w-6 h-6 flex shrink-0">
                         <img src="assets/icons/call.svg" alt="icon">
                     </div>
-                    <p class="text-cp-dark-blue font-semibold">(021) 22081996</p>
+                    <p class="text-cp-dark-blue font-semibold">+6281320534811</p>
                 </div>
                 <div class="flex items-center gap-[10px]">
                     <div class="w-6 h-6 flex shrink-0">
                         <img src="assets/icons/monitor-mobbile.svg" alt="icon">
                     </div>
-                    <p class="text-cp-dark-blue font-semibold">shaynacomp.com</p>
+                    <p class="text-cp-dark-blue font-semibold">muliamandirikonstruksi.id</p>
                 </div>
             </div>
         </div>
@@ -174,8 +174,8 @@
                     <div class="testimonial-container flex flex-col gap-[112px] w-[565px]">
                         <div class="flex flex-col gap-[30px]">
                             <div class="h-9 overflow-hidden">
-                                <img src="{{ Storage::url($testimonial->client->logo) }}" class="object-contain"
-                                    alt="icon">
+                                {{-- <img src="{{ Storage::url($testimonial->client->logo) }}" class="object-contain"
+                                    alt="icon"> --}}
                             </div>
                             <div class="relative pt-[27px] pl-[30px]">
                                 <div class="absolute top-0 left-0">

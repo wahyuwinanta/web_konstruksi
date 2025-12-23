@@ -166,6 +166,48 @@
             </div>
         </div>
 
+        {{-- Project Notes (View Only) --}}
+        {{-- @if ($project->notes->count()) --}}
+        <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+            <div class="bg-gradient-to-r from-yellow-50 to-amber-50 px-6 py-4 border-b border-amber-100">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 8h10M7 12h6m-6 4h10M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H9l-4 4v10a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-bold text-gray-900">Catatan Proyek</h2>
+                        <p class="text-xs text-gray-600">
+                            Informasi dari admin / manajer proyek
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6 space-y-4">
+                @foreach ($project->notes as $note)
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+                        <p class="text-sm text-gray-800 whitespace-pre-line">
+                            {{ $note->note }}
+                        </p>
+
+                        <div class="flex justify-between items-center mt-3 text-xs text-gray-500">
+                            <span>
+                                Oleh: <strong>{{ $note->user->name ?? 'Admin' }}</strong>
+                            </span>
+                            <span>
+                                {{ $note->created_at->format('d M Y, H:i') }}
+                            </span>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        {{-- @endif --}}
+
         <!-- Update Progress -->
         <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
             <div class="bg-gradient-to-r from-indigo-50 to-purple-50 px-6 py-4 border-b border-indigo-100">
@@ -202,9 +244,20 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Persentase Progress (%)</label>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Persentase Progress (%)
+                    </label>
+
                     <input type="number" name="percentage" min="0" max="100"
-                        class="w-full border-2 border-gray-200 rounded-xl px-4 py-3 text-sm" placeholder="Contoh: 40">
+                        value="{{ old('percentage') }}" placeholder="Contoh: 25"
+                        class="w-full border-2 rounded-xl px-4 py-3 text-sm
+                  @error('percentage') border-red-500 @else border-gray-200 @enderror">
+
+                    @error('percentage')
+                        <p class="mt-2 text-sm text-red-600">
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
                 <button type="submit"
