@@ -53,7 +53,7 @@ class ProjectProgressController extends Controller
 
         // 6. Simpan gambar jika ada
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('progress_images', 'public');
+            $path = $request->file('image')->store('progress_images', config('filesystems.default_public_disk'));
 
             ProjectProgressImage::create([
                 'progress_id' => $progress->id,

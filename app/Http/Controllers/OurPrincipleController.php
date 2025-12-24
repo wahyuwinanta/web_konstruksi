@@ -36,12 +36,12 @@ class OurPrincipleController extends Controller
             $validated = $request->validated();
 
             if ($request->hasFile('icon')) {
-                $iconPath = $request->file('icon')->store('icons', 'public');
+                $iconPath = $request->file('icon')->store('icons', config('filesystems.default_public_disk'));
                 $validated['icon'] = $iconPath;
             }
             
             if ($request->hasFile('thumbnail')) {
-                $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
+                $thumbnailPath = $request->file('thumbnail')->store('thumbnails', config('filesystems.default_public_disk'));
                 $validated['thumbnail'] = $thumbnailPath;
             }
             $newPrinciple = OurPrinciple::create($validated);
@@ -75,12 +75,12 @@ class OurPrincipleController extends Controller
             $validated = $request->validated();
 
             if ($request->hasFile('icon')) {
-                $iconPath = $request->file('icon')->store('icons', 'public');
+                $iconPath = $request->file('icon')->store('icons', config('filesystems.default_public_disk'));
                 $validated['icon'] = $iconPath;
             }
             
             if ($request->hasFile('thumbnail')) {
-                $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
+                $thumbnailPath = $request->file('thumbnail')->store('thumbnails', config('filesystems.default_public_disk'));
                 $validated['thumbnail'] = $thumbnailPath;
             }
             $principle->update($validated);

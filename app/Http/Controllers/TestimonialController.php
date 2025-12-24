@@ -38,7 +38,7 @@ class TestimonialController extends Controller
             $validated = $request->validated();
 
             if ($request->hasFile('thumbnail')) {
-                $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
+                $thumbnailPath = $request->file('thumbnail')->store('thumbnails', config('filesystems.default_public_disk'));
                 $validated['thumbnail'] = $thumbnailPath;
             }
             $newTestimonial = Testimonial::create($validated);
@@ -73,7 +73,7 @@ class TestimonialController extends Controller
             $validated = $request->validated();
 
             if ($request->hasFile('thumbnail')) {
-                $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
+                $thumbnailPath = $request->file('thumbnail')->store('thumbnails', config('filesystems.default_public_disk'));
                 $validated['thumbnail'] = $thumbnailPath;
             }
             $testimonial->update($validated);

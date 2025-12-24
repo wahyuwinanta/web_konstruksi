@@ -38,7 +38,7 @@ class CompanyStatisticController extends Controller
         DB::transaction(function ()use ($request){
             $validated = $request->validated();
             if ($request->hasFile('icon')) {
-                $iconPath = $request->file('icon')->store('icons', 'public');
+                $iconPath = $request->file('icon')->store('icons', config('filesystems.default_public_disk'));
                 $validated['icon'] = $iconPath;
             }
             $newDataRecord = CompanyStatistic::create($validated);
@@ -72,7 +72,7 @@ class CompanyStatisticController extends Controller
             $validated = $request->validated();
 
             if ($request->hasFile('icon')) {
-                $iconPath = $request->file('icon')->store('icons', 'public');
+                $iconPath = $request->file('icon')->store('icons', config('filesystems.default_public_disk'));
                 $validated['icon'] = $iconPath;
             }
             $statistic->update($validated);

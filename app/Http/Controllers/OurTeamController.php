@@ -36,7 +36,7 @@ class OurTeamController extends Controller
             $validated = $request->validated();
 
             if ($request->hasFile('avatar')) {
-                $avatarPath = $request->file('avatar')->store('avatars', 'public');
+                $avatarPath = $request->file('avatar')->store('avatars', config('filesystems.default_public_disk'));
                 $validated['avatar'] = $avatarPath;
             }
             $newTeam = OurTeam::create($validated);
@@ -70,7 +70,7 @@ class OurTeamController extends Controller
             $validated = $request->validated();
 
             if ($request->hasFile('avatar')) {
-                $avatarPath = $request->file('avatar')->store('avatars', 'public');
+                $avatarPath = $request->file('avatar')->store('avatars', config('filesystems.default_public_disk'));
                 $validated['avatar'] = $avatarPath;
             }
             $team->update($validated);

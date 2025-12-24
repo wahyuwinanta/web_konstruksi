@@ -36,12 +36,12 @@ class ProjectClientController extends Controller
             $validated = $request->validated();
 
             if ($request->hasFile('avatar')) {
-                $avatarPath = $request->file('avatar')->store('avatars', 'public');
+                $avatarPath = $request->file('avatar')->store('avatars', config('filesystems.default_public_disk'));
                 $validated['avatar'] = $avatarPath;
             }
 
             if ($request->hasFile('logo')) {
-                $logoPath = $request->file('logo')->store('logos', 'public');
+                $logoPath = $request->file('logo')->store('logos', config('filesystems.default_public_disk'));
                 $validated['logo'] = $logoPath;
             }
             $newClient = ProjectClient::create($validated);
@@ -75,12 +75,12 @@ class ProjectClientController extends Controller
             $validated = $request->validated();
 
             if ($request->hasFile('avatar')) {
-                $avatarPath = $request->file('avatar')->store('avatars', 'public');
+                $avatarPath = $request->file('avatar')->store('avatars', config('filesystems.default_public_disk'));
                 $validated['avatar'] = $avatarPath;
             }
 
             if ($request->hasFile('logo')) {
-                $logoPath = $request->file('logo')->store('logos', 'public');
+                $logoPath = $request->file('logo')->store('logos', config('filesystems.default_public_disk'));
                 $validated['logo'] = $logoPath;
             }
             $client->update($validated);

@@ -81,12 +81,12 @@ class ProjectController extends Controller
 
             if ($request->hasFile('rab_file')) {
                 $validated['rab_file'] =
-                    $request->file('rab_file')->store('projects/rab', 'public');
+                    $request->file('rab_file')->store('projects/rab', config('filesystems.default_public_disk'));
             }
 
             if ($request->hasFile('design_file')) {
                 $validated['design_file'] =
-                    $request->file('design_file')->store('projects/designs', 'public');
+                    $request->file('design_file')->store('projects/designs', config('filesystems.default_public_disk'));
             }
 
             $project = Project::create([
@@ -189,15 +189,15 @@ class ProjectController extends Controller
         DB::transaction(function () use ($validated, $request, $project) {
 
             if ($request->hasFile('rab_file')) {
-                Storage::disk('public')->delete($project->rab_file);
+                Storage::disk(config('filesystems.default_public_disk'))->delete($project->rab_file);
                 $validated['rab_file'] =
-                    $request->file('rab_file')->store('projects/rab', 'public');
+                    $request->file('rab_file')->store('projects/rab', config('filesystems.default_public_disk'));
             }
 
             if ($request->hasFile('design_file')) {
-                Storage::disk('public')->delete($project->design_file);
+                Storage::disk(config('filesystems.default_public_disk'))->delete($project->design_file);
                 $validated['design_file'] =
-                    $request->file('design_file')->store('projects/designs', 'public');
+                    $request->file('design_file')->store('projects/designs', config('filesystems.default_public_disk'));
             }
             $oldEmployees = $project->assignments()->pluck('user_id')->toArray();
             $newEmployees = $validated['employees'] ?? [];
