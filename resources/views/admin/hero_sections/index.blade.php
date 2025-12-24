@@ -25,7 +25,7 @@
 
                         {{-- Banner & Heading --}}
                         <div class="flex flex-row items-center gap-x-5">
-                            <img src="{{ Storage::url('storage/' . $hero_section->banner) }}"
+                            <img src="{{ Storage::url($hero_section->banner) }}"
                                 alt="{{ $hero_section->heading }}"
                                 class="rounded-xl object-cover w-[90px] h-[90px] shadow-md border border-gray-200 transition-transform duration-300 hover:scale-105">
                             <div>
