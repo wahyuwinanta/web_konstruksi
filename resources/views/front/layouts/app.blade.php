@@ -10,6 +10,10 @@
     <!-- CSS for carousel/flickity-->
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
     <link rel="stylesheet" href="https://unpkg.com/flickity-fade@2/flickity-fade.css">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+
+    <link rel="stylesheet" href="{{ asset('css/mobile.css') }}">
 
     <!-- CSS for modal/flowbite -->
     <script src="//unpkg.com/alpinejs" defer></script>

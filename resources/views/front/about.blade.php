@@ -1,8 +1,8 @@
 @extends('front.layouts.app')
 @section('content')
     <div id="header" class="bg-[#F6F7FA] relative">
+        <x-navbar />
         <div class="container max-w-[1130px] mx-auto relative pt-10 z-10">
-            <x-navbar />
             <div class="flex flex-col gap-[50px] items-center py-20">
                 <div class="breadcrumb flex items-center justify-center gap-[30px]">
                     <p class="text-cp-light-grey last-of-type:text-cp-black last-of-type:font-semibold">Beranda</p>

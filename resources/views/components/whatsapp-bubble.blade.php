@@ -1,6 +1,6 @@
 @props([
-    'number' => '6289636495853',
-    'message' => 'Halo, saya ingin bertanya.',
+    'number' => '6281320534811',
+    'message' => 'Halo kak, saya ingin bertanya tentang layanan CV. Mulia Mandiri Konstruksi.',
 ])
 
 <a href="https://wa.me/{{ $number }}?text={{ urlencode($message) }}" target="_blank" class="whatsapp-bubble">

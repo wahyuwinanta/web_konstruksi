@@ -1,8 +1,8 @@
 @extends('front.layouts.app')
 @section('content')
     <div id="header" class="bg-[#F6F7FA] relative h-[700px] -mb-[488px]">
+        <x-navbar />
         <div class="container max-w-[1130px] mx-auto relative pt-10  z-10">
-            <x-navbar />
         </div>
     </div>
     <div id="Contact"

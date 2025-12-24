@@ -1,10 +1,10 @@
-<footer class="bg-cp-black w-full relative overflow-hidden mt-20">
+<footer class="bg-cp-black w-full relative overflow-hidden mt-20 pb-3">
     <div
-        class="container max-w-[1130px] mx-auto flex flex-wrap gap-y-4 items-center justify-between pt-[100px] pb-[220px] relative z-10">
+        class="container max-w-[1130px] mx-auto flex flex-wrap gap-y-4 items-center justify-between pt-[100px] pb-[80px] relative z-10">
         <div class="flex flex-col gap-10">
             <div class="flex items-center gap-3">
                 <div class="flex shrink-0 h-[43px] overflow-hidden">
-                    <img src="{{ asset('assets/logo/logo-MMK-White.png') }}" class="object-contain w-full h-full"
+                    <img src="{{ asset('assets/logo/Logo-MMK-White.png') }}" class="object-contain w-full h-full"
                         alt="logo">
                 </div>
                 <div class="flex flex-col">
@@ -43,12 +43,16 @@
         <div class="flex flex-wrap gap-[30px]">
             <div class="flex flex-col w-[150px] gap-3">
                 <p class="font-bold text-lg text-white">Quick Links</p>
-                <a href="" class="text-cp-light-grey hover:text-white transition-all duration-300">Produk
+                <a href="{{ route('front.index') }}"
+                    class="text-cp-light-grey hover:text-white transition-all duration-300">Produk
                     Kami</a>
-                <a href="" class="text-cp-light-grey hover:text-white transition-all duration-300">Tim Kami</a>
-                <a href="" class="text-cp-light-grey hover:text-white transition-all duration-300">Tentang
+                <a href="{{ route('front.team') }}"
+                    class="text-cp-light-grey hover:text-white transition-all duration-300">Tim Kami</a>
+                <a href="{{ route('front.about') }}"
+                    class="text-cp-light-grey hover:text-white transition-all duration-300">Tentang
                     Kami</a>
-                <a href="" class="text-cp-light-grey hover:text-white transition-all duration-300">Testimoni</a>
+                <a href="{{ route('front.appointment') }}"
+                    class="text-cp-light-grey hover:text-white transition-all duration-300">Testimoni</a>
             </div>
         </div>
         <div class="flex flex-wrap gap-[30px]">
@@ -57,5 +61,10 @@
                 width="400" height="250" style="border:0;" allowfullscreen="" loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
+    </div>
+    <div class="w-full border-t border-white/10 mt-10 pt-6 pb-6 text-center">
+        <p class="text-sm text-cp-light-grey">
+            © {{ date('Y') }} CV. Mulia Mandiri Konstruksi. All rights reserved.
+        </p>
     </div>
 </footer>

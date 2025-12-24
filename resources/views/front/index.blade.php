@@ -1,8 +1,9 @@
 @extends('front.layouts.app')
 @section('content')
+    <x-navbar />
     <div id="header" class="bg-[#F6F7FA] relative overflow-hidden">
         <div class="container max-w-[1130px] mx-auto relative pt-10 z-10">
-            <x-navbar />
+
             @forelse ($hero_section as $hero)
                 <input type="hidden" name="path_video" id="path_video" value="{{ $hero->path_video }}">
                 <div id="Hero" class="flex flex-col gap-[30px] mt-20 pb-20">
@@ -154,7 +155,7 @@
                 </h2>
             </div>
             <div
-                class="teams-card-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[30px] justify-center">
+                class="teams-card-container teams-mobile-scroll grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[30px] justify-center">
                 @forelse ($teams as $team)
                     <div
                         class="card bg-white flex flex-col h-full justify-center items-center p-[30px] px-[29px] gap-[30px] rounded-[20px] border border-white hover:shadow-[0_10px_30px_0_#D1D4DF80] hover:border-cp-dark-blue transition-all duration-300">
@@ -233,23 +234,6 @@
                                         <p class="text-sm text-cp-light-grey">{{ $testimonial->client->occupation }}</p>
                                     </div>
                                 </div>
-                                <div class="flex flex-nowrap">
-                                    <div class="w-6 h-6 flex shrink-0">
-                                        <img src="{{ asset('assets/icons/Star-rating.svg') }}" alt="star">
-                                    </div>
-                                    <div class="w-6 h-6 flex shrink-0">
-                                        <img src="{{ asset('assets/icons/Star-rating.svg') }}" alt="star">
-                                    </div>
-                                    <div class="w-6 h-6 flex shrink-0">
-                                        <img src="{{ asset('assets/icons/Star-rating.svg') }}" alt="star">
-                                    </div>
-                                    <div class="w-6 h-6 flex shrink-0">
-                                        <img src="{{ asset('assets/icons/Star-rating.svg') }}" alt="star">
-                                    </div>
-                                    <div class="w-6 h-6 flex shrink-0">
-                                        <img src="{{ asset('assets/icons/Star-rating.svg') }}" alt="star">
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="carousel-indicator flex items-center justify-center gap-2 h-4 shrink-0">
@@ -299,7 +283,11 @@
                     <div class="flex flex-col gap-[10px]">
                         <h2 class="font-bold text-4xl leading-[45px]">Pertanyaan yang Sering Ditanyakan</h2>
                     </div>
-                    <a href="{{ route('front.appointment') }}"
+                    @props([
+                        'number' => '6281320534811',
+                        'message' => 'Halo kak, saya ingin bertanya tentang layanan CV. Mulia Mandiri Konstruksi.',
+                    ])
+                    <a href="https://wa.me/{{ $number }}?text={{ urlencode($message) }}" target="_blank""
                         class="p-5 bg-cp-black rounded-xl text-white w-fit font-bold">Hubungi Kami</a>
                 </div>
                 <div class="flex flex-col gap-[30px] sm:w-[603px] shrink-0">
