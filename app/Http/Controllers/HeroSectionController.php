@@ -40,6 +40,7 @@ class HeroSectionController extends Controller
                 $validated['banner'] = $bannerPath;
             }
             $newHeroSection = HeroSection::create($validated);
+
         });
         
         return redirect()->route('admin.hero_sections.index');

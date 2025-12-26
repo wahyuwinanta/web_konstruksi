@@ -30,7 +30,7 @@ class FrontController extends Controller
 
     public function team()
     {
-        $teams = OurTeam::take(7)->get();
+        $teams = OurTeam::take(27)->get();
         $statistics = CompanyStatistic::take(4)->get();
         return view('front.team', compact('statistics', 'teams'));
     }
@@ -58,8 +58,12 @@ class FrontController extends Controller
     {
         DB::transaction(function () use ($request) {
             $validated = $request->validated();
-            $newAppointment = Appointment::create($validated);
+            Appointment::create($validated);
         });
-        return redirect()->route('front.index');
+
+        return redirect()
+            ->route('front.appointment')
+            ->with('success', 'Janji temu berhasil dikirim. Kami akan segera menghubungi Anda.');
     }
+
 }

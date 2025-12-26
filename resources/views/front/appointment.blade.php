@@ -1,19 +1,29 @@
 @extends('front.layouts.app')
 @section('content')
-    <div id="header" class="bg-[#F6F7FA] relative h-[700px] -mb-[488px]">
+    <div id="header" class="bg-[#F6F7FA] relative h-[700px] -mb-[388px]">
         <x-navbar />
         <div class="container max-w-[1130px] mx-auto relative pt-10  z-10">
+            @if (session('success'))
+                <div id="success-alert"
+                    class="fixed top-5 right-5 z-50 bg-green-500 text-white px-6 py-4 rounded-xl shadow-lg transition-opacity duration-500">
+                    {{ session('success') }}
+                </div>
+
+                <script>
+                    setTimeout(() => {
+                        document.getElementById('success-alert')?.classList.add('opacity-0');
+                    }, 3000);
+                </script>
+            @endif
         </div>
     </div>
     <div id="Contact"
         class="container max-w-[1130px] mx-auto flex flex-wrap xl:flex-nowrap justify-between gap-[50px] relative z-10">
         <div class="flex flex-col mt-20 gap-[50px]">
             <div class="breadcrumb flex items-center gap-[30px]">
-                <p class="text-cp-light-grey last-of-type:text-cp-black last-of-type:font-semibold">Home</p>
+                <p class="text-cp-light-grey last-of-type:text-cp-black last-of-type:font-semibold">Beranda</p>
                 <span class="text-cp-light-grey">/</span>
-                <p class="text-cp-light-grey last-of-type:text-cp-black last-of-type:font-semibold">Product</p>
-                <span class="text-cp-light-grey">/</span>
-                <p class="text-cp-light-grey last-of-type:text-cp-black last-of-type:font-semibold">Pesan</p>
+                <p class="text-cp-light-grey last-of-type:text-cp-black last-of-type:font-semibold">Buat Janji</p>
             </div>
             <h1 class="font-extrabold text-4xl leading-[45px]">Kami Membantu Anda Membangun Proyek yang Luar Biasa</h1>
             <div class="flex flex-col gap-5">
@@ -33,16 +43,17 @@
                     <div class="w-6 h-6 flex shrink-0">
                         <img src="assets/icons/monitor-mobbile.svg" alt="icon">
                     </div>
-                    <p class="text-cp-dark-blue font-semibold">muliamandirikonstruksi.id</p>
+                    <p class="text-cp-dark-blue font-semibold">muliamandirikonstruksi.com</p>
                 </div>
             </div>
         </div>
         <form action="{{ route('front.appointment_store') }}" method="POST"
             class="flex flex-col p-[30px] rounded-[20px] gap-[18px] bg-white shadow-[0_10px_30px_0_#D1D4DF40] w-full md:w-[700px] shrink-0">
             @csrf
+
             <div class="flex items-center gap-[18px]">
                 <div class="flex flex-col gap-2 flex w-full">
-                    <p class="font-semibold">Complete Name</p>
+                    <p class="font-semibold">Nama Lengkap</p>
                     <div
                         class="flex items-center gap-[10px] p-[14px_20px] border border-[#E8EAF2] focus-within:border-cp-dark-blue transition-all duration-300 rounded-xl bg-white">
                         <div class="w-[18px] h-[18px] flex shrink-0">
@@ -50,11 +61,11 @@
                         </div>
                         <input type="text" name="name" id=""
                             class="appearance-none outline-none bg-white placeholder:font-normal placeholder:text-cp-black font-semibold w-full"
-                            placeholder="Write your complete name" required>
+                            placeholder="Tulis nama lengkap Anda" required>
                     </div>
                 </div>
                 <div class="flex flex-col gap-2 flex w-full">
-                    <p class="font-semibold">Email Address</p>
+                    <p class="font-semibold">Alamat Email</p>
                     <div
                         class="flex items-center gap-[10px] p-[14px_20px] border border-[#E8EAF2] focus-within:border-cp-dark-blue transition-all duration-300 rounded-xl bg-white">
                         <div class="w-[18px] h-[18px] flex shrink-0">
@@ -62,13 +73,13 @@
                         </div>
                         <input type="email" name="email" id=""
                             class="appearance-none outline-none bg-white placeholder:font-normal placeholder:text-cp-black font-semibold w-full"
-                            placeholder="Write your email address" required>
+                            placeholder="Tulis alamat email Anda" required>
                     </div>
                 </div>
             </div>
             <div class="flex items-center gap-[18px]">
                 <div class="flex flex-col gap-2 flex w-full">
-                    <p class="font-semibold">Phone Number</p>
+                    <p class="font-semibold">Nomor Telepon</p>
                     <div
                         class="flex items-center gap-[10px] p-[14px_20px] border border-[#E8EAF2] focus-within:border-cp-dark-blue transition-all duration-300 rounded-xl bg-white">
                         <div class="w-[18px] h-[18px] flex shrink-0">
@@ -76,25 +87,25 @@
                         </div>
                         <input type="tel" name="phone_number" id=""
                             class="appearance-none outline-none bg-white placeholder:font-normal placeholder:text-cp-black font-semibold w-full"
-                            placeholder="Write your phone number" required>
+                            placeholder="Tulis nomor telepon Anda" required pattern="^(\+62|62|08)[0-9]{8,11}$">
                     </div>
                 </div>
                 <div class="flex flex-col gap-2 flex w-full">
-                    <p class="font-semibold">Meeting Date</p>
+                    <p class="font-semibold">Tanggal Rapat</p>
                     <div
                         class="flex items-center gap-[10px] p-[14px_20px] border border-[#E8EAF2] focus-within:border-cp-dark-blue transition-all duration-300 rounded-xl bg-white relative">
                         <div class="w-[18px] h-[18px] flex shrink-0">
                             <img src="assets/icons/calendar.svg" alt="icon">
                         </div>
                         <button type="button" id="dateButton"
-                            class="p-0 bg-transparent w-full text-left border-none outline-none">Choose the date</button>
-                        <input type="date" name="meeting_at" id="dateInput" class="absolute opacity-0 -z-10">
+                            class="p-0 bg-transparent w-full text-left border-none outline-none">Pilih Tanggal</button>
+                        <input type="date" name="meeting_at" id="dateInput" required class="absolute opacity-0 -z-10">
                     </div>
                 </div>
             </div>
             <div class="flex items-center gap-[18px]">
                 <div class="flex flex-col gap-2 flex w-full">
-                    <p class="font-semibold">Your Interest</p>
+                    <p class="font-semibold">Minat Anda</p>
                     <div
                         class="flex items-center gap-[10px] p-[14px_20px] border border-[#E8EAF2] focus-within:border-cp-dark-blue transition-all duration-300 rounded-xl bg-white">
                         <div class="w-[18px] h-[18px] flex shrink-0">
@@ -103,7 +114,7 @@
                         <select name="product_id" id=""
                             class="appearance-none outline-none w-full invalid:font-normal font-semibold px-[10px] -mx-[10px]"
                             required>
-                            <option value="" hidden>Choose a project</option>
+                            <option value="" hidden>Pilih proyek</option>
                             @foreach ($products as $product)
                                 <option value="{{ $product->id }}">{{ $product->name }}</option>
                             @endforeach
@@ -112,15 +123,15 @@
                     </div>
                 </div>
                 <div class="flex flex-col gap-2 flex w-full">
-                    <p class="font-semibold">Budget Available</p>
+                    <p class="font-semibold">Budget Tersedia</p>
                     <div
                         class="flex items-center gap-[10px] p-[14px_20px] border border-[#E8EAF2] focus-within:border-cp-dark-blue transition-all duration-300 rounded-xl bg-white">
                         <div class="w-[18px] h-[18px] flex shrink-0">
-                            <img src="assets/icons/dollar-square.svg" alt="icon">
+                            <img src="assets/icons/Rupiah.svg" alt="icon">
                         </div>
                         <input type="number" name="budget" id=""
                             class="appearance-none outline-none bg-white placeholder:font-normal placeholder:text-cp-black font-semibold w-full"
-                            placeholder="What is your budget" required>
+                            placeholder="Berapa budget Anda" required>
                     </div>
                 </div>
             </div>
@@ -133,12 +144,12 @@
                     </div>
                     <textarea name="brief" id="" rows="6"
                         class="appearance-none outline-none bg-white placeholder:font-normal placeholder:text-cp-black font-semibold w-full resize-none"
-                        placeholder="Tell us the project brief"></textarea>
+                        placeholder="Beritahu kami tentang brief proyek Anda" required></textarea>
                 </div>
             </div>
             <button type="submit"
-                class="bg-cp-dark-blue p-5 w-full rounded-xl hover:shadow-[0_12px_30px_0_#312ECB66] transition-all duration-300 font-bold text-white">Book
-                Appointment</button>
+                class="bg-cp-dark-blue p-5 w-full rounded-xl hover:shadow-[0_12px_30px_0_#312ECB66] transition-all duration-300 font-bold text-white">
+                Buat Janji</button>
         </form>
     </div>
     <div id="Clients" class="container max-w-[1130px] mx-auto flex flex-col justify-center text-center gap-5 mt-20">
@@ -164,7 +175,7 @@
             <p
                 class="badge w-fit bg-cp-pale-blue text-cp-light-blue p-[8px_16px] rounded-full uppercase font-bold text-sm">
                 Apa Kata Klien Kami</p>
-            <h2 class="font-bold text-4xl leading-[45px] text-center">Our Satisfied Clients<br>From Worldwide Company
+            <h2 class="font-bold text-4xl leading-[45px] text-center">Klien Kami yang Puas<br>Dari Berbagai Perusahaan
             </h2>
         </div>
         <div class="main-carousel w-full">
@@ -173,10 +184,10 @@
                     class="carousel-card container max-w-[1130px] w-full flex flex-wrap justify-between items-center lg:mx-[calc((100vw-1130px)/2)]">
                     <div class="testimonial-container flex flex-col gap-[112px] w-[565px]">
                         <div class="flex flex-col gap-[30px]">
-                            <div class="h-9 overflow-hidden">
-                                {{-- <img src="{{ Storage::url($testimonial->client->logo) }}" class="object-contain"
-                                    alt="icon"> --}}
-                            </div>
+                            {{-- <div class="h-9 overflow-hidden">
+                                <img src="{{ Storage::url($testimonial->client->logo) }}" class="object-contain"
+                                    alt="icon">
+                            </div> --}}
                             <div class="relative pt-[27px] pl-[30px]">
                                 <div class="absolute top-0 left-0">
                                     <img src="{{ asset('assets/icons/quote.svg') }}" alt="icon">
@@ -193,23 +204,6 @@
                                     <div class="flex flex-col justify-center gap-1">
                                         <p class="font-bold">{{ $testimonial->client->name }}</p>
                                         <p class="text-sm text-cp-light-grey">{{ $testimonial->client->occupation }}</p>
-                                    </div>
-                                </div>
-                                <div class="flex flex-nowrap">
-                                    <div class="w-6 h-6 flex shrink-0">
-                                        <img src="{{ asset('assets/icons/Star-rating.svg') }}" alt="star">
-                                    </div>
-                                    <div class="w-6 h-6 flex shrink-0">
-                                        <img src="{{ asset('assets/icons/Star-rating.svg') }}" alt="star">
-                                    </div>
-                                    <div class="w-6 h-6 flex shrink-0">
-                                        <img src="{{ asset('assets/icons/Star-rating.svg') }}" alt="star">
-                                    </div>
-                                    <div class="w-6 h-6 flex shrink-0">
-                                        <img src="{{ asset('assets/icons/Star-rating.svg') }}" alt="star">
-                                    </div>
-                                    <div class="w-6 h-6 flex shrink-0">
-                                        <img src="{{ asset('assets/icons/Star-rating.svg') }}" alt="star">
                                     </div>
                                 </div>
                             </div>

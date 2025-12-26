@@ -3,7 +3,6 @@
     <x-navbar />
     <div id="header" class="bg-[#F6F7FA] relative overflow-hidden">
         <div class="container max-w-[1130px] mx-auto relative pt-10 z-10">
-
             @forelse ($hero_section as $hero)
                 <input type="hidden" name="path_video" id="path_video" value="{{ $hero->path_video }}">
                 <div id="Hero" class="flex flex-col gap-[30px] mt-20 pb-20">

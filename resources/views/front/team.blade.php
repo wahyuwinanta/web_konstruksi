@@ -1,9 +1,9 @@
 @extends('front.layouts.app')
 @section('content')
-    <div id="header" class="bg-[#F6F7FA] relative h-[400px]">
+    <div id="header" class="bg-[#F6F7FA] relative">
         <x-navbar />
     </div>
-    <div id="Teams" class="w-full px-[10px] relative z-10 -mt-[180px]">
+    <div id="Teams" class="w-full px-[10px] relative z-10 -mt-[10px]">
         <div class="container max-w-[1130px] mx-auto flex flex-col gap-[50px] items-center">
             <div class="flex flex-col gap-[50px] items-center">
                 <div class="breadcrumb flex items-center justify-center gap-[30px]">

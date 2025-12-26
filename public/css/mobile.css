@@ -323,42 +323,52 @@
 
     @media (max-width: 768px) {
         /* =========================
-       TEAMS – SECTION SPACING
+       TEAMS – SECTION BOUNDARY
+       (PENTING: CEGAH OVERFLOW)
     ========================= */
         #Teams {
-            padding-top: 3rem;
-            padding-bottom: 3rem;
             margin-top: 3rem;
-            overflow-x: visible;
+            padding: 3rem 0;
+            overflow: visible;
         }
 
-        /* BADGE */
+        /* =========================
+       BADGE
+    ========================= */
         #Teams .badge {
             font-size: 0.65rem;
             padding: 6px 12px;
         }
 
-        /* TITLE */
+        /* =========================
+       TITLE
+    ========================= */
         #Teams h2 {
             font-size: 1.5rem;
             line-height: 1.9rem;
+            text-align: center;
         }
 
         /* =========================
-       HORIZONTAL SCROLL WRAPPER
+       WRAPPER → HORIZONTAL SCROLL
+       (DISAMAKAN DENGAN OurPrinciples)
     ========================= */
         #Teams .teams-mobile-scroll {
-            display: flex !important;
+            display: flex;
             flex-wrap: nowrap;
             gap: 1rem;
+
+            width: 100%;
+            max-width: 100vw;
 
             overflow-x: auto;
             overflow-y: hidden;
 
-            padding: 0 1rem 1.2rem;
+            padding: 0 1rem 1rem;
 
             scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
+            scroll-padding-left: 1rem;
+            justify-content: flex-start;
         }
 
         #Teams .teams-mobile-scroll::-webkit-scrollbar {
@@ -366,65 +376,86 @@
         }
 
         /* =========================
-       TEAM CARD
+       TEAM CARD & VIEW ALL CARD
+       (AMAN DI MOBILE)
     ========================= */
-        #Teams .card {
-            flex: 0 0 240px;
-            max-width: 240px;
-            height: 300px;
+        #Teams .card,
+        #Teams .view-all-card {
+            min-width: 260px;
+            max-width: 260px;
 
-            padding: 20px;
-            gap: 16px;
+            padding: 16px;
+            gap: 12px;
 
+            border-radius: 16px;
+            box-sizing: border-box;
+
+            flex-shrink: 0;
             scroll-snap-align: start;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        /* AVATAR CONTAINER */
-        #Teams .card > div:first-child {
-            width: 80px;
-            height: 80px;
-        }
-
-        #Teams .card > div:first-child > div {
-            width: 72px;
-            height: 72px;
-        }
-
-        /* NAME */
-        #Teams .card p.font-bold {
-            font-size: 1rem;
-            line-height: 1.4rem;
-        }
-
-        /* OCCUPATION */
-        #Teams .card p.text-cp-light-grey {
-            font-size: 0.8rem;
-        }
-
-        /* LOCATION */
-        #Teams .card .text-cp-dark-blue {
-            font-size: 0.8rem;
         }
 
         /* =========================
-       VIEW ALL CARD
+       TEAM CARD LAYOUT
     ========================= */
-        #Teams .view-all-card {
-            flex: 0 0 240px;
-            max-width: 240px;
-            height: 300px;
+        #Teams .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        #Teams .view-all-card .card img {
+        /* =========================
+       AVATAR
+    ========================= */
+        #Teams .card > div:first-child {
+            width: 72px;
+            height: 72px;
+            flex-shrink: 0;
+        }
+
+        #Teams .card > div:first-child > div {
+            width: 64px;
+            height: 64px;
+        }
+
+        /* =========================
+       NAME
+    ========================= */
+        #Teams .card p.font-bold {
+            font-size: 1rem;
+            line-height: 1.4rem;
+            text-align: center;
+        }
+
+        /* =========================
+       OCCUPATION
+    ========================= */
+        #Teams .card p.text-cp-light-grey {
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        /* =========================
+       LOCATION
+    ========================= */
+        #Teams .card .text-cp-dark-blue {
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        /* =========================
+       VIEW ALL CARD ICON
+    ========================= */
+        #Teams .view-all-card img {
             width: 48px;
             height: 48px;
         }
 
-        #Teams .card:active {
+        /* =========================
+       ACTIVE FEEDBACK
+    ========================= */
+        #Teams .card:active,
+        #Teams .view-all-card:active {
             transform: scale(0.97);
         }
     }
@@ -674,6 +705,128 @@
             width: 330px;
             height: 180px;
             border-radius: 14px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        #header .container {
+            padding-top: 1.5rem;
+        }
+
+        #header .flex.flex-col.items-center.py-20 {
+            padding-top: 2.5rem;
+            padding-bottom: 2.5rem;
+            gap: 2rem;
+        }
+
+        #header h2 {
+            font-size: 1.6rem;
+            line-height: 2.2rem;
+            padding: 0 0.5rem;
+        }
+
+        .breadcrumb {
+            gap: 0.75rem;
+            font-size: 0.85rem;
+        }
+
+        #header .max-w-\[900px\] {
+            font-size: 0.95rem;
+            line-height: 1.7rem;
+            text-align: left;
+            padding: 0 0.5rem;
+        }
+
+        #Abouts {
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        #Abouts .product {
+            gap: 2rem;
+        }
+
+        #Abouts .product > div:first-child {
+            width: 100%;
+            height: auto;
+            max-width: 320px;
+        }
+
+        #Abouts img {
+            object-fit: contain;
+        }
+
+        #Abouts h2 {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
+
+        #Abouts .py-\[50px\] {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        #Abouts .leading-\[26px\] {
+            font-size: 0.9rem;
+            line-height: 1.4rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        /* Container utama */
+        #Contact {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            gap: 2.5rem;
+        }
+
+        /* Paksa jadi 1 kolom */
+        #Contact {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        /* Bagian kiri (judul & info) */
+        #Contact > div:first-child {
+            margin-top: 2rem;
+            gap: 2rem;
+        }
+
+        /* Breadcrumb */
+        #Contact .breadcrumb {
+            gap: 12px;
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+        }
+
+        /* Judul utama */
+        #Contact h1 {
+            font-size: 1.75rem;
+            line-height: 2.2rem;
+        }
+
+        /* Info kontak */
+        #Contact .flex.flex-col.gap-5 {
+            gap: 1rem;
+        }
+
+        /* Form */
+        #Contact form {
+            width: 100%;
+            padding: 1.5rem;
+            border-radius: 16px;
+        }
+
+        /* Field jadi 1 kolom */
+        #Contact form > div.flex.items-center {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* Button */
+        #Contact button[type="submit"] {
+            padding: 1rem;
+            font-size: 1rem;
         }
     }
 }

@@ -13,11 +13,41 @@
                     Sejak Awal Berdiri Kami <br>
                     Berkomitmen Membuat Dunia Lebih Baik
                 </h2>
+                <div class="max-w-[900px] text-center text-cp-grey leading-relaxed text-base space-y-5">
+                    <p>
+                        CV. Mulia Mandiri Konstruksi berawal dari sebuah usaha kecil bernama
+                        Bengkel Mulia Teknik Mandiri, yang didirikan pada tahun 2000. Pada masa
+                        awal berdirinya, usaha ini bergerak di bidang jasa perbaikan bangunan dan
+                        pengerjaan konstruksi sederhana.
+                    </p>
+
+                    <p>
+                        Dengan berbekal keahlian teknis, komitmen kerja, dan reputasi yang terus
+                        berkembang di tengah masyarakat, Bengkel Mulia Teknik Mandiri mampu
+                        membangun kepercayaan pelanggan dan memperluas lingkup pelayanannya.
+                    </p>
+
+                    <p>
+                        Seiring berjalannya waktu, kebutuhan pasar serta permintaan proyek yang
+                        semakin meningkat mendorong perusahaan untuk berkembang menjadi usaha
+                        konstruksi yang lebih profesional dan terstruktur. Atas dasar kebutuhan
+                        tersebut, pada tahun 2024, usaha ini resmi berubah bentuk menjadi badan
+                        usaha berbadan hukum dengan nama <span class="font-semibold text-cp-black">
+                            CV. Mulia Mandiri Konstruksi</span>.
+                    </p>
+
+                    <p>
+                        Perubahan status ini menandai langkah penting dalam perjalanan perusahaan,
+                        yaitu meningkatkan kualitas pelayanan, memperluas cakupan proyek, serta
+                        memperkuat manajemen operasional.
+                    </p>
+                </div>
+
             </div>
         </div>
     </div>
 
-    <div id="Products" class="container max-w-[1130px] mx-auto flex flex-col gap-20 mt-20">
+    <div id="Abouts" class="container max-w-[1130px] mx-auto flex flex-col gap-20 mt-20">
         @forelse ($abouts as $about)
             <div class="product flex flex-wrap justify-center items-center gap-[60px] even:flex-row-reverse">
                 <div class="w-[470px] h-[550px] flex shrink-0 overflow-hidden">
@@ -53,7 +83,7 @@
         @endforelse
     </div>
 
-    <div id="Clients" class="container max-w-[1130px] mx-auto flex flex-col justify-center text-center gap-5 mt-20">
+    {{-- <div id="Clients" class="container max-w-[1130px] mx-auto flex flex-col justify-center text-center gap-5 mt-20">
         <h2 class="font-bold text-lg">
             Klien yang Telah Mempercayakan Proyeknya Kepada Kami
         </h2>
@@ -69,7 +99,7 @@
                 <p>Belum ada data klien</p>
             @endforelse
         </div>
-    </div>
+    </div> --}}
 
     <div id="Stats" class="bg-cp-black w-full mt-20">
         <div class="container max-w-[1000px] mx-auto py-10">

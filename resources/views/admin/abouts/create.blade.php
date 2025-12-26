@@ -54,14 +54,37 @@
                     </div>
 
                     {{-- Keypoints --}}
+                    {{-- Keypoints --}}
                     <h3 class="text-indigo-950 text-lg font-bold mt-8 mb-4">Keypoints</h3>
-                    <div class="flex flex-col gap-y-4">
-                        @for ($i = 0; $i < 3; $i++)
-                            <input type="text" name="keypoints[]" placeholder="Write your keypoint"
-                                class="py-3 px-4 rounded-xl border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 placeholder-slate-400">
-                        @endfor
-                        <x-input-error :messages="$errors->get('keypoints')" class="mt-2" />
+
+                    <div id="keypoints-wrapper" class="flex flex-col gap-y-4">
+                        <input type="text" name="keypoints[]" placeholder="Write your keypoint"
+                            class="py-3 px-4 rounded-xl border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 placeholder-slate-400">
                     </div>
+
+                    <button type="button" onclick="addKeypoint()"
+                        class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-indigo-700 hover:text-indigo-900">
+                        + Add keypoint
+                    </button>
+
+                    <x-input-error :messages="$errors->get('keypoints')" class="mt-2" />
+
+                    <script>
+                        function addKeypoint() {
+                            const wrapper = document.getElementById('keypoints-wrapper');
+
+                            const input = document.createElement('input');
+                            input.type = 'text';
+                            input.name = 'keypoints[]';
+                            input.placeholder = 'Write your keypoint';
+                            input.className =
+                                'py-3 px-4 rounded-xl border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 placeholder-slate-400';
+
+                            wrapper.appendChild(input);
+                        }
+                    </script>
+
+
 
                     {{-- Submit --}}
                     <div class="flex justify-end mt-10">
