@@ -28,16 +28,16 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function editPekerja(Request $request): View
+    public function editPegawai(Request $request): View
     {
-        return view('profile.editPekerja', [
+        return view('profile.editPegawai', [
             'user' => $request->user(),
         ]);
     }
 
-    public function editOwner(Request $request): View
+    public function editPimpinan(Request $request): View
     {
-        return view('profile.editOwner', [
+        return view('profile.editPimpinan', [
             'user' => $request->user(),
         ]);
     }
@@ -62,15 +62,15 @@ class ProfileController extends Controller
                 ->with('status', 'profile-updated');
         }
 
-        // redirect owner
-        if ($request->user()->hasRole('owner')) {
-            return Redirect::route('profile.editOwner')
+        // redirect pimpinan
+        if ($request->user()->hasRole('pimpinan')) {
+            return Redirect::route('profile.editPimpinan')
                 ->with('status', 'profile-updated');
         }
 
-        // redirect pekerja
-        if ($request->user()->hasRole('pekerja')) {
-            return Redirect::route('profile.editPekerja')
+        // redirect pegawai
+        if ($request->user()->hasRole('pegawai')) {
+            return Redirect::route('profile.editPegawai')
                 ->with('status', 'profile-updated');
         }
 

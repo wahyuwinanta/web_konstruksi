@@ -1,7 +1,7 @@
-<x-owner-layout>
+<x-pegawai-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profil') }}
+            {{ __('Profil Pegawai') }}
         </h2>
     </x-slot>
 
@@ -28,4 +28,4 @@
 
         </div>
     </div>
-</x-owner-layout>
+</x-pegawai-layout>

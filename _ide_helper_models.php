@@ -126,7 +126,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * @property-read \App\Models\User|null $owner
+ * @property-read \App\Models\User|null $pimpinan
  * @property-read \App\Models\Project|null $project
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Evaluation newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Evaluation newQuery()

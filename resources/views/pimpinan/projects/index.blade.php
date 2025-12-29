@@ -1,4 +1,4 @@
-<x-pekerja-layout>
+<x-pimpinan-layout>
     <x-slot name="header">
         Proyek Saya
     </x-slot>
@@ -49,7 +49,7 @@
 
                     {{-- Search Bar --}}
                     <div class="w-full md:w-auto">
-                        <x-search-bar action="{{ route('pekerja.projects') }}" />
+                        <x-search-bar action="{{ route('pimpinan.projects') }}" />
                     </div>
                 </div>
             </div>
@@ -58,7 +58,7 @@
         <!-- Projects List -->
         <div class="space-y-3">
             @forelse ($projects as $project)
-                <a href="{{ route('pekerja.projects.show', $project->id) }}">
+                <a href="{{ route('pimpinan.projects.show', $project->id) }}">
                     <div
                         class="group block bg-white rounded-2xl border border-gray-200 hover:border-indigo-300 hover:shadow-lg transition-all duration-300 overflow-hidden p-4">
 
@@ -123,10 +123,10 @@
                             <div>
                                 <strong>Jenis Proyek:</strong> {{ $project->type ?? '-' }}
                             </div>
-                            {{-- <div>
+                            <div>
                                 <strong>Estimasi Biaya:</strong>
                                 {{ $project->estimated_cost ? 'Rp ' . number_format($project->estimated_cost, 0, ',', '.') : '-' }}
-                            </div> --}}
+                            </div>
                             <div>
                                 <strong>Tanggal Mulai:</strong>
                                 {{ \Carbon\Carbon::parse($project->start_date)->format('d M Y') }}
@@ -139,10 +139,10 @@
 
                         <!-- File Uploads -->
                         <div class="mt-3 flex flex-wrap gap-2">
-                            {{-- @if ($project->rab_file)
+                            @if ($project->rab_file)
                                 <a href="{{ asset('storage/' . $project->rab_file) }}" target="_blank"
                                     class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-medium">RAB</a>
-                            @endif --}}
+                            @endif
                             @if ($project->design_file)
                                 <a href="{{ asset('storage/' . $project->design_file) }}" target="_blank"
                                     class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-medium">Desain</a>
@@ -226,4 +226,4 @@
         }
     </style>
 
-</x-pekerja-layout>
+</x-pimpinan-layout>

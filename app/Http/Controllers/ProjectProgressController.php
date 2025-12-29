@@ -61,17 +61,17 @@ class ProjectProgressController extends Controller
             ]);
         }
 
-        // 7. Notifikasi owner proyek
+        // 7. Notifikasi pimpinan proyek
         Notification::create([
             'user_id' => $project->created_by,
             'title' => 'Progress Baru Ditambahkan',
-            'message' => 'Pekerja menambahkan progress pada proyek: ' . $project->project_name,
+            'message' => 'Pegawai menambahkan progress pada proyek: ' . $project->project_name,
             'project_id' => $project->id,
             'is_read' => false,
         ]);
 
         return redirect()
-            ->route('pekerja.projects.show', $project->id)
+            ->route('pegawai.projects.show', $project->id)
             ->with('success', 'Progress berhasil ditambahkan');
     }
 
@@ -83,7 +83,7 @@ class ProjectProgressController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('pekerja.projects.show', compact('project', 'progress'));
+        return view('pegawai.projects.show', compact('project', 'progress'));
     }
 
 }

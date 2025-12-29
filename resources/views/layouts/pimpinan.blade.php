@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'CV. Mulia Mandiri Konstruksi') }} - Pegawai</title>
+    <title>{{ config('app.name', 'CV. Mulia Mandiri Konstruksi') }} - Pimpinan</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -177,10 +177,11 @@
             <div class="flex items-center justify-between max-w-7xl mx-auto">
                 <!-- Left Section -->
                 <div class="flex items-center gap-3">
-                    
+
 
                     @isset($header)
-                        <h2 class="font-bold text-lg text-gray-900 leading-tight tracking-tight">{{ $header }}</h2>
+                        <h2 class="font-bold text-lg text-gray-900 leading-tight tracking-tight">{{ $header }} Pimpinan
+                        </h2>
                     @endisset
                 </div>
 
@@ -192,34 +193,38 @@
                             <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=6366f1&color=fff"
                                 alt="Avatar" class="w-9 h-9 rounded-full">
                         </div>
-                        <span class="hidden sm:inline text-gray-900 font-semibold text-sm">{{ Auth::user()->name }}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500 transition-transform" 
-                            :class="dropdownOpen ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                        <span
+                            class="hidden sm:inline text-gray-900 font-semibold text-sm">{{ Auth::user()->name }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-500 transition-transform"
+                            :class="dropdownOpen ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
 
                     <!-- Dropdown Menu -->
                     <div x-show="dropdownOpen" @click.away="dropdownOpen = false"
-                        x-transition:enter="transition ease-out duration-200" 
+                        x-transition:enter="transition ease-out duration-200"
                         x-transition:enter-start="opacity-0 scale-95 translate-y-[-10px]"
-                        x-transition:enter-end="opacity-100 scale-100 translate-y-0" 
+                        x-transition:enter-end="opacity-100 scale-100 translate-y-0"
                         x-transition:leave="transition ease-in duration-150"
-                        x-transition:leave-start="opacity-100 scale-100" 
-                        x-transition:leave-end="opacity-0 scale-95"
+                        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
                         class="dropdown-menu absolute right-0 mt-3 w-56 bg-white rounded-2xl overflow-hidden z-50"
                         x-cloak>
-                        
+
                         <div class="px-4 py-3 border-b border-gray-100">
                             <p class="text-xs text-gray-500 font-medium">Akun Anda</p>
                             <p class="text-sm text-gray-900 font-semibold mt-0.5">{{ Auth::user()->name }}</p>
                         </div>
 
                         <div class="py-2">
-                            <a href="{{ route('profile.editPekerja') }}"
+                            <a href="{{ route('profile.editPimpinan') }}"
                                 class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                 </svg>
                                 <span class="font-medium">Profile</span>
                             </a>
@@ -228,8 +233,10 @@
                                 @csrf
                                 <button type="submit"
                                     class="flex items-center gap-3 w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                     </svg>
                                     <span class="font-medium">Keluar</span>
                                 </button>
@@ -248,40 +255,41 @@
 
     <!-- Modern Bottom Navigation -->
     <nav class="bottom-nav sm:hidden">
-        <a href="{{ route('pekerja.dashboard') }}"
-            class="bottom-nav-item {{ request()->routeIs('pekerja.dashboard') ? 'active' : '' }}">
+        <a href="{{ route('pimpinan.dashboard') }}"
+            class="bottom-nav-item {{ request()->routeIs('pimpinan.dashboard') ? 'active' : '' }}">
             <div class="nav-icon-wrapper">
                 <img src="{{ asset('assets/icons/dashboards.png') }}" alt="Beranda" width="24" height="24">
                 <div class="nav-indicator"></div>
             </div>
-            <span class="nav-label">Beranda</span>
+            <span class="nav-label">Beranda Pimpinan</span>
         </a>
 
-        <a href="{{ route('pekerja.projects') }}"
-            class="bottom-nav-item {{ request()->routeIs('pekerja.projects*') ? 'active' : '' }}">
+        <a href="{{ route('pimpinan.projects') }}"
+            class="bottom-nav-item {{ request()->routeIs('pimpinan.projects*') ? 'active' : '' }}">
             <div class="nav-icon-wrapper">
                 <img src="{{ asset('assets/icons/workers.png') }}" alt="Proyek" width="24" height="24">
                 <div class="nav-indicator"></div>
             </div>
-            <span class="nav-label">Proyek</span>
+            <span class="nav-label">Proyek Pimpinan</span>
         </a>
 
-        <a href="{{ route('pekerja.notifications') }}"
-            class="bottom-nav-item {{ request()->routeIs('pekerja.notifications*') ? 'active' : '' }}">
+        <a href="{{ route('pimpinan.notifications') }}"
+            class="bottom-nav-item {{ request()->routeIs('pimpinan.notifications*') ? 'active' : '' }}">
             <div class="nav-icon-wrapper">
-                <img src="{{ asset('assets/icons/notification_off.png') }}" alt="Notifikasi" width="24" height="24">
+                <img src="{{ asset('assets/icons/notification_off.png') }}" alt="Notifikasi" width="24"
+                    height="24">
                 <div class="nav-indicator"></div>
             </div>
-            <span class="nav-label">Notifikasi</span>
+            <span class="nav-label">Notifikasi Pimpinan</span>
         </a>
 
-        <a href="{{ route('profile.editPekerja') }}"
-            class="bottom-nav-item {{ request()->routeIs('pekerja.profile') ? 'active' : '' }}">
+        <a href="{{ route('profile.editPimpinan') }}"
+            class="bottom-nav-item {{ request()->routeIs('pimpinan.profile') ? 'active' : '' }}">
             <div class="nav-icon-wrapper">
                 <img src="{{ asset('assets/icons/user.png') }}" alt="Profil" width="24" height="24">
                 <div class="nav-indicator"></div>
             </div>
-            <span class="nav-label">Profil</span>
+            <span class="nav-label">Profil Pimpinan</span>
         </a>
     </nav>
 

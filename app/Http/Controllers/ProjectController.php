@@ -21,12 +21,12 @@ class ProjectController extends Controller
         $user = auth()->user();
         $search = request('search');
 
-        if ($user->hasAnyRole(['super_admin', 'owner'])) {
+        if ($user->hasAnyRole(['super_admin', 'pimpinan'])) {
             $projects = Project::query()
                 ->when($search, fn($q) => $q->where('project_name', 'like', "%{$search}%"))
                 ->orderByDesc('id')
                 ->paginate(10);
-        } elseif ($user->hasRole('pekerja')) {
+        } elseif ($user->hasRole('pegawai')) {
             $projects = Project::whereHas('assignments', fn($q) => $q->where('user_id', $user->id))
                 ->when($search, fn($q) => $q->where('project_name', 'like', "%{$search}%"))
                 ->orderByDesc('id')
@@ -43,7 +43,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $employees = User::role('pekerja')
+        $employees = User::role('pegawai')
             ->where('is_active', 1)
             ->withCount([
                 'projects as active_projects_count' => function ($q) {
@@ -120,10 +120,10 @@ class ProjectController extends Controller
                 }
             }
 
-            // Kirim notifikasi ke owner & assigned employees
-            $ownerIds = User::role('owner')->pluck('id')->toArray();
+            // Kirim notifikasi ke pimpinan & assigned employees
+            $pimpinanIds = User::role('pimpinan')->pluck('id')->toArray();
             $assignedEmployees = $validated['employees'] ?? [];
-            $targetUsers = array_unique(array_merge($ownerIds, $assignedEmployees));
+            $targetUsers = array_unique(array_merge($pimpinanIds, $assignedEmployees));
 
             foreach ($targetUsers as $uid) {
                 Notification::create([
@@ -146,7 +146,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        $employees = User::role('pekerja')
+        $employees = User::role('pegawai')
             ->where('is_active', 1)
             ->withCount([
                 'projects as active_projects_count' => function ($q) {
@@ -251,7 +251,7 @@ class ProjectController extends Controller
         return redirect()->route('admin.projects.index')->with('success', 'Project archived successfully.');
     }
 
-    // Tambahan metode untuk pekerja, dashboard, dan detail proyek
+    // Tambahan metode untuk pegawai, dashboard, dan detail proyek
     public function myProjects(Request $request)
     {
         $userId = auth()->id();
@@ -265,7 +265,7 @@ class ProjectController extends Controller
         $projects = $query->orderByDesc('id')->paginate(10);
         $allProjects = $query->get();
 
-        return view('pekerja.projects.index', compact('projects', 'allProjects'));
+        return view('pegawai.projects.index', compact('projects', 'allProjects'));
     }
 
     public function myProjectShow(Project $project)
@@ -278,7 +278,7 @@ class ProjectController extends Controller
         $progress = $project->progress()->with('images')->orderBy('created_at', 'desc')->get();
         $project->load('notes.user');
         
-        return view('pekerja.projects.show', compact('project', 'progress'));
+        return view('pegawai.projects.show', compact('project', 'progress'));
     }
 
 
@@ -288,7 +288,7 @@ class ProjectController extends Controller
         $projects = $user->projects()->get();
         $unreadCount = $user->notifications()->whereNull('notification_user.is_read')->count();
 
-        return view('pekerja.dashboard', [
+        return view('pegawai.dashboard', [
             'totalProjects'     => $projects->count(),
             'activeProjects'    => $projects->where('status', 'on_progress')->count(),
             'pendingProjects'   => $projects->where('status', 'pending')->count(),

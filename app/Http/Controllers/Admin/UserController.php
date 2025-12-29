@@ -15,7 +15,7 @@ use Spatie\Permission\Models\Role;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the users (owner & pekerja).
+     * Display a listing of the users (pimpinan & pimpinan).
      */
     public function index(Request $request)
     {
@@ -24,7 +24,7 @@ class UserController extends Controller
 
         $users = User::query()
             ->whereHas('roles', function ($q) {
-                $q->whereIn('name', ['owner', 'pekerja']);
+                $q->whereIn('name', ['pimpinan', 'pegawai']);
             })
             ->when($search, function ($query) use ($search) {
                 $query->where(function ($q) use ($search) {
@@ -57,7 +57,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::whereIn('name', ['owner', 'pekerja'])->get();
+        $roles = Role::whereIn('name', ['pimpinan', 'pegawai'])->get();
         return view('admin.users.create', compact('roles'));
     }
 
@@ -86,7 +86,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::whereIn('name', ['owner', 'pekerja'])->get();
+        $roles = Role::whereIn('name', ['pimpinan', 'pegawai'])->get();
         return view('admin.users.edit', compact('user', 'roles'));
     }
 

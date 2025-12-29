@@ -38,9 +38,9 @@ class RolePermissionSeeder extends Seeder
         }
 
         // Buat roles
-        $superAdminRole = Role::firstOrCreate(['name' => 'super_admin']);
-        $ownerRole = Role::firstOrCreate(['name' => 'owner']);
-        $pekerjaRole = Role::firstOrCreate(['name' => 'pekerja']);
+        $superAdminRole = Role::firstOrCreate(['name' => 'admin']);
+        $pimpinanRole = Role::firstOrCreate(['name' => 'pimpinan']);
+        $pegawaiRole = Role::firstOrCreate(['name' => 'pegawai']);
 
         // Berikan semua permission ke super_admin
         $superAdminRole->syncPermissions($permissions);

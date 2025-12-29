@@ -21,9 +21,9 @@ class NotificationController extends Controller
             ->orderBy('created_at', $order)
             ->paginate(10);
 
-        $view = auth()->user()->hasRole('owner')
-            ? 'owner.notifications'
-            : 'pekerja.notifications';
+        $view = auth()->user()->hasRole('pimpinan')
+            ? 'pimpinan.notifications'
+            : 'pegawai.notifications';
 
         return view($view, compact('notifications'));
     }
@@ -68,11 +68,11 @@ class NotificationController extends Controller
                 }
             }
 
-            // ALL OWNERS MUST RECEIVE NOTIF
-            $ownerIds = User::role('owner')->pluck('id')->toArray();
+            // ALL pimpinanS MUST RECEIVE NOTIF
+            $pimpinanIds = User::role('pimpinan')->pluck('id')->toArray();
 
             // Unique users only
-            $targetUsers = array_unique(array_merge($ownerIds, $assignedEmployees));
+            $targetUsers = array_unique(array_merge($pimpinanIds, $assignedEmployees));
 
             foreach ($targetUsers as $uid) {
                 Notification::create([
@@ -113,21 +113,21 @@ class NotificationController extends Controller
         }
 
         $user = auth()->user();
-        $isOwner = $user->hasRole('owner');
+        $ispimpinan = $user->hasRole('pimpinan');
 
         // Notification related to project
         if ($notif->project_id) {
             $project = Project::find($notif->project_id);
 
             if ($project) {
-                $routeName = $isOwner
-                    ? 'owner.projects.show'
-                    : 'pekerja.projects.show';
+                $routeName = $ispimpinan
+                    ? 'pimpinan.projects.show'
+                    : 'pegawai.projects.show';
 
                 return redirect()->route($routeName, $project->id);
             }
 
-            $fallback = $isOwner ? 'owner.notifications' : 'pekerja.notifications';
+            $fallback = $ispimpinan ? 'pimpinan.notifications' : 'pegawai.notifications';
 
             return redirect()->route($fallback)
                 ->with('error', 'Proyek yang dimaksud sudah dihapus.');
@@ -139,7 +139,7 @@ class NotificationController extends Controller
         }
 
         // Default fallback
-        $fallback = $isOwner ? 'owner.notifications' : 'pekerja.notifications';
+        $fallback = $ispimpinan ? 'pimpinan.notifications' : 'pegawai.notifications';
         return redirect()->route($fallback);
     }
 

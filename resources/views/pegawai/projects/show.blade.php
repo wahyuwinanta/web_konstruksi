@@ -1,4 +1,4 @@
-<x-pekerja-layout>
+<x-pegawai-layout>
     <x-slot name="header">
         Detail Proyek
     </x-slot>
@@ -6,7 +6,7 @@
     <div class="max-w-4xl mx-auto space-y-5">
 
         <!-- Back Button -->
-        <a href="{{ route('pekerja.projects') }}"
+        <a href="{{ route('pegawai.projects') }}"
             class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-indigo-600 transition-colors group">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:-translate-x-1 transition-transform"
                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -226,7 +226,7 @@
                 </div>
             </div>
 
-            <form action="{{ route('pekerja.projects.progress.store', $project->id) }}" method="POST"
+            <form action="{{ route('pegawai.projects.progress.store', $project->id) }}" method="POST"
                 enctype="multipart/form-data" class="p-6">
                 @csrf
 
@@ -330,4 +330,4 @@
             </div>
         @endif
     </div>
-</x-pekerja-layout>
+</x-pegawai-layout>

@@ -18,8 +18,8 @@ use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\OwnerController;
-use App\Http\Controllers\OwnerDashboardController;
+use App\Http\Controllers\PimpinanController;
+use App\Http\Controllers\PimpinanDashboardController;
 // Project Controllers
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProjectAssignmentController;
@@ -44,7 +44,7 @@ Route::post('/appointment/store', [FrontController::class, 'appointment_store'])
 | Dashboard Routes
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth', 'role:super_admin'])->get('/dashboard', function () {
+Route::middleware(['auth', 'role:admin'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
@@ -54,7 +54,7 @@ Route::middleware(['auth', 'role:super_admin'])->get('/dashboard', function () {
 | Admin Routes (Super Admin Only)
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth', 'role:super_admin'])
+Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')
     ->name('admin.')
     ->group(function () {
@@ -85,7 +85,7 @@ Route::middleware(['auth', 'role:super_admin'])
         ]);
     });
 
-Route::middleware(['auth', 'role:super_admin'])
+Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')
     ->name('profile.')
     ->group(function () {
@@ -95,24 +95,24 @@ Route::middleware(['auth', 'role:super_admin'])
 
 /*
 |--------------------------------------------------------------------------
-| Owner Routes
+| Pimpinan Routes
 |--------------------------------------------------------------------------
 */
-// OWNER ROUTES
-Route::middleware(['auth', 'role:owner'])
-    ->prefix('owner')
-    ->name('owner.')
+// PIMPINAN ROUTES
+Route::middleware(['auth', 'role:pimpinan'])
+    ->prefix('pimpinan')
+    ->name('pimpinan.')
     ->group(function () {
 
-        // Projects (navbar expects route('pekerja.projects'))
-        Route::get('/projects', [OwnerDashboardController::class, 'myProjects'])
+        // Projects (navbar expects route('pegawai.projects'))
+        Route::get('/projects', [PimpinanDashboardController::class, 'myProjects'])
             ->name('projects');
         
         Route::patch('/projects/{project}/change-status', 
-            [OwnerDashboardController::class, 'changeStatus'])
+            [PimpinanDashboardController::class, 'changeStatus'])
             ->name('projects.changeStatus');
 
-        Route::get('/projects/{project}', [OwnerDashboardController::class, 'myProjectShow'])
+        Route::get('/projects/{project}', [PimpinanDashboardController::class, 'myProjectShow'])
             ->name('projects.show');
 
         Route::post('/projects/{project}/progress', [ProjectProgressController::class, 'store'])
@@ -129,7 +129,7 @@ Route::middleware(['auth', 'role:owner'])
             ->name('notifications.open');
 
         // Profile
-        Route::get('/profile', [ProfileController::class, 'editOwner'])
+        Route::get('/profile', [ProfileController::class, 'editPimpinan'])
             ->name('profile');
 
         Route::post('/projects/{project}/notes', [ProjectController::class, 'addNote'])
@@ -137,33 +137,33 @@ Route::middleware(['auth', 'role:owner'])
 
     });
 
-Route::middleware(['auth', 'role:owner'])
-    ->get('/owner', [OwnerDashboardController::class, 'dashboard'])
-    ->name('owner.dashboard');
+Route::middleware(['auth', 'role:pimpinan'])
+    ->get('/pimpinan', [PimpinanDashboardController::class, 'dashboard'])
+    ->name('pimpinan.dashboard');
 
-Route::middleware(['auth', 'role:owner']) 
-    ->prefix('owner') 
+Route::middleware(['auth', 'role:pimpinan']) 
+    ->prefix('pimpinan') 
     ->name('profile.') 
     ->group(function () 
-    { Route::get('/profile', [ProfileController::class, 'editOwner']) 
-        ->name('editOwner'); 
+    { Route::get('/profile', [ProfileController::class, 'editPimpinan']) 
+        ->name('editPimpinan'); 
     });
 /*
 /*
 |--------------------------------------------------------------------------
-| Pekerja Routes
+| pegawai Routes
 |--------------------------------------------------------------------------
 */
 
 // Dashboard
 
-Route::middleware(['auth', 'role:pekerja'])
-    ->get('/pekerja', [ProjectController::class, 'dashboard'])
-    ->name('pekerja.dashboard');
+Route::middleware(['auth', 'role:pegawai'])
+    ->get('/pegawai', [ProjectController::class, 'dashboard'])
+    ->name('pegawai.dashboard');
 
-Route::middleware(['auth', 'role:pekerja'])
-    ->prefix('pekerja')
-    ->name('pekerja.')
+Route::middleware(['auth', 'role:pegawai'])
+    ->prefix('pegawai')
+    ->name('pegawai.')
     ->group(function () {
  
         Route::resource('projects', ProjectController::class);
@@ -178,7 +178,7 @@ Route::middleware(['auth', 'role:pekerja'])
         Route::get('/notifications/open/{id}', [NotificationController::class, 'open'])
             ->name('notifications.open');
 
-        // Projects (navbar expects route('pekerja.projects'))
+        // Projects (navbar expects route('pegawai.projects'))
         Route::get('/projects', [ProjectController::class, 'myProjects'])
             ->name('projects');
 
@@ -188,22 +188,22 @@ Route::middleware(['auth', 'role:pekerja'])
         Route::post('/projects/{project}/progress', [ProjectProgressController::class, 'store'])
             ->name('projects.progress.store');
 
-        // Profile (navbar expects route('pekerja.profile'))
-        Route::get('/profile', [ProfileController::class, 'editPekerja'])
+        // Profile (navbar expects route('pegawai.profile'))
+        Route::get('/profile', [ProfileController::class, 'editPegawai'])
             ->name('profile');
 
-        Route::post('/pekerja/projects/{project}/notes',[ProjectController::class, 'addNote'])
-            ->name('pekerja.projects.add-note');
+        Route::post('/pegawai/projects/{project}/notes',[ProjectController::class, 'addNote'])
+            ->name('pegawai.projects.add-note');
 
     });
 
 // Profile Routes
-Route::middleware(['auth', 'role:pekerja']) 
-    ->prefix('pekerja') 
+Route::middleware(['auth', 'role:pegawai']) 
+    ->prefix('pegawai') 
     ->name('profile.') 
     ->group(function () 
-    { Route::get('/profile', [ProfileController::class, 'editPekerja']) 
-        ->name('editPekerja'); 
+    { Route::get('/profile', [ProfileController::class, 'editPegawai']) 
+        ->name('editPegawai'); 
     });
 
 /*

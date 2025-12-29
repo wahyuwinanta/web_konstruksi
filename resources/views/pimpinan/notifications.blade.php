@@ -1,4 +1,4 @@
-<x-pekerja-layout>
+<x-pimpinan-layout>
     @slot('header')
         Notifikasi
     @endslot
@@ -19,7 +19,6 @@
                 </button>
             </form>
         </div>
-
 
         @if (session('error'))
             <div class="bg-red-100 border border-red-300 text-red-800 px-4 py-2 rounded mb-3">
@@ -58,7 +57,7 @@
                     class="group relative bg-white rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden
                     {{ $notif->is_read ? 'border border-gray-100' : 'border-2 border-indigo-200 bg-gradient-to-r from-indigo-50 to-white' }}">
 
-                    <a href="{{ route('pekerja.notifications.open', $notif->id) }}" class="block p-5 sm:p-6">
+                    <a href="{{ route('pimpinan.notifications.open', $notif->id) }}" class="block p-5 sm:p-6">
                         <div class="flex gap-4">
 
                             <!-- Icon/Avatar -->
@@ -98,7 +97,7 @@
 
                                     <!-- Mark as Read Button -->
                                     @if (!$notif->is_read)
-                                        <form action="{{ route('pekerja.notifications.read', $notif->id) }}"
+                                        <form action="{{ route('pimpinan.notifications.read', $notif->id) }}"
                                             method="POST" onclick="event.stopPropagation();" class="flex-shrink-0">
                                             @csrf
                                             <button type="submit"
@@ -138,4 +137,4 @@
 
     </div>
 
-</x-pekerja-layout>
+</x-pimpinan-layout>

@@ -1,4 +1,4 @@
-<x-owner-layout>
+<x-pimpinan-layout>
     <x-slot name="header">
         Detail Proyek
     </x-slot>
@@ -6,7 +6,7 @@
     <div class="max-w-4xl mx-auto space-y-5">
 
         <!-- Back Button -->
-        <a href="{{ route('owner.projects') }}"
+        <a href="{{ route('pimpinan.projects') }}"
             class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-indigo-600 transition-colors group">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:-translate-x-1 transition-transform"
                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -54,7 +54,7 @@
                             {{ $status['label'] }}
                         </span>
 
-                        <form action="{{ route('owner.projects.changeStatus', $project->id) }}" method="POST"
+                        <form action="{{ route('pimpinan.projects.changeStatus', $project->id) }}" method="POST"
                             class="flex items-center gap-2 mt-2">
                             @csrf
                             @method('PATCH')
@@ -302,9 +302,9 @@
 
             <div class="p-6 space-y-4">
 
-                {{-- FORM TAMBAH CATATAN (OWNER ONLY) --}}
-                @if (auth()->user()->hasRole('owner'))
-                    <form action="{{ route('owner.projects.notes.store', $project->id) }}" method="POST">
+                {{-- FORM TAMBAH CATATAN (PIMPINAN ONLY) --}}
+                @if (auth()->user()->hasRole('pimpinan'))
+                    <form action="{{ route('pimpinan.projects.notes.store', $project->id) }}" method="POST">
                         @csrf
 
                         <textarea name="note" rows="3"
@@ -474,4 +474,4 @@
         }
     </style>
 
-</x-owner-layout>
+</x-pimpinan-layout>

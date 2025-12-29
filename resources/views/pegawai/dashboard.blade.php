@@ -1,4 +1,4 @@
-<x-pekerja-layout>
+<x-pegawai-layout>
     <x-slot name="header">
         Dashboard
     </x-slot>
@@ -127,7 +127,7 @@
                             </div>
                             <h2 class="text-lg font-bold text-gray-900">Proyek Terkini</h2>
                         </div>
-                        <a href="{{ route('pekerja.projects') }}"
+                        <a href="{{ route('pegawai.projects') }}"
                             class="text-sm font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-1">
                             Lihat Semua
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none"
@@ -164,7 +164,7 @@
                                     $status = $statusConfig[$project->status] ?? $statusConfig['pending'];
                                 @endphp
 
-                                <a href="{{ route('pekerja.projects.show', $project->id) }}"
+                                <a href="{{ route('pegawai.projects.show', $project->id) }}"
                                     class="block border border-gray-200 rounded-xl p-4 hover:border-indigo-300 hover:shadow-md transition-all group">
                                     <div class="flex items-start justify-between gap-3">
                                         <div class="flex-1 min-w-0">
@@ -219,7 +219,7 @@
                         <h2 class="text-lg font-bold text-gray-900">Quick Actions</h2>
                     </div>
                     <div class="p-4 space-y-2">
-                        <a href="{{ route('pekerja.projects') }}"
+                        <a href="{{ route('pegawai.projects') }}"
                             class="flex items-center gap-3 p-3 rounded-xl hover:bg-indigo-50 transition-colors group">
                             <div
                                 class="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center group-hover:bg-indigo-200 transition-colors">
@@ -235,7 +235,7 @@
                             </div>
                         </a>
 
-                        <a href="{{ route('pekerja.notifications') }}"
+                        <a href="{{ route('pegawai.notifications') }}"
                             class="flex items-center gap-3 p-3 rounded-xl hover:bg-purple-50 transition-colors group">
 
                             <div
@@ -262,7 +262,7 @@
                         </a>
 
 
-                        <a href="{{ route('profile.editPekerja') }}"
+                        <a href="{{ route('profile.editPegawai') }}"
                             class="flex items-center gap-3 p-3 rounded-xl hover:bg-blue-50 transition-colors group">
                             <div
                                 class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center group-hover:bg-blue-200 transition-colors">
@@ -410,4 +410,4 @@
         }
     </style>
 
-</x-pekerja-layout>
+</x-pegawai-layout>

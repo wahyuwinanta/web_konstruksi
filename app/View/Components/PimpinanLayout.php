@@ -4,10 +4,10 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class PekerjaLayout extends Component
+class PimpinanLayout extends Component
 {
     public function render()
     {
-        return view('layouts.pekerja');
+        return view('layouts.pimpinan');
     }
 }

@@ -4864,7 +4864,7 @@ namespace Illuminate\Support\Facades {
          * @param string $key
          * @param array{ 0: \DateTimeInterface|\DateInterval|int, 1: \DateTimeInterface|\DateInterval|int } $ttl
          * @param (callable(): TCacheValue) $callback
-         * @param array{ seconds?: int, owner?: string }|null $lock
+         * @param array{ seconds?: int, pimpinan?: string }|null $lock
          * @param bool $alwaysDefer
          * @return TCacheValue
          * @static
@@ -5171,28 +5171,28 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $name
          * @param int $seconds
-         * @param string|null $owner
+         * @param string|null $pimpinan
          * @return \Illuminate\Contracts\Cache\Lock
          * @static
          */
-        public static function lock($name, $seconds = 0, $owner = null)
+        public static function lock($name, $seconds = 0, $pimpinan = null)
         {
             /** @var \Illuminate\Cache\DatabaseStore $instance */
-            return $instance->lock($name, $seconds, $owner);
+            return $instance->lock($name, $seconds, $pimpinan);
         }
 
         /**
-         * Restore a lock instance using the owner identifier.
+         * Restore a lock instance using the pimpinan identifier.
          *
          * @param string $name
-         * @param string $owner
+         * @param string $pimpinan
          * @return \Illuminate\Contracts\Cache\Lock
          * @static
          */
-        public static function restoreLock($name, $owner)
+        public static function restoreLock($name, $pimpinan)
         {
             /** @var \Illuminate\Cache\DatabaseStore $instance */
-            return $instance->restoreLock($name, $owner);
+            return $instance->restoreLock($name, $pimpinan);
         }
 
         /**

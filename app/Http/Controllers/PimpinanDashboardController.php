@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-class OwnerDashboardController extends Controller
+class PimpinanDashboardController extends Controller
 {
     public function dashboard()
     {
@@ -22,7 +22,7 @@ class OwnerDashboardController extends Controller
                     ->whereNull('notification_user.is_read')
                     ->count();
 
-        return view('owner.dashboard', [
+        return view('pimpinan.dashboard', [
             'totalProjects'     => $projects->count(),
             'activeProjects'    => $projects->where('status', 'on_progress')->count(),
             'pendingProjects'   => $projects->where('status', 'pending')->count(),
@@ -49,7 +49,7 @@ class OwnerDashboardController extends Controller
         }
         $projects = $query->orderByDesc('id')->paginate(10);
 
-        return view('owner.projects.index', compact('projects', 'allProjects'));
+        return view('pimpinan.projects.index', compact('projects', 'allProjects'));
     }
 
 
@@ -69,13 +69,13 @@ class OwnerDashboardController extends Controller
         // Load progress beserta images
         $progress = $project->progress()->with('images')->orderBy('created_at', 'desc')->get();
 
-        return view('owner.projects.show', compact('project', 'progress'));
+        return view('pimpinan.projects.show', compact('project', 'progress'));
     }
 
     public function changeStatus(Request $request, Project $project)
     {
-        // Hanya owner proyek atau user role owner
-        if (Auth::id() !== $project->created_by && !Auth::user()->hasRole('owner')) {
+        // Hanya pimpinan proyek atau user role pimpinan
+        if (Auth::id() !== $project->created_by && !Auth::user()->hasRole('pimpinan')) {
             abort(403, 'Unauthorized');
         }
 
