@@ -64,9 +64,24 @@
                     </div>
                 </div>
 
+                @php
+                    $phone = preg_replace('/[^0-9]/', '', $appointment->phone_number);
+
+                    if (str_starts_with($phone, '08')) {
+                        $phone = '62' . substr($phone, 1);
+                    }
+                @endphp
+
                 <!-- Tombol Aksi -->
                 <div class="pt-4 border-t border-gray-100 flex justify-center">
-                    <a href="#"
+                    <a href="https://wa.me/{{ $phone }}?text={{ urlencode(
+                        'Halo ' .
+                            $appointment->name .
+                            ', kami dari Mulia Mandiri Konstruksi ingin menindaklanjuti permintaan Anda terkait ' .
+                            $appointment->product->name .
+                            '.',
+                    ) }}"
+                        target="_blank"
                         class="font-bold py-4 px-8 bg-indigo-700 text-white rounded-full shadow hover:bg-indigo-800 hover:scale-105 transition-all duration-200 ease-in-out">
                         Follow Up Customer
                     </a>

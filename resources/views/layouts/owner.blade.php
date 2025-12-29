@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'CV. Mulia Mandiri Konstruksi') }} - Owner</title>
+    <title>{{ config('app.name', 'CV. Mulia Mandiri Konstruksi') }} - Pimpinan</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -180,7 +180,7 @@
 
 
                     @isset($header)
-                        <h2 class="font-bold text-lg text-gray-900 leading-tight tracking-tight">{{ $header }} Owner
+                        <h2 class="font-bold text-lg text-gray-900 leading-tight tracking-tight">{{ $header }} Pimpinan
                         </h2>
                     @endisset
                 </div>
@@ -261,7 +261,7 @@
                 <img src="{{ asset('assets/icons/dashboards.png') }}" alt="Beranda" width="24" height="24">
                 <div class="nav-indicator"></div>
             </div>
-            <span class="nav-label">Beranda Owner</span>
+            <span class="nav-label">Beranda Pimpinan</span>
         </a>
 
         <a href="{{ route('owner.projects') }}"
@@ -270,7 +270,7 @@
                 <img src="{{ asset('assets/icons/workers.png') }}" alt="Proyek" width="24" height="24">
                 <div class="nav-indicator"></div>
             </div>
-            <span class="nav-label">Proyek Owner</span>
+            <span class="nav-label">Proyek Pimpinan</span>
         </a>
 
         <a href="{{ route('owner.notifications') }}"
@@ -280,7 +280,7 @@
                     height="24">
                 <div class="nav-indicator"></div>
             </div>
-            <span class="nav-label">Notifikasi Owner</span>
+            <span class="nav-label">Notifikasi Pimpinan</span>
         </a>
 
         <a href="{{ route('profile.editOwner') }}"
@@ -289,7 +289,7 @@
                 <img src="{{ asset('assets/icons/user.png') }}" alt="Profil" width="24" height="24">
                 <div class="nav-indicator"></div>
             </div>
-            <span class="nav-label">Profil Owner</span>
+            <span class="nav-label">Profil Pimpinan</span>
         </a>
     </nav>
 
