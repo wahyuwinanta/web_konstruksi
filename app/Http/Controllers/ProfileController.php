@@ -56,8 +56,8 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        // redirect super admin
-        if ($request->user()->hasRole('super_admin')) {
+        // redirect admin
+        if ($request->user()->hasRole('admin')) {
             return Redirect::route('profile.editAdmin')
                 ->with('status', 'profile-updated');
         }

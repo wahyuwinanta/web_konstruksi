@@ -14,7 +14,7 @@
 
         gtag('config', 'G-BLZ4K395PZ');
     </script>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ asset('css/output.css') }}" rel="stylesheet">
@@ -32,6 +32,9 @@
     <script src="//unpkg.com/alpinejs" defer></script>
 
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" /> -->
+
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/logo.png') }}">
 </head>
 
 <body class="font-poppins text-cp-black">

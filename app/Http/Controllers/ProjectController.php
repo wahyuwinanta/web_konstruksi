@@ -21,7 +21,7 @@ class ProjectController extends Controller
         $user = auth()->user();
         $search = request('search');
 
-        if ($user->hasAnyRole(['super_admin', 'pimpinan'])) {
+        if ($user->hasAnyRole(['admin', 'pimpinan'])) {
             $projects = Project::query()
                 ->when($search, fn($q) => $q->where('project_name', 'like', "%{$search}%"))
                 ->orderByDesc('id')
