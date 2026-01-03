@@ -72,22 +72,38 @@
         </div>
         <div class="flex flex-wrap items-center gap-[30px] justify-center">
             @forelse ($principles as $principle)
-                <div
-                    class="card w-[356.67px] flex flex-col bg-white border border-[#E8EAF2] rounded-[20px] gap-[30px] overflow-hidden hover:border-cp-dark-blue transition-all duration-300">
-                    <div class="thumbnail h-[200px] flex shrink-0 overflow-hidden">
-                        <img src="{{ Storage::url($principle->thumbnail) }}"
-                            class="object-cover object-center w-full h-full" alt="thumbnails">
+                <div class="card w-[356.67px] flex flex-col bg-white border border-[#E8EAF2] rounded-[20px] gap-[30px] overflow-hidden hover:border-cp-dark-blue transition-all duration-300"
+                    x-data="{ open: false }">
+                    <!-- Thumbnail -->
+                    <div class="thumbnail h-[200px] overflow-hidden">
+                        <img src="{{ Storage::url($principle->thumbnail) }}" class="object-cover w-full h-full"
+                            alt="thumbnail">
                     </div>
-                    <div class="flex flex-col p-[0_30px_30px_30px] gap-5">
-                        <div class="w-[55px] h-[55px] flex shrink-0 overflow-hidden">
+
+                    <!-- Content -->
+                    <div class="flex flex-col p-[0_30px_30px_30px] gap-4">
+                        <div class="w-[55px] h-[55px]">
                             <img src="{{ Storage::url($principle->icon) }}" class="w-full h-full object-contain"
                                 alt="icon">
                         </div>
-                        <div class="flex flex-col gap-1">
-                            <p class="title font-bold text-xl leading-[30px]">{{ $principle->name }}</p>
-                            <p class="leading-[30px] text-cp-light-grey">{{ $principle->subtittle }}</p>
+
+                        <p class="font-bold text-xl leading-[30px]">
+                            {{ $principle->name }}
+                        </p>
+
+                        <!-- Hidden Subtitle -->
+                        <div x-show="open" x-collapse class="text-cp-light-grey leading-[28px]">
+                            {{ $principle->subtitle }}
                         </div>
-                        <a href="" class="font-semibold text-cp-dark-blue">Pelajari Lebih Lanjut</a>
+
+                        <!-- Toggle Button -->
+                        <button @click="open = !open" class="w-fit font-semibold text-cp-dark-blue flex items-center gap-2">
+                            <span x-text="open ? 'Tutup' : 'Pelajari Lebih Lanjut'"></span>
+                            <svg class="w-4 h-4 transition-transform" :class="open && 'rotate-180'" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
             @empty
@@ -98,24 +114,70 @@
         </div>
     </div>
 
-    <div id="Stats" class="bg-cp-black w-full mt-20">
+    <div id="Stats" class="bg-cp-black w-full mt-20" x-data="{ open: false, doc: null }" x-cloak>
+
         <div class="container max-w-[1000px] mx-auto py-10">
             <div class="flex flex-wrap items-center justify-between p-[10px]">
+
                 @forelse ($statistics as $statistic)
-                    <div class="card w-[200px] flex flex-col items-center gap-[10px] text-center">
+                    <div class="card w-[200px] flex flex-col items-center gap-[10px] text-center cursor-pointer"
+                        @click="
+                        @if ($statistic->document) doc = '{{ Storage::url($statistic->document) }}';
+                            open = true; @endif
+                    ">
                         <div class="w-[55px] h-[55px] flex shrink-0 overflow-hidden">
-                            <img src="{{ Storage::url($statistic->icon) }}" class="object-contain w-full h-full"
-                                alt="icon">
+                            <img src="{{ Storage::url($statistic->icon) }}"
+                                class="object-contain w-full h-full hover:scale-110 transition" alt="icon">
                         </div>
-                        <p class="text-cp-pale-orange font-bold text-4xl leading-[54px]">{{ $statistic->goal }}</p>
-                        <p class="text-cp-light-grey">{{ $statistic->name }}</p>
+
+                        <p class="text-cp-pale-orange font-bold text-4xl">
+                            {{ $statistic->goal }}
+                        </p>
+                        <p class="text-cp-light-grey">
+                            {{ $statistic->name }}
+                        </p>
                     </div>
                 @empty
-                    <p>Belum ada data terbaru</p>
+                    <p class="text-white">Belum ada data terbaru</p>
                 @endforelse
+
             </div>
         </div>
+
+        <!-- MODAL DOKUMEN -->
+        <div x-show="open" x-transition.opacity @keydown.escape.window="open = false"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+            @click.self="open = false">
+            <div x-transition.scale
+                class="relative w-[470px] h-[550px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col"
+                @click.stop>
+
+                <!-- Header -->
+                <div class="flex items-center justify-between px-6 py-4 bg-white/90 backdrop-blur border-b">
+                    <h2 class="text-lg font-semibold text-gray-800">
+                        Document Preview
+                    </h2>
+
+                    <button @click="open = false"
+                        class="w-10 h-10 flex items-center justify-center rounded-full text-gray-600 hover:bg-red-50 hover:text-red-600 transition"
+                        aria-label="Close">
+                        ✕
+                    </button>
+                </div>
+
+                <!-- Content -->
+                <div class="flex-1 bg-gray-100">
+                    <template x-if="doc">
+                        <iframe :src="doc" class="w-full h-full bg-white" loading="lazy"></iframe>
+                    </template>
+                </div>
+
+            </div>
+        </div>
+
     </div>
+
+
 
     <div id="Products" class="container max-w-[1130px] mx-auto flex flex-col gap-20 mt-20">
         @forelse ($products as $product)
@@ -150,7 +212,8 @@
             <div class="flex flex-col gap-[14px] items-center">
                 <p class="badge w-fit bg-cp-light-blue text-white p-[8px_16px] rounded-full uppercase font-bold text-sm">
                     Tim Profesional di Balik Konstruksi Kokoh</p>
-                <h2 class="font-bold text-4xl leading-[45px] text-center">Kami Memiliki Impian yang Sama <br> Mengubah Dunia
+                <h2 class="font-bold text-4xl leading-[45px] text-center">Kami Memiliki Impian yang Sama <br> Mengubah
+                    Dunia
                 </h2>
             </div>
             <div

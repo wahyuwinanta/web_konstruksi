@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('goal');
             $table->string('icon');
+            $table->string('document');
             $table->softDeletes();
             $table->timestamps();
         });

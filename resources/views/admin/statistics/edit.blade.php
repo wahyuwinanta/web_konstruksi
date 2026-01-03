@@ -21,7 +21,8 @@
                 @endif
 
                 {{-- Form --}}
-                <form method="POST" action="{{ route('admin.statistics.update', $statistic) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.statistics.update', $statistic) }}"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
@@ -51,6 +52,20 @@
                         <x-text-input id="goal" class="block mt-2 w-full border-gray-300 rounded-xl" type="text"
                             name="goal" value="{{ $statistic->goal }}" required autofocus autocomplete="goal" />
                         <x-input-error :messages="$errors->get('goal')" class="mt-2" />
+                    </div>
+
+                    {{-- Document File --}}
+                    <div class="mt-5">
+                        <x-input-label for="document" :value="__('Upload Document File (PDF/JPG/PNG)')" />
+                        @if ($statistic->document)
+                            <p class="text-sm text-gray-500 mt-1">Current file: <a
+                                    href="{{ asset('storage/' . $statistic->document) }}" target="_blank"
+                                    class="underline text-indigo-600">{{ basename($statistic->document) }}</a>
+                            </p>
+                        @endif
+                        <input type="file" name="document" id="document"
+                            class="block mt-2 w-full border-gray-300 rounded-xl p-3 focus:ring-indigo-500 focus:border-indigo-500" />
+                        <x-input-error :messages="$errors->get('document')" class="mt-2" />
                     </div>
 
                     {{-- Submit --}}

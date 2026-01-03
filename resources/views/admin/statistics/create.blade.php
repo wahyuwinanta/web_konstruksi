@@ -51,6 +51,14 @@
                         <x-input-error :messages="$errors->get('goal')" class="mt-2" />
                     </div>
 
+                    {{-- Document File --}}
+                    <div>
+                        <x-input-label for="document" :value="__('Upload Document File (PDF/JPG/PNG)')" />
+                        <input type="file" name="document" id="document"
+                            class="block mt-2 w-full border-gray-300 rounded-xl p-3 focus:ring-indigo-500 focus:border-indigo-500" />
+                        <x-input-error :messages="$errors->get('document')" class="mt-2" />
+                    </div>
+
                     {{-- Submit --}}
                     <div class="flex justify-end mt-10">
                         <button type="submit"

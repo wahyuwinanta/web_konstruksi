@@ -15,7 +15,7 @@ class CompanyStatisticController extends Controller
      */
     public function index()
     {
-        $statistics = CompanyStatistic::orderByDesc('id')->paginate(10);
+        $statistics = CompanyStatistic::orderByDesc('id')->paginate(3);
         return view('admin.statistics.index', compact('statistics'));
     }
 
@@ -37,9 +37,16 @@ class CompanyStatisticController extends Controller
     {
         DB::transaction(function ()use ($request){
             $validated = $request->validated();
+            $disk = config('filesystems.default_public_disk');
+
             if ($request->hasFile('icon')) {
                 $iconPath = $request->file('icon')->store('icons', config('filesystems.default_public_disk'));
                 $validated['icon'] = $iconPath;
+            }
+            // DOCUMENT
+            if ($request->hasFile('document')) {
+                $validated['document'] =
+                    $request->file('document')->store('statistics/documents', $disk);
             }
             $newDataRecord = CompanyStatistic::create($validated);
         });
@@ -70,12 +77,29 @@ class CompanyStatisticController extends Controller
     {
         DB::transaction(function ()use ($request, $statistic){
             $validated = $request->validated();
+            $disk = config('filesystems.default_public_disk');
 
             if ($request->hasFile('icon')) {
                 $iconPath = $request->file('icon')->store('icons', config('filesystems.default_public_disk'));
                 $validated['icon'] = $iconPath;
             }
-            $statistic->update($validated);
+
+            // DOCUMENT
+            if ($request->hasFile('document')) {
+                if ($statistic->document && \Storage::disk($disk)->exists($statistic->document)) {
+                    \Storage::disk($disk)->delete($statistic->document);
+                }
+
+                $statistic->document =
+                    $request->file('document')->store('statistics/documents', $disk);
+            }
+
+            // UPDATE DATA TANPA FILE
+            $statistic->update(
+                collect($validated)->except(['icon', 'document'])->toArray()
+            );
+
+            $statistic->save();
         });
 
         return redirect()->route('admin.statistics.index');

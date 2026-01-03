@@ -13,5 +13,6 @@ class CompanyStatistic extends Model
         'name',
         'goal',
         'icon',
+        'document',
     ];
 }

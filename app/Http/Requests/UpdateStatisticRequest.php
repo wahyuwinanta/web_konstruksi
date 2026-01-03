@@ -29,6 +29,7 @@ class UpdateStatisticRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'goal' => ['required', 'string', 'max:255'],
             'icon' => ['sometimes', 'image', 'mimes:png,jpg,jpeg,svg'],
+            'document' => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png'],
         ];
     }
 }

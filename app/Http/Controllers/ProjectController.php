@@ -188,24 +188,42 @@ class ProjectController extends Controller
 
         DB::transaction(function () use ($validated, $request, $project) {
 
+            $disk = config('filesystems.default_public_disk');
+
             if ($request->hasFile('rab_file')) {
-                Storage::disk(config('filesystems.default_public_disk'))->delete($project->rab_file);
-                $validated['rab_file'] =
-                    $request->file('rab_file')->store('projects/rab', config('filesystems.default_public_disk'));
+                if ($project->rab_file && Storage::disk($disk)->exists($project->rab_file)) {
+                    Storage::disk($disk)->delete($project->rab_file);
+                }
+
+                $project->rab_file = $request
+                    ->file('rab_file')
+                    ->store('projects/rab', $disk);
             }
 
             if ($request->hasFile('design_file')) {
-                Storage::disk(config('filesystems.default_public_disk'))->delete($project->design_file);
-                $validated['design_file'] =
-                    $request->file('design_file')->store('projects/designs', config('filesystems.default_public_disk'));
+                if ($project->design_file && Storage::disk($disk)->exists($project->design_file)) {
+                    Storage::disk($disk)->delete($project->design_file);
+                }
+
+                $project->design_file = $request
+                    ->file('design_file')
+                    ->store('projects/designs', $disk);
             }
+
             $oldEmployees = $project->assignments()->pluck('user_id')->toArray();
             $newEmployees = $validated['employees'] ?? [];
             $addedEmployees = array_diff($newEmployees, $oldEmployees);
             
             $project->update(
-                collect($validated)->except(['employees', 'notes'])->toArray()
+                collect($validated)->except([
+                    'rab_file',
+                    'design_file',
+                    'employees',
+                    'notes'
+                ])->toArray()
             );
+
+            $project->save();
 
             // NOTE BARU (HISTORI)
             if ($request->filled('notes')) {
