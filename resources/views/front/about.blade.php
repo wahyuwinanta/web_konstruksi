@@ -101,25 +101,67 @@
         </div>
     </div> --}}
 
-    <div id="Stats" class="bg-cp-black w-full mt-20">
+    <div id="Stats" class="bg-cp-black w-full mt-20" x-data="{ open: false, doc: null }" x-cloak>
+
         <div class="container max-w-[1000px] mx-auto py-10">
             <div class="flex flex-wrap items-center justify-between p-[10px]">
+
                 @forelse ($statistics as $statistic)
-                    <div class="card w-[200px] flex flex-col items-center gap-[10px] text-center">
+                    <div class="card w-[200px] flex flex-col items-center gap-[10px] text-center cursor-pointer"
+                        @click="
+                        @if ($statistic->document) doc = '{{ Storage::url($statistic->document) }}';
+                            open = true; @endif
+                    ">
                         <div class="w-[55px] h-[55px] flex shrink-0 overflow-hidden">
-                            <img src="{{ Storage::url($statistic->icon) }}" class="object-contain w-full h-full"
-                                alt="icon">
+                            <img src="{{ Storage::url($statistic->icon) }}"
+                                class="object-contain w-full h-full hover:scale-110 transition" alt="icon">
                         </div>
-                        <p class="text-cp-pale-orange font-bold text-4xl leading-[54px]">
+
+                        <p class="text-cp-pale-orange font-bold text-4xl">
                             {{ $statistic->goal }}
                         </p>
-                        <p class="text-cp-light-grey">{{ $statistic->name }}</p>
+                        <p class="text-cp-light-grey">
+                            {{ $statistic->name }}
+                        </p>
                     </div>
                 @empty
-                    <p>Belum ada data statistik</p>
+                    <p class="text-white">Belum ada data terbaru</p>
                 @endforelse
+
             </div>
         </div>
+
+        <!-- MODAL DOKUMEN -->
+        <div x-show="open" x-transition.opacity @keydown.escape.window="open = false"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+            @click.self="open = false">
+            <div x-transition.scale
+                class="relative w-[470px] h-[550px] bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col"
+                @click.stop>
+
+                <!-- Header -->
+                <div class="flex items-center justify-between px-6 py-4 bg-white/90 backdrop-blur border-b">
+                    <h2 class="text-lg font-semibold text-gray-800">
+                        Document Preview
+                    </h2>
+
+                    <button @click="open = false"
+                        class="w-10 h-10 flex items-center justify-center rounded-full text-gray-600 hover:bg-red-50 hover:text-red-600 transition"
+                        aria-label="Close">
+                        ✕
+                    </button>
+                </div>
+
+                <!-- Content -->
+                <div class="flex-1 bg-gray-100">
+                    <template x-if="doc">
+                        <iframe :src="doc" class="w-full h-full bg-white" loading="lazy"></iframe>
+                    </template>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
     {{-- <div id="Awards" class="container max-w-[1130px] mx-auto flex flex-col gap-[30px] mt-20">
