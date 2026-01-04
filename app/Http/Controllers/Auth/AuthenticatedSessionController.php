@@ -14,10 +14,27 @@ class AuthenticatedSessionController extends Controller
     /**
      * Display the login view.
      */
-    public function create(): View
+    public function create(): View|\Illuminate\Http\RedirectResponse
     {
+        if (Auth::check()) {
+            $user = Auth::user();
+
+            if ($user->hasRole('admin')) {
+                return redirect()->route('dashboard');
+            }
+
+            if ($user->hasRole('pimpinan')) {
+                return redirect()->route('pimpinan.dashboard');
+            }
+
+            if ($user->hasRole('pegawai')) {
+                return redirect()->route('pegawai.dashboard');
+            }
+        }
+
         return view('auth.login');
     }
+
 
     /**
      * Handle an incoming authentication request.
