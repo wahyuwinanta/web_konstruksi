@@ -293,9 +293,7 @@
                     </div>
                     <div>
                         <h2 class="text-lg font-bold text-gray-900">Catatan Proyek</h2>
-                        <p class="text-xs text-gray-600">
-                            Informasi dari admin / manajer proyek
-                        </p>
+
                     </div>
                 </div>
             </div>
