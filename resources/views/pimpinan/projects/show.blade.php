@@ -346,65 +346,68 @@
 
         <!-- Progress History -->
         {{-- @if (isset($progress) && $progress->count()) --}}
-            <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
-                <div class="bg-gradient-to-r from-purple-50 to-pink-50 px-6 py-4 border-b border-purple-100">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-purple-500 rounded-xl flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h2 class="text-lg font-bold text-gray-900">Riwayat Progress</h2>
-                                <p class="text-xs text-gray-600">{{ $progress->count() }} update tercatat</p>
-                            </div>
+        <div class="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden">
+            <div class="bg-gradient-to-r from-purple-50 to-pink-50 px-6 py-4 border-b border-purple-100">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-purple-500 rounded-xl flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
                         </div>
-                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold">
-                            {{ $progress->count() }}
-                        </span>
+                        <div>
+                            <h2 class="text-lg font-bold text-gray-900">Riwayat Progress</h2>
+                            <p class="text-xs text-gray-600">{{ $progress->count() }} update tercatat</p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="p-6">
-                    <div class="space-y-4">
-                        @foreach ($progress as $index => $item)
-                            <div
-                                class="relative pl-8 pb-4 {{ !$loop->last ? 'border-l-2 border-gray-200 ml-4' : 'ml-4' }}">
-                                <div
-                                    class="absolute left-0 top-0 -ml-[21px] w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white shadow-lg border-4 border-white">
-                                    <span class="text-xs font-bold">{{ $progress->count() - $index }}</span>
-                                </div>
-
-                                <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4">
-                                    <div class="flex justify-between items-start gap-4">
-                                        <p class="text-sm text-gray-800 flex-1">{{ $item->progress_description }}</p>
-
-                                        @if ($item->progress_percentage !== null)
-                                            <span class="text-sm font-bold text-indigo-700">
-                                                {{ $item->progress_percentage }}%
-                                            </span>
-                                        @endif
-                                    </div>
-
-                                    @if ($item->images->count())
-                                        @foreach ($item->images as $image)
-                                            <img src="{{ asset('storage/' . $image->image_path) }}"
-                                                class="rounded-xl shadow-md max-h-64 object-cover mt-3">
-                                        @endforeach
-                                    @endif
-
-                                    <p class="text-xs text-gray-500 mt-2">
-                                        {{ $item->created_at->format('d M Y, H:i') }}
-                                    </p>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+                    <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold">
+                        {{ $progress->count() }}
+                    </span>
                 </div>
             </div>
+
+            <div class="p-6">
+                <div class="space-y-4">
+                    @foreach ($progress as $index => $item)
+                        <div
+                            class="relative pl-8 pb-4 {{ !$loop->last ? 'border-l-2 border-gray-200 ml-4' : 'ml-4' }}">
+                            <div
+                                class="absolute left-0 top-0 -ml-[21px] w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white shadow-lg border-4 border-white">
+                                <span class="text-xs font-bold">{{ $progress->count() - $index }}</span>
+                            </div>
+
+                            <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4">
+                                <div class="flex justify-between items-start gap-4">
+                                    <p class="text-sm text-gray-800 flex-1">{{ $item->progress_description }}</p>
+
+                                    @if ($item->progress_percentage !== null)
+                                        <span class="text-sm font-bold text-indigo-700">
+                                            {{ $item->progress_percentage }}%
+                                        </span>
+                                    @endif
+                                </div>
+
+                                @if ($item->images->count())
+                                    @foreach ($item->images as $image)
+                                        <img src="{{ asset('storage/' . $image->image_path) }}"
+                                            class="rounded-xl shadow-md max-h-64 object-cover mt-3">
+                                    @endforeach
+                                @endif
+
+                                <p class="text-xs text-gray-500 mt-2">
+                                    {{ $item->created_at->format('d M Y, H:i') }}
+                                </p>
+                                <p class="text-xs text-gray-500 mt-2">
+                                    dibuat oleh : {{ $item->user->name ?? 'User Tidak Diketahui' }}
+                                </p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
         {{-- @endif --}}
 
     </div>
