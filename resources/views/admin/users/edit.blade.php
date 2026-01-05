@@ -50,6 +50,14 @@
                         <p class="text-sm text-gray-500 mt-1">Leave empty if you don’t want to change the password.</p>
                     </div>
 
+                    {{-- Confirm Password --}}
+                    <div class="mb-6">
+                        <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                        <input id="password_confirmation" type="text" name="password_confirmation" required
+                            class="block w-full border-gray-300 rounded-xl py-3 px-4" placeholder="Confirm password">
+                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                    </div>
+
                     {{-- Role --}}
                     <div class="mb-6">
                         <x-input-label for="role" :value="__('Role')" />
