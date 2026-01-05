@@ -319,8 +319,8 @@
                                     <p class="text-xs text-gray-500 mt-2">
                                         {{ $item->created_at->format('d M Y, H:i') }}
                                     </p>
-                                    <p class="text-xs font-bold text-indigo-600 mb-1 uppercase tracking-wider">
-                                        {{ $item->user->name ?? 'User Tidak Diketahui' }}
+                                    <p class="text-xs text-gray-500 mt-2">
+                                        dibuat oleh : {{ $item->user->name ?? 'User Tidak Diketahui' }}
                                     </p>
                                 </div>
                             </div>
