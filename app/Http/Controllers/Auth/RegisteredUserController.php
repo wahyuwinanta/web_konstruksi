@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
@@ -31,20 +30,35 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => [
+                'required',
+                'string',
+                'lowercase',
+                'email',
+                'max:255',
+                'unique:' . User::class
+            ],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        // Buat user
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'is_active' => true, // opsional, sesuaikan dengan sistemmu
         ]);
 
+        // Event Laravel (email verification, dll)
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        /**
+         * ❗ PENTING:
+         * Jangan auto-login di sistem multi-role
+         * Biarkan user login manual agar role & middleware aman
+         */
+        return redirect()
+            ->route('login')
+            ->with('status', 'Akun berhasil dibuat. Silakan login.');
     }
 }

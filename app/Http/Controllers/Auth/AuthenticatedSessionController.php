@@ -30,11 +30,12 @@ class AuthenticatedSessionController extends Controller
             if ($user->hasRole('pegawai')) {
                 return redirect()->route('pegawai.dashboard');
             }
+
+            Auth::logout();
         }
 
         return view('auth.login');
     }
-
 
     /**
      * Handle an incoming authentication request.

@@ -35,6 +35,25 @@ class ConfirmablePasswordController extends Controller
 
         $request->session()->put('auth.password_confirmed_at', time());
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return $this->redirectByRole($request->user());
     }
+
+    protected function redirectByRole($user): RedirectResponse
+    {
+        if ($user->hasRole('admin')) {
+            return redirect()->route('dashboard');
+        }
+
+        if ($user->hasRole('pimpinan')) {
+            return redirect()->route('pimpinan.dashboard');
+        }
+
+        if ($user->hasRole('pegawai')) {
+            return redirect()->route('pegawai.dashboard');
+        }
+
+        Auth::logout();
+        abort(403, 'Role tidak dikenali');
+    }
+
 }

@@ -14,28 +14,20 @@
                 </div>
             </div>
             <div class="flex items-center gap-4">
-                <a href="">
+                <a href="https://youtube.com/@cv.muliamandirikonstruksi?si=XluyUekv-WYiSvB6" target="_blank">
                     <div class="w-6 h-6 flex shrink-0 overflow-hidden">
                         <img src="{{ asset('assets/icons/youtube.svg') }}" class="w-full h-full object-contain"
                             alt="youtube">
                     </div>
                 </a>
-                <a href="">
+                @props([
+                    'number' => '6281320534811',
+                    'message' => 'Halo kak, saya ingin bertanya tentang layanan CV. Mulia Mandiri Konstruksi.',
+                ])
+                <a href="https://wa.me/{{ $number }}?text={{ urlencode($message) }}" target="_blank">
                     <div class="w-6 h-6 flex shrink-0 overflow-hidden">
                         <img src="{{ asset('assets/icons/whatsapp.svg') }}" class="w-full h-full object-contain"
                             alt="whatsapp">
-                    </div>
-                </a>
-                <a href="">
-                    <div class="w-6 h-6 flex shrink-0 overflow-hidden">
-                        <img src="{{ asset('assets/icons/facebook.svg') }}" class="w-full h-full object-contain"
-                            alt="facebook">
-                    </div>
-                </a>
-                <a href="">
-                    <div class="w-6 h-6 flex shrink-0 overflow-hidden">
-                        <img src="{{ asset('assets/icons/instagram.svg') }}" class="w-full h-full object-contain"
-                            alt="instagram">
                     </div>
                 </a>
             </div>

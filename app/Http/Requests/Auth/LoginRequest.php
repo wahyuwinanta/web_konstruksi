@@ -75,6 +75,28 @@ class LoginRequest extends FormRequest
         ]);
     }
 
+    public function redirectToByRole()
+    {
+        $user = Auth::user();
+
+        if ($user->hasRole('admin')) {
+            return redirect()->route('dashboard');
+        }
+
+        if ($user->hasRole('pimpinan')) {
+            return redirect()->route('pimpinan.dashboard');
+        }
+
+        if ($user->hasRole('pegawai')) {
+            return redirect()->route('pegawai.dashboard');
+        }
+
+        // fallback (kalau role tidak dikenal)
+        Auth::logout();
+        abort(403, 'Role tidak dikenali');
+    }
+
+
     /**
      * Get the rate limiting throttle key for the request.
      */

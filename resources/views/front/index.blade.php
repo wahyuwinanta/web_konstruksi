@@ -349,7 +349,7 @@
                         'number' => '6281320534811',
                         'message' => 'Halo kak, saya ingin bertanya tentang layanan CV. Mulia Mandiri Konstruksi.',
                     ])
-                    <a href="https://wa.me/{{ $number }}?text={{ urlencode($message) }}" target="_blank""
+                    <a href="https://wa.me/{{ $number }}?text={{ urlencode($message) }}" target="_blank"
                         class="p-5 bg-cp-black rounded-xl text-white w-fit font-bold">Hubungi Kami</a>
                 </div>
                 <div class="flex flex-col gap-[30px] sm:w-[603px] shrink-0">
