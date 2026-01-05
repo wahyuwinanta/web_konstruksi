@@ -180,9 +180,6 @@
                     </div>
                     <div>
                         <h2 class="text-lg font-bold text-gray-900">Catatan Proyek</h2>
-                        <p class="text-xs text-gray-600">
-                            Informasi dari admin / manajer proyek
-                        </p>
                     </div>
                 </div>
             </div>
@@ -321,6 +318,9 @@
 
                                     <p class="text-xs text-gray-500 mt-2">
                                         {{ $item->created_at->format('d M Y, H:i') }}
+                                    </p>
+                                    <p class="text-xs font-bold text-indigo-600 mb-1 uppercase tracking-wider">
+                                        {{ $item->user->name ?? 'User Tidak Diketahui' }}
                                     </p>
                                 </div>
                             </div>

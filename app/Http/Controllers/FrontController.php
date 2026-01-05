@@ -49,7 +49,7 @@ class FrontController extends Controller
         $statistics = CompanyStatistic::take(4)->get();
         $testimonials = Testimonial::take(4)->get();
         $clients = ProjectClient::take(4)->get();
-        $products = Product::take(3)->get();
+        $products = Product::take(4)->get();
 
         return view('front.appointment', compact('testimonials', 'clients', 'statistics', 'products'));
     }
