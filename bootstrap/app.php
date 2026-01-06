@@ -24,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // LOGIKA BARU: Redirect user yang sudah login saat mengakses /login
         $middleware->redirectUsersTo(function (Request $request) {
             if ($request->user()->hasRole('admin')) {
-                return route('admin.dashboard'); // atau '/beranda'
+                return route('/dashboard'); 
             }
             
             if ($request->user()->hasRole('pegawai')) {
