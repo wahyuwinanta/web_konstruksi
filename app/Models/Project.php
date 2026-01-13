@@ -16,6 +16,7 @@ class Project extends Model
         'description',
         'location',
         'project_type',
+        'product_id',
         'start_date',
         'end_date',
         'estimated_cost',
@@ -42,7 +43,6 @@ class Project extends Model
         return $this->hasMany(ProjectProgress::class);
     }
 
-    // relasi pekerja (optional)
     public function workers()
     {
         return $this->belongsToMany(User::class, 'project_workers');
@@ -53,4 +53,8 @@ class Project extends Model
         return $this->hasMany(ProjectNote::class);
     }
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

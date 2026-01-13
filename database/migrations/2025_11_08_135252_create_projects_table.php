@@ -10,6 +10,7 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+            $table->foreign('project_id')->references('id')->on('projects');
             $table->string('project_name');
             $table->text('description')->nullable();
 

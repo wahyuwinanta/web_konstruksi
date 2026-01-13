@@ -29,7 +29,7 @@ class StoreAppoinmentRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'meeting_at' => ['required', 'date'],
             'phone_number' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
             'product_id' => ['required', 'integer'],
             'budget' => ['required', 'integer'],
             'brief' => ['required', 'string', 'max:65535'],

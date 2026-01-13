@@ -13,7 +13,7 @@ class Appointment extends Model
         'name',
         'phone_number',
         'meeting_at',
-        'email',
+        'address',
         'budget',
         'brief',
         'product_id',

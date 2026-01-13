@@ -65,15 +65,15 @@
                     </div>
                 </div>
                 <div class="flex flex-col gap-2 flex w-full">
-                    <p class="font-semibold">Alamat Email</p>
+                    <p class="font-semibold">Alamat</p>
                     <div
                         class="flex items-center gap-[10px] p-[14px_20px] border border-[#E8EAF2] focus-within:border-cp-dark-blue transition-all duration-300 rounded-xl bg-white">
                         <div class="w-[18px] h-[18px] flex shrink-0">
                             <img src="assets/icons/sms.svg" alt="icon">
                         </div>
-                        <input type="email" name="email" id=""
+                        <input type="text" name="address" id=""
                             class="appearance-none outline-none bg-white placeholder:font-normal placeholder:text-cp-black font-semibold w-full"
-                            placeholder="Tulis alamat email Anda" required>
+                            placeholder="Tulis alamat Anda" required>
                     </div>
                 </div>
             </div>

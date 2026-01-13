@@ -54,12 +54,20 @@
 
                     {{-- Project Type --}}
                     <div class="mt-5">
-                        <x-input-label for="project_type" :value="__('Project Type')" />
-                        <x-text-input id="project_type" type="text" name="project_type"
-                            class="block mt-2 w-full border-gray-300 rounded-xl p-3 focus:ring-indigo-500 focus:border-indigo-500"
-                            value="{{ old('project_type', $project->project_type) }}" />
-                        <x-input-error :messages="$errors->get('project_type')" class="mt-2" />
+                        <x-input-label for="product_id" value="Project Type" />
+                        <select name="product_id" id="product_id"
+                            class="block mt-2 w-full border-gray-300 rounded-xl p-3">
+                            <option value="">-- Pilih Tipe Proyek --</option>
+                            @foreach ($products as $product)
+                                <option value="{{ $product->id }}"
+                                    {{ old('product_id', $project->product_id) == $product->id ? 'selected' : '' }}>
+                                    {{ $product->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('product_id')" class="mt-2" />
                     </div>
+
 
                     {{-- Estimated Cost --}}
                     <div class="mt-5">

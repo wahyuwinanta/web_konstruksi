@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->text('brief');
             $table->unsignedInteger('budget');
-            $table->string('email');
+            $table->string('address');
             $table->date('meeting_at');
             $table->softDeletes();
             $table->timestamps();

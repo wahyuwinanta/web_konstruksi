@@ -25,12 +25,27 @@
                     enctype="multipart/form-data">
                     @csrf
 
+                    {{-- Select Client (Optional) --}}
+                    <div>
+                        <x-input-label value="Client (optional)" />
+
+                        <select id="client_select" class="block mt-2 w-full border-gray-300 rounded-xl">
+                            <option value="">-- Input Manual --</option>
+
+                            @foreach ($appointments as $app)
+                                <option value="{{ $app->id }}" data-name="{{ $app->name }}"
+                                    data-address="{{ $app->address }}" data-product="{{ $app->product_id }}">
+                                    {{ $app->name }} ({{ $app->meeting_at->format('d M Y') }})
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     {{-- Project Name --}}
                     <div>
                         <x-input-label for="project_name" :value="__('Project Name')" />
-                        <x-text-input id="project_name"
-                            class="block mt-2 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-xl"
-                            type="text" name="project_name" :value="old('project_name')" required autofocus />
+                        <x-text-input id="project_name" class="block mt-2 w-full border-gray-300 rounded-xl"
+                            type="text" name="project_name" value="{{ old('project_name') }}" required />
                         <x-input-error :messages="$errors->get('project_name')" class="mt-2" />
                     </div>
 
@@ -52,11 +67,19 @@
 
                     {{-- Project Type --}}
                     <div>
-                        <x-input-label for="project_type" :value="__('Project Type')" />
-                        <x-text-input id="project_type" class="block mt-2 w-full border-gray-300 rounded-xl"
-                            type="text" name="project_type" :value="old('project_type')" />
-                        <x-input-error :messages="$errors->get('project_type')" class="mt-2" />
+                        <x-input-label for="product_id" value="Project Type" />
+                        <select name="product_id" id="product_id" class="block mt-2 w-full border-gray-300 rounded-xl">
+                            <option value="">-- Pilih Tipe Proyek --</option>
+                            @foreach ($products as $product)
+                                <option value="{{ $product->id }}"
+                                    {{ old('product_id') == $product->id ? 'selected' : '' }}>
+                                    {{ $product->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('product_id')" class="mt-2" />
                     </div>
+
 
                     {{-- Estimated Cost --}}
                     <div>
@@ -108,7 +131,8 @@
     hover:border-indigo-400
     {{ collect(old('employees'))->contains($emp->id) ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200' }}">
 
-                                    <input type="checkbox" name="employees[]" value="{{ $emp->id }}" class="peer"
+                                    <input type="checkbox" name="employees[]" value="{{ $emp->id }}"
+                                        class="peer"
                                         {{ collect(old('employees'))->contains($emp->id) ? 'checked' : '' }}>
 
                                     {{-- Avatar --}}
@@ -189,4 +213,27 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('client_select').addEventListener('change', function() {
+            const selected = this.options[this.selectedIndex];
+
+            if (!this.value) return;
+
+            const name = selected.dataset.name;
+            const address = selected.dataset.address;
+            const product = selected.dataset.product;
+
+            if (name) {
+                document.getElementById('project_name').value = name;
+            }
+
+            if (address) {
+                document.getElementById('location').value = address;
+            }
+
+            if (product) {
+                document.getElementById('product_id').value = product;
+            }
+        });
+    </script>
 </x-app-layout>

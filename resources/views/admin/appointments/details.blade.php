@@ -29,9 +29,9 @@
                             </h3>
                         </div>
                         <div>
-                            <p class="text-slate-500 text-sm">Email</p>
+                            <p class="text-slate-500 text-sm">Alamat</p>
                             <h3 class="text-indigo-950 text-lg font-semibold">
-                                {{ $appointment->email }}
+                                {{ $appointment->address }}
                             </h3>
                         </div>
                         <div>

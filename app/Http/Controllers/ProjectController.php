@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use App\Models\Notification;
+use App\Models\Product;
 use App\Models\Project;
 use App\Models\User;
 use App\Models\ProjectAssignment;
@@ -43,16 +45,18 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        $appointments = Appointment::with('product')->get();
+        $products = Product::all();
+
         $employees = User::role('pegawai')
             ->where('is_active', 1)
             ->withCount([
-                'projects as active_projects_count' => function ($q) {
-                    $q->where('status', 'on_progress');
-                }
+                'projects as active_projects_count' => fn ($q) =>
+                    $q->where('status', 'on_progress')
             ])
             ->get();
 
-        return view('admin.projects.create', compact('employees'));
+        return view('admin.projects.create', compact('appointments', 'employees', 'products'));
     }
 
 
@@ -66,6 +70,7 @@ class ProjectController extends Controller
             'description'    => 'nullable|string',
             'location'       => 'nullable|string|max:255',
             'project_type'   => 'nullable|string|max:100',
+            'product_id'     => 'nullable|exists:products,id',
             'start_date'     => 'required|date',
             'end_date'       => 'nullable|date|after_or_equal:start_date',
             'status'         => 'required|in:pending,on_progress,completed',
@@ -94,6 +99,7 @@ class ProjectController extends Controller
                 'description'    => $validated['description'] ?? null,
                 'location'       => $validated['location'] ?? null,
                 'project_type'   => $validated['project_type'] ?? null,
+                'product_id'    => $validated['product_id'] ?? null,
                 'start_date'     => $validated['start_date'],
                 'end_date'       => $validated['end_date'] ?? null,
                 'status'         => $validated['status'],
@@ -146,6 +152,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        $products = Product::all();
+
         $employees = User::role('pegawai')
             ->where('is_active', 1)
             ->withCount([
@@ -160,7 +168,8 @@ class ProjectController extends Controller
         return view('admin.projects.edit', compact(
             'project',
             'employees',
-            'assignedEmployees'
+            'assignedEmployees',
+            'products'
         ));
     }
 
@@ -175,6 +184,7 @@ class ProjectController extends Controller
             'description'    => 'nullable|string',
             'location'       => 'nullable|string|max:255',
             'project_type'   => 'nullable|string|max:100',
+            'product_id'     => 'nullable|exists:products,id',
             'start_date'     => 'sometimes|date',
             'end_date'       => 'nullable|date|after_or_equal:start_date',
             'status'         => 'in:pending,on_progress,completed',
