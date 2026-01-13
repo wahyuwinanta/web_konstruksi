@@ -34,7 +34,8 @@
 
                             @foreach ($appointments as $app)
                                 <option value="{{ $app->id }}" data-name="{{ $app->name }}"
-                                    data-address="{{ $app->address }}" data-product="{{ $app->product_id }}">
+                                    data-address="{{ $app->address }}" data-product="{{ $app->product_id }}"
+                                    data-brief="{{ $app->brief }}">
                                     {{ $app->name }} ({{ $app->meeting_at->format('d M Y') }})
                                 </option>
                             @endforeach
@@ -222,6 +223,7 @@
             const name = selected.dataset.name;
             const address = selected.dataset.address;
             const product = selected.dataset.product;
+            const brief = selected.dataset.brief;
 
             if (name) {
                 document.getElementById('project_name').value = name;
@@ -233,6 +235,10 @@
 
             if (product) {
                 document.getElementById('product_id').value = product;
+            }
+
+            if (brief) {
+                document.getElementById('description').value = brief;
             }
         });
     </script>
