@@ -28,11 +28,11 @@
                 <a href="{{ route('front.index') }}">Beranda</a>
                 <a href="{{ route('front.team') }}">Tim</a>
                 <a href="{{ route('front.about') }}">Tentang</a>
-                <a href="{{ route('front.appointment') }}"
+                {{-- <a href="{{ route('front.appointment') }}"
                     class="ml-6 px-4 py-2 rounded-md bg-cp-dark-blue text-white
                             font-semibold transition hover:bg-gray-100">
                     Buat Janji
-                </a>
+                </a> --}}
             </div>
 
         </div>
